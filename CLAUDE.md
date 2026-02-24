@@ -9,7 +9,8 @@ and installable skills used across all of Brennan's Claude-powered projects.
 | Directory | What it is | How it's consumed |
 |---|---|---|
 | `standards/` | Living policy docs — source of truth | Referenced by pointer comments in consumer CLAUDE.md files |
-| `templates/` | Parameterised starting points | Copied into new projects once, tokens filled in |
+| `templates/product-engineer/` | Product engineer starting point (human-initiated, 3-gate workflow) | Copied into new projects once, tokens filled in |
+| `templates/operator/` | Operator starting point (scheduled autonomous agent) | Copied into new operator projects once, tokens filled in |
 | `skills/` | Installable Claude skills (SKILL.md format) | Symlinked into `~/.claude/skills/<name>/` |
 
 ---

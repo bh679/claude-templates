@@ -10,5 +10,23 @@
     "template": "product-engineer",
     "claude_md_path": "CLAUDE.md",
     "description": "Claude Management Dashboard (formerly AutoClaude)"
+  },
+  {
+    "repo": "bh679/house-sitting-agent",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Autonomous house-sitting listing monitor and applicant"
+  },
+  {
+    "repo": "bh679/weekly-blog",
+    "template": "operator",
+    "description": "Weekly development blog writer",
+    "required_files": [
+      ".github/workflows/weekly-blog.yml",
+      ".github/scripts/fetch-all-data.sh",
+      "blog-post-guidelines.md",
+      "blog-index-template.md",
+      "state.json"
+    ]
   }
 ]
