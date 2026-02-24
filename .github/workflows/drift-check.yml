@@ -1,0 +1,29 @@
+name: Template Drift Check
+
+on:
+  schedule:
+    # Every Monday at 09:00 UTC (before the weekly blog at 10:00)
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: read
+  issues: write  # Needed to open issues in this repo (consumers need their own PAT)
+
+jobs:
+  drift-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout claude-templates
+        uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Run drift check
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+        run: |
+          chmod +x .github/scripts/check-drift.sh
+          .github/scripts/check-drift.sh consumers.json templates/product-engineer

@@ -1,0 +1,16 @@
+{
+  "name": "{{PROJECT_SLUG}}",
+  "version": "1.0.0",
+  "description": "Project-level configuration for {{PROJECT_NAME}}. Contains the Product Engineer agent instructions, permissions, and test configuration.",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "{{GITHUB_USER}}",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
+  }
+}

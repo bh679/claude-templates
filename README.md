@@ -1,0 +1,47 @@
+# Claude Templates
+
+Canonical home for workflow standards, project templates, and installable Claude skills used across Brennan's Claude-powered development projects.
+
+## What's Here
+
+| Directory | Purpose |
+|---|---|
+| [`standards/`](standards/) | Living policy docs — source of truth for git, versioning, workflow, and wiki conventions |
+| [`templates/`](templates/) | Copy-once starting points for new projects (product engineer, sub-repos, wikis) |
+| [`skills/`](skills/) | Installable Claude skills — symlink into `~/.claude/skills/` |
+
+## Quick Start: Bootstrap a New Project
+
+See the full checklist in [`templates/README.md`](templates/README.md).
+
+## Install Skills
+
+```bash
+git clone https://github.com/bh679/claude-templates.git
+cd claude-templates
+./install-skills.sh
+```
+
+Skills are symlinked from this repo into `~/.claude/skills/`, so pulling updates here automatically updates your installed skills.
+
+## Available Skills
+
+| Skill | Description |
+|---|---|
+| `trigger-blog` | Auto-captures feature context when you ship and queues it for the weekly-blog agent |
+
+## Standards Docs
+
+| Doc | Covers |
+|---|---|
+| [`standards/workflow.md`](standards/workflow.md) | 3-gate approval workflow, plan mode, session management |
+| [`standards/git.md`](standards/git.md) | Branch naming, commit messages, worktree procedure |
+| [`standards/versioning.md`](standards/versioning.md) | V.MM.PPPP scheme, bump rules, tag conventions |
+| [`standards/wiki-writing.md`](standards/wiki-writing.md) | Prose style, link rules, image naming for wikis |
+
+## Consumer Projects
+
+Projects using these templates and standards:
+- [chess-project](https://github.com/bh679/chess-project)
+
+(See [`consumers.json`](consumers.json) for the full list monitored by drift detection.)

@@ -1,0 +1,8 @@
+[
+  {
+    "repo": "bh679/chess-project",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Chess game platform orchestrator"
+  }
+]
