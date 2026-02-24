@@ -18,10 +18,10 @@ FINGERPRINTS=(
   "Gate 1"
   "Gate 2"
   "Gate 3"
-  "git worktree"
   "V.MM.PPPP"
-  "session-id"
-  "github.com/bh679/claude-templates"
+  "EnterPlanMode"
+  "ExitPlanMode"
+  "Product Engineer"
 )
 
 echo "Checking drift for consumers in $CONSUMERS_FILE"
@@ -66,7 +66,11 @@ for i in $(seq 0 $((consumer_count - 1))); do
     fi
 
     # Open an issue in the consumer repo
-    missing_list=$(printf '- `%s`\n' "${missing[@]}")
+    missing_list=""
+    for item in "${missing[@]}"; do
+      missing_list="${missing_list}- \`${item}\`\n"
+    done
+    missing_list=$(printf "%b" "$missing_list")
     gh issue create \
       --repo "$repo" \
       --title "⚠️ CLAUDE.md drift detected — templates updated" \
