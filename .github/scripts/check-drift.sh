@@ -22,6 +22,7 @@ FINGERPRINTS=(
   "EnterPlanMode"
   "ExitPlanMode"
   "Product Engineer"
+  "github.com/bh679/claude-templates"
 )
 
 echo "Checking drift for consumers in $CONSUMERS_FILE"

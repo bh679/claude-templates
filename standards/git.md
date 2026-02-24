@@ -26,7 +26,11 @@ Rules:
 
 ## Git Worktrees
 
-All feature development happens in **isolated git worktrees** — never directly on `main`.
+**Recommended for multi-repo projects. Optional for single-repo projects.**
+
+For single-repo projects, a feature branch (`dev/<feature-slug>`) checked out normally is sufficient — no worktree needed. Use worktrees when you need multiple features or sub-repos running simultaneously (e.g. a client + API pair that must run together on separate ports).
+
+All feature development happens in an **isolated environment** — never directly on `main`.
 
 ### Setup (do this after Gate 1 approval)
 

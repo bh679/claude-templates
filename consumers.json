@@ -6,7 +6,7 @@
     "description": "Chess game platform orchestrator"
   },
   {
-    "repo": "bh679/claude-management-dashboard",
+    "repo": "bh679/Claude-Management-Dashboard",
     "template": "product-engineer",
     "claude_md_path": "CLAUDE.md",
     "description": "Claude Management Dashboard (formerly AutoClaude)"
