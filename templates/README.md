@@ -2,7 +2,9 @@
 
 ## Token Reference
 
-When copying templates, replace these tokens with project-specific values:
+### Product Engineer Tokens
+
+When copying `templates/product-engineer/`, replace these tokens:
 
 | Token | Example | Description |
 |---|---|---|
@@ -15,9 +17,40 @@ When copying templates, replace these tokens with project-specific values:
 | `{{GITHUB_USER}}` | `bh679` | GitHub username |
 | `{{WIKI_URL}}` | `github.com/bh679/chess-client/wiki` | Wiki URL for the main client/frontend repo |
 
+### Operator Tokens
+
+When copying `templates/operator/`, replace these tokens:
+
+| Token | Example | Description |
+|---|---|---|
+| `{{AGENT_NAME}}` | `Weekly Blog Writer` | Human-readable name for the operator agent |
+| `{{SCHEDULE}}` | `0 10 * * 1` | Cron expression for when the operator runs |
+| `{{TRIGGER_DESCRIPTION}}` | `Every Monday at 10:00 UTC` | Human-readable description of the schedule |
+| `{{DATA_SOURCES}}` | `GitHub events from bh679/* repos, pending-context.json` | What data the fetch script gathers |
+| `{{OUTPUT_DESCRIPTION}}` | `A weekly markdown blog post saved to posts/YYYY-MM-DD.md` | What the operator produces each run |
+
 ---
 
 ## Bootstrapping Checklist
+
+### Operator Project
+
+- [ ] Copy `templates/operator/CLAUDE.md` → `<repo>/CLAUDE.md`
+  - Replace all `{{TOKENS}}`
+  - Fill in the skip guard condition
+- [ ] Copy `templates/operator/.github/workflows/operator.yml` → `<repo>/.github/workflows/<agent-slug>.yml`
+  - Replace `{{SCHEDULE}}` with your cron expression
+  - Replace `{{AGENT_NAME}}` and `{{TRIGGER_DESCRIPTION}}`
+- [ ] Copy `templates/operator/.github/scripts/fetch-data.sh` → `<repo>/.github/scripts/fetch-data.sh`
+  - Implement the data fetching logic (replace the TODO block)
+- [ ] Copy `templates/operator/guidelines.md` → `<repo>/guidelines.md`
+  - Fill in all sections (tone, format, length, include/exclude rules)
+- [ ] Copy `templates/operator/state.json` → `<repo>/state.json`
+- [ ] Add the repo to `consumers.json` in claude-templates with `"template": "operator"` and `"required_files"`
+
+---
+
+### Product Engineer Project
 
 ### 1. Project-level setup (orchestrator repo)
 
@@ -60,6 +93,22 @@ When copying templates, replace these tokens with project-specific values:
 ---
 
 ## File Structure After Bootstrapping
+
+### Operator
+
+```
+<operator-repo>/
+├── CLAUDE.md                     (filled-in operator template)
+├── guidelines.md                 (output quality rules)
+├── state.json                    (cross-run memory)
+└── .github/
+    ├── workflows/
+    │   └── <agent-slug>.yml      (cron-triggered workflow)
+    └── scripts/
+        └── fetch-data.sh         (data gathering script)
+```
+
+### Product Engineer
 
 ```
 <project>/                        (orchestrator repo)
