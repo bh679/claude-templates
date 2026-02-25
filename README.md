@@ -12,7 +12,7 @@ Canonical home for workflow standards, project templates, and installable Claude
 
 ## Quick Start: Bootstrap a New Project
 
-See the full checklist in [`templates/README.md`](templates/README.md).
+Use the `/new-project` skill, or see [`standards/new-project-setup.md`](standards/new-project-setup.md) for the full manual.
 
 ## Install Skills
 
@@ -26,9 +26,15 @@ Skills are symlinked from this repo into `~/.claude/skills/`, so pulling updates
 
 ## Available Skills
 
-| Skill | Description |
-|---|---|
-| `trigger-blog` | Auto-captures feature context when you ship and queues it for the weekly-blog agent |
+| Skill | Scope | Description |
+|---|---|---|
+| `new-project` | Global | Bootstraps a new project from claude-templates — template selection, file copying, GitHub setup, and verification |
+| `trigger-blog` | Project session | Auto-captures feature context when you ship and queues it for the weekly-blog agent |
+
+All skills install to `~/.claude/skills/` and are globally available. The **Scope** column indicates when each skill is typically useful:
+
+- **Global** — useful from any context, including outside of any project
+- **Project session** — useful during an active project session
 
 ## Standards Docs
 
@@ -38,6 +44,7 @@ Skills are symlinked from this repo into `~/.claude/skills/`, so pulling updates
 | [`standards/git.md`](standards/git.md) | Branch naming, commit messages, worktree procedure |
 | [`standards/versioning.md`](standards/versioning.md) | V.MM.PPPP scheme, bump rules, tag conventions |
 | [`standards/wiki-writing.md`](standards/wiki-writing.md) | Prose style, link rules, image naming for wikis |
+| [`standards/new-project-setup.md`](standards/new-project-setup.md) | Full project bootstrapping manual (used by the `new-project` skill) |
 
 ## Consumer Projects
 
