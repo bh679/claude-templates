@@ -20,7 +20,9 @@ Ask the user which template type applies if not already specified:
 
 ## Step 2 — Gather Token Values
 
-Before copying any files, collect values for all tokens:
+Before copying any files, collect values for all tokens relevant to the chosen template type.
+
+### Product Engineer tokens
 
 | Token | Example | Description |
 |---|---|---|
@@ -34,6 +36,16 @@ Before copying any files, collect values for all tokens:
 | `{{WIKI_URL}}` | `github.com/bh679/chess-client/wiki` | Wiki URL for the main client/frontend repo |
 
 `{{PROJECT_NUMBER}}` can only be filled after Step 5 (GitHub setup). Leave as a placeholder and return to fill it in.
+
+### Operator tokens
+
+| Token | Example | Description |
+|---|---|---|
+| `{{AGENT_NAME}}` | `Weekly Blog Agent` | Human-readable agent name |
+| `{{SCHEDULE}}` | `0 9 * * 1` | Cron expression for when the agent runs |
+| `{{TRIGGER_DESCRIPTION}}` | `Runs every Monday at 9am` | Plain-English description of the schedule |
+| `{{DATA_SOURCES}}` | `- /tmp/github-events.json` | List of files written by fetch-data.sh that Claude reads |
+| `{{OUTPUT_DESCRIPTION}}` | `Write a markdown post to posts/YYYY-MM-DD.md` | What the agent produces each run |
 
 ---
 
@@ -72,7 +84,41 @@ Follow all sub-steps in order. Skip to the relevant step if using a different te
 
 ## Step 4 — Operator Setup
 
-No template exists yet for Operator. Set up as a plain repo and flag `templates/operator/` as a future addition to claude-templates.
+Follow these steps for a scheduled/automated agent repo. Skip to Step 5 if using a different template type.
+
+### 4a. Copy template files
+
+```bash
+cp ~/Projects/Claude\ Templates/templates/operator/CLAUDE.md        <repo>/CLAUDE.md
+cp ~/Projects/Claude\ Templates/templates/operator/guidelines.md    <repo>/guidelines.md
+cp ~/Projects/Claude\ Templates/templates/operator/state.json       <repo>/state.json
+mkdir -p <repo>/.github/workflows <repo>/.github/scripts
+cp ~/Projects/Claude\ Templates/templates/operator/.github/workflows/operator.yml   <repo>/.github/workflows/operator.yml
+cp ~/Projects/Claude\ Templates/templates/operator/.github/scripts/fetch-data.sh   <repo>/.github/scripts/fetch-data.sh
+chmod +x <repo>/.github/scripts/fetch-data.sh
+```
+
+### 4b. Replace all tokens
+
+Replace `{{AGENT_NAME}}`, `{{SCHEDULE}}`, `{{TRIGGER_DESCRIPTION}}`, `{{DATA_SOURCES}}`, and `{{OUTPUT_DESCRIPTION}}` in:
+- `CLAUDE.md`
+- `guidelines.md`
+- `.github/workflows/operator.yml`
+- `.github/scripts/fetch-data.sh`
+
+### 4c. Fill in the TODOs
+
+- **`fetch-data.sh`** — replace the example `gh api` call with real data fetching for this agent
+- **`guidelines.md`** — fill in tone, format, length, inclusion/exclusion rules, and output naming
+- **`CLAUDE.md` skip guard** — define the condition under which the agent should do nothing (no new data, nothing to report, etc.)
+
+### 4d. Add GitHub secret
+
+In the GitHub repo settings, add a repository secret:
+- Name: `ANTHROPIC_API_KEY`
+- Value: your Anthropic API key
+
+The `GITHUB_TOKEN` is provided automatically by GitHub Actions.
 
 ---
 
@@ -127,7 +173,7 @@ Verify `trigger-blog` appears in the Claude skill list.
 
 ## Step 8 — Verify Setup
 
-Run through this checklist before the first feature session:
+### Product Engineer checklist
 
 - [ ] No literal `{{` tokens remaining in any CLAUDE.md file
 - [ ] `npm install` completed in orchestrator repo
@@ -137,6 +183,15 @@ Run through this checklist before the first feature session:
 - [ ] `{{PROJECT_NUMBER}}` filled in with the actual project number
 - [ ] Project registered in `~/Projects/Claude Templates/consumers.json`
 - [ ] Skills installed (`trigger-blog` available)
+
+### Operator checklist
+
+- [ ] No literal `{{` tokens remaining in any file
+- [ ] All TODOs resolved in `fetch-data.sh`, `guidelines.md`, and `CLAUDE.md` skip guard
+- [ ] `ANTHROPIC_API_KEY` secret added to GitHub repo settings
+- [ ] GitHub repo created and initial commit pushed
+- [ ] Workflow runs successfully via `workflow_dispatch` before relying on the schedule
+- [ ] Project registered in `~/Projects/Claude Templates/consumers.json`
 
 ---
 
