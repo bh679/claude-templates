@@ -12,7 +12,7 @@ Canonical home for workflow standards, project templates, and installable Claude
 
 ## Quick Start: Bootstrap a New Project
 
-Use the `/new-project` skill, or see [`standards/new-project-setup.md`](standards/new-project-setup.md) for the full manual.
+Use the `/new-project` skill. It handles template selection, file copying, GitHub setup, and verification.
 
 ## Install Skills
 
@@ -44,7 +44,6 @@ All skills install to `~/.claude/skills/` and are globally available. The **Scop
 | [`standards/git.md`](standards/git.md) | Branch naming, commit messages, worktree procedure |
 | [`standards/versioning.md`](standards/versioning.md) | V.MM.PPPP scheme, bump rules, tag conventions |
 | [`standards/wiki-writing.md`](standards/wiki-writing.md) | Prose style, link rules, image naming for wikis |
-| [`standards/new-project-setup.md`](standards/new-project-setup.md) | Full project bootstrapping manual (used by the `new-project` skill) |
 
 ## Consumer Projects
 
