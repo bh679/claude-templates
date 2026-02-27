@@ -28,5 +28,11 @@
       "blog-index-template.md",
       "state.json"
     ]
+  },
+  {
+    "repo": "bh679/Claude-Max-Usage-Analytics",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Claude Max Usage Analytics — personal usage dashboard"
   }
 ]
