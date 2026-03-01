@@ -1,0 +1,14 @@
+{
+  "repos": [
+    "{{OWNER}}/{{REPO_NAME}}"
+  ],
+  "email": {
+    "to": "{{TO_EMAIL}}",
+    "from": "{{FROM_EMAIL}}",
+    "from_name": "Ops Officer"
+  },
+  "thresholds": {
+    "stale_item_days": 5,
+    "stale_pr_days": 3
+  }
+}

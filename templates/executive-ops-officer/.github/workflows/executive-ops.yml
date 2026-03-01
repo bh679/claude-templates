@@ -1,0 +1,36 @@
+name: Executive & Operations Officer (EOO)
+
+on:
+  schedule:
+    - cron: '0 7 * * *'   # Daily at 7 AM UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash .github/scripts/fetch-data.sh
+
+      - name: Run Executive & Operations Officer
+        uses: anthropics/claude-code-action@v1
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          max_turns: 30
+          allowed_tools: "Read,Bash(git:curl:gh)"
+          prompt: |
+            Read CLAUDE.md and follow it completely.
