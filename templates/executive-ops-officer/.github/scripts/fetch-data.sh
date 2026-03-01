@@ -1,6 +1,6 @@
 #!/bin/bash
 # fetch-data.sh
-# Gathers input data for the Executive & Operations Officer before Claude runs.
+# Gathers input data for the Executive & Operations Officer (EOO) before Claude runs.
 # Called by the GitHub Actions workflow; runs with GITHUB_TOKEN in environment.
 #
 # Usage: bash .github/scripts/fetch-data.sh
@@ -18,7 +18,7 @@ STALE_ITEM_DAYS=$(jq -r '.thresholds.stale_item_days // 5' ops-config.json)
 STALE_PR_DAYS=$(jq -r '.thresholds.stale_pr_days // 3' ops-config.json)
 NOW=$(date -u +%s)
 
-echo "Fetching data for Executive & Operations Officer..."
+echo "Fetching data for Executive & Operations Officer (EOO)..."
 echo "Repos: $(echo "$REPOS" | tr '\n' ' ')"
 echo "Thresholds: stale_item=${STALE_ITEM_DAYS}d, stale_pr=${STALE_PR_DAYS}d"
 

@@ -1,4 +1,4 @@
-# Executive & Operations Officer — Output Guidelines
+# Executive & Operations Officer (EOO) — Output Guidelines
 
 <!-- This file is read by the agent before composing the digest email. -->
 <!-- It governs quality, tone, and format — not what the agent does. -->
