@@ -47,5 +47,17 @@
       "context/agents.md",
       "context/projects.md"
     ]
+  },
+  {
+    "repo": "bh679/coo-agent",
+    "template": "operator",
+    "description": "COO Agent — cross-project momentum tracker and decision escalation",
+    "required_files": [
+      ".github/workflows/coo-agent.yml",
+      ".github/scripts/fetch-data.sh",
+      "guidelines.md",
+      "consumers.json",
+      "state.json"
+    ]
   }
 ]
