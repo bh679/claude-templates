@@ -34,5 +34,18 @@
     "template": "product-engineer",
     "claude_md_path": "CLAUDE.md",
     "description": "Claude Max Usage Analytics — personal usage dashboard"
+  },
+  {
+    "repo": "bh679/ideas",
+    "template": "operator",
+    "description": "Executive PA — idea capture and routing system",
+    "required_files": [
+      ".github/workflows/epa.yml",
+      "guidelines.md",
+      "state.json",
+      "context/me.md",
+      "context/agents.md",
+      "context/projects.md"
+    ]
   }
 ]
