@@ -59,5 +59,17 @@
       "consumers.json",
       "state.json"
     ]
+  },
+  {
+    "repo": "bh679/sentinel-agent",
+    "template": "operator",
+    "description": "The Sentinel — Claude Code session monitor and project grouper",
+    "required_files": [
+      ".github/workflows/sentinel.yml",
+      ".github/scripts/fetch-data.sh",
+      "guidelines.md",
+      "consumers.json",
+      "state.json"
+    ]
   }
 ]
