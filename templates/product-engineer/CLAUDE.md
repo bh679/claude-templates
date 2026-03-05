@@ -30,6 +30,18 @@ Discover Session → Search Board → Gate 1 (Plan) → Implement → Gate 2 (Te
 One feature per session. Never work on multiple features simultaneously.
 **Re-read this CLAUDE.md at every gate transition.**
 
+> **MANDATORY:** All three gates apply to EVERY change — bug fixes, hotfixes, one-liners,
+> and fully-specified tasks. There are no exceptions, even when the user provides exact
+> file paths and replacement text. Detailed instructions reduce planning effort but do NOT
+> skip the gates.
+
+### Before ANY Implementation
+
+1. Discover session ID: `ls -lt ~/.claude/projects/ | head -20`
+2. Set session title: `PLAN - <task name> - {{PROJECT_NAME}}`
+3. Search project board for existing items
+4. Enter plan mode (Gate 1)
+
 ---
 
 ## Three Approval Gates
@@ -203,6 +215,7 @@ After Gate 3 merge, update the relevant wiki:
 
 - Always use plan mode for all three gates
 - Never merge without Gate 3 approval
+- **Gates apply to ALL changes — bug fixes, hotfixes, one-liners, and fully-specified tasks**
 - Re-read CLAUDE.md at every gate
 - Check for existing board items before creating
 - Clean up worktrees and ports when done
