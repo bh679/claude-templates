@@ -157,6 +157,76 @@ Any design decisions or open questions.
 
 ---
 
+## Deployment Documentation Template
+
+### Deployment Index Page
+
+Use this structure for the deployment index page (`Deployment.md`):
+
+```markdown
+[Home](Home) > Deployment
+
+# Deployment
+
+All deployment methods for {{PROJECT_NAME}}.
+
+| Method | Environment | Status |
+|---|---|---|
+| [Method Name](Deployment-Method-Name) | Production / Staging / Both | Active / Deprecated |
+```
+
+### Deployment Method Page
+
+Use this structure for each deployment method (`Deployment-<Method>.md`):
+
+```markdown
+[Home](Home) > [Deployment](Deployment) > Method Name
+
+# Deployment — Method Name
+
+Brief one-sentence description of this deployment method and when to use it.
+
+## Prerequisites
+
+- Prerequisite 1 (e.g., AWS CLI configured, Docker installed)
+- Prerequisite 2
+
+## Environment Variables
+
+| Variable | Required | Description | Example |
+|---|---|---|---|
+| `ENV_VAR` | Yes / No | What it controls | `example-value` |
+
+## Deployment Procedure
+
+Step-by-step instructions to deploy.
+
+1. Step one
+2. Step two
+3. Step three
+
+## Rollback Procedure
+
+How to revert to the previous version if something goes wrong.
+
+1. Step one
+2. Step two
+
+## Health Check
+
+How to verify the deployment succeeded.
+
+- Check 1 (e.g., `curl https://your-live-url.example.com/health`)
+- Check 2
+
+## Related
+
+- [Other Deployment Method](Deployment-Other-Method)
+- [Feature That Uses This](Feature-Name)
+```
+
+---
+
 ## Tone and Style
 
 - Write in present tense ("The system validates..." not "The system will validate...")

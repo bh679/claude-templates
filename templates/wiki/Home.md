@@ -5,6 +5,7 @@ Welcome to the {{PROJECT_NAME}} documentation.
 ## Quick Links
 
 - [Features](Features) — All shipped features
+- [Deployment](Deployment) — Deployment methods and procedures <!-- Remove this line if not using Deployment.md -->
 - [Roadmap](Roadmap) — Planned and in-progress work
 
 ## About

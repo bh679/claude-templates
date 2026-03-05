@@ -77,6 +77,7 @@ When copying `templates/operator/`, replace these tokens:
   - Replace all `{{TOKENS}}`
 - [ ] Copy `templates/wiki/Home.md` → `<wiki-repo>/Home.md`
 - [ ] Copy `templates/wiki/Features.md` → `<wiki-repo>/Features.md`
+- [ ] Copy `templates/wiki/Deployment.md` → `<wiki-repo>/Deployment.md` (optional — add when project has a deployment method)
 
 ### 4. GitHub setup
 
@@ -128,5 +129,6 @@ When copying `templates/operator/`, replace these tokens:
 <wiki-repo>.wiki/                 (e.g. chess-client.wiki)
 ├── CLAUDE.md
 ├── Home.md
-└── Features.md
+├── Features.md
+└── Deployment.md                 (optional)
 ```

@@ -29,11 +29,38 @@ One feature per session. Never work on multiple features in the same session.
    - Which files will be changed and why
    - Estimated complexity
    - Risks or dependencies
+   - Deployment impact assessment (see Deployment Impact Checklist below)
 4. Present the plan to the user via `ExitPlanMode`
 
 **Gate requirement:** User clicks Approve in plan mode.
 
 **Never skip:** Even for "simple" changes. Plan mode catches assumptions early.
+
+### Deployment Impact Checklist
+
+During Gate 1 planning, assess whether the planned changes may impact deployment. A change impacts deployment if it involves any of the following:
+
+| Category | Example |
+|---|---|
+| Environment variable additions, removals, or changes | Adding `STRIPE_API_KEY` for payment integration |
+| New dependencies or major version bumps | Upgrading `pg` from v7 to v8 (breaking changes) |
+| Port or networking changes | Changing API from port 3000 to 8080 |
+| Database schema migrations | Adding a `subscriptions` table |
+| New API endpoints requiring reverse proxy or load balancer config | New `/api/webhooks/stripe` needs proxy rule |
+| Docker/container configuration changes | Changing base image from `node:18` to `node:20` |
+| Build step changes (new tools, changed commands, new artifacts) | Adding `prisma generate` to build pipeline |
+| New external service integrations (credentials/config needed) | Integrating Redis for session storage |
+| Startup or shutdown procedure changes | Switching from `node server.js` to PM2 cluster mode |
+| Infrastructure requirement changes (memory, CPU, storage) | Feature requires 2GB+ RAM for image processing |
+
+**If any items apply:**
+1. Check for existing `Deployment-*.md` wiki pages in the project wiki
+2. Read and review the relevant deployment docs to understand current procedures
+3. Include "Update deployment documentation" as a task in the plan
+4. Note which specific deployment methods are affected
+
+**If no deployment wiki pages exist yet and the project has a known deployment method:**
+Create a `Deployment.md` index page and at least one `Deployment-<Method>.md` page as part of the documentation step after Gate 3.
 
 ---
 
@@ -122,7 +149,13 @@ Re-read the project CLAUDE.md at every gate transition. This ensures you always 
 After merging, update the relevant wiki:
 - **Frontend/client features** → project wiki (e.g. Chess Wiki)
 - **Backend/API features** → API repo wiki
+- **Deployment-impacting changes** → update the relevant `Deployment-*.md` wiki pages
 - Follow the wiki CLAUDE.md template for structure and formatting
+
+If deployment docs were flagged in the Gate 1 plan:
+1. Update the affected `Deployment-<Method>.md` pages with the new requirements
+2. If a new deployment method was introduced, create a new `Deployment-<Method>.md` page
+3. Update the `Deployment.md` index if new pages were added
 
 Then trigger the blog skill if applicable:
 ```

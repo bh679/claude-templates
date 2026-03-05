@@ -39,8 +39,9 @@ One feature per session. Never work on multiple features simultaneously.
 Before writing any code:
 1. Enter plan mode (`EnterPlanMode`)
 2. Explore the codebase — read relevant files, understand existing patterns
-3. Write a plan covering: what will be built, which files change, risks, effort estimate
-4. Present via `ExitPlanMode` and wait for user approval
+3. Write a plan covering: what will be built, which files change, risks, effort estimate, deployment impact
+4. **Deployment check:** If the change involves env vars, new dependencies, port changes, DB migrations, Docker/build changes, new external services, or infrastructure changes — review existing `Deployment-*.md` wiki pages and include "Update deployment docs" in the plan
+5. Present via `ExitPlanMode` and wait for user approval
 
 ### Gate 2 — Testing Approval
 
@@ -191,7 +192,8 @@ capture and queue the feature context for the weekly blog agent.
 
 After Gate 3 merge, update the relevant wiki:
 - **Client/frontend features** → {{WIKI_URL}}
-- Follow the wiki CLAUDE.md for structure (breadcrumbs, feature template, etc.)
+- **Deployment-impacting changes** → update `Deployment-*.md` pages in {{WIKI_URL}}
+- Follow the wiki CLAUDE.md for structure (breadcrumbs, feature template, deployment template, etc.)
 
 <!-- Wiki writing standards: github.com/bh679/claude-templates/standards/wiki-writing.md -->
 
