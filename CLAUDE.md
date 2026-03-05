@@ -29,8 +29,8 @@ Do NOT edit consumer repos directly from here.
 ### Updating a Template
 
 Templates are copied into projects at init time. **Changes do NOT auto-propagate.**
-After updating a template, add an inline comment near the changed section:
-`# Updated YYYY-MM-DD: <what changed> — propagate to existing projects manually`
+Use a descriptive commit message noting what changed so maintainers can identify
+what to propagate to existing projects.
 
 ### Creating or Updating a Skill
 
