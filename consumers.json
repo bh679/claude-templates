@@ -76,5 +76,11 @@
     "repo": "bh679/claude-token-refresh",
     "template": "none",
     "description": "Claude OAuth token generator and distributor CLI"
+  },
+  {
+    "repo": "bh679/claude-oauth-distributor",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Claude OAuth Distributor — OAuth token distribution service"
   }
 ]
