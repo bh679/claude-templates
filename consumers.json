@@ -61,9 +61,9 @@
     ]
   },
   {
-    "repo": "bh679/sentinel-agent",
+    "repo": "bh679/Claude-Sentinel",
     "template": "operator",
-    "description": "The Sentinel — Claude Code session monitor and project grouper",
+    "description": "Claude-Sentinel — Claude Code session monitor and project grouper",
     "required_files": [
       ".github/workflows/sentinel.yml",
       ".github/scripts/fetch-data.sh",
