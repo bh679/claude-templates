@@ -71,5 +71,10 @@
       "consumers.json",
       "state.json"
     ]
+  },
+  {
+    "repo": "bh679/claude-token-refresh",
+    "template": "none",
+    "description": "Claude OAuth token generator and distributor CLI"
   }
 ]
