@@ -61,26 +61,15 @@
     ]
   },
   {
-    "repo": "bh679/Claude-Sentinel",
-    "template": "operator",
-    "description": "Claude-Sentinel — Claude Code session monitor and project grouper",
-    "required_files": [
-      ".github/workflows/sentinel.yml",
-      ".github/scripts/fetch-data.sh",
-      "guidelines.md",
-      "consumers.json",
-      "state.json"
-    ]
-  },
-  {
-    "repo": "bh679/claude-token-refresh",
-    "template": "none",
-    "description": "Claude OAuth token generator and distributor CLI"
+    "repo": "bh679/Claude-Code-Session-Monitor",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Claude Code Session Monitor — real-time session tracking with hooks and project matching"
   },
   {
     "repo": "bh679/claude-oauth-distributor",
     "template": "product-engineer",
     "claude_md_path": "CLAUDE.md",
-    "description": "Claude OAuth Distributor — OAuth token distribution service"
+    "description": "Claude OAuth Distributor — token generator, distributor CLI, and menubar app"
   }
 ]
