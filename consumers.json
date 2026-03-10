@@ -71,5 +71,11 @@
     "template": "product-engineer",
     "claude_md_path": "CLAUDE.md",
     "description": "Claude OAuth Distributor — token generator, distributor CLI, and menubar app"
+  },
+  {
+    "repo": "bh679/the-epstein-files",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "The Epstein Files — top-down pixel art game exploring a secret CIA library"
   }
 ]
