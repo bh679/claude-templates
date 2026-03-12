@@ -77,5 +77,11 @@
     "template": "product-engineer",
     "claude_md_path": "CLAUDE.md",
     "description": "The Epstein Files — top-down pixel art game exploring a secret CIA library"
+  },
+  {
+    "repo": "bh679/discord-image-dashboard",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Discord Image Dashboard — bot + web dashboard aggregating server images over 7 days"
   }
 ]
