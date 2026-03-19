@@ -83,5 +83,11 @@
     "template": "product-engineer",
     "claude_md_path": "CLAUDE.md",
     "description": "Discord Image Dashboard — bot + web dashboard aggregating server images over 7 days"
+  },
+  {
+    "repo": "bh679/CarkedIt",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "CarkedItOnline — multiplayer card game web app"
   }
 ]
