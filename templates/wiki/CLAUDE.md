@@ -14,7 +14,9 @@ accurate, well-structured, and easy to navigate after features are shipped.
 Home.md                   — Index page with project overview and links
 Features.md               — Index of all shipped features
 Deployment.md             — Index of all deployment methods (optional)
+Endpoints.md              — Index of all API endpoints (optional)
 Roadmap.md                — Planned and in-progress features (optional)
+Endpoint-<Resource>.md    — One page per API resource group
 <Feature-Name>.md         — One page per shipped feature
 Deployment-<Method>.md    — One page per deployment method
 images/                   — Screenshots and diagrams
@@ -147,6 +149,87 @@ How to verify the deployment succeeded.
 ## Related
 
 - [Other Deployment Method](Deployment-Other-Method)
+```
+
+---
+
+## Endpoint Index Template
+
+```markdown
+[Home](Home) > Endpoints
+
+# Endpoints
+
+All API endpoints for {{PROJECT_NAME}}, grouped by resource.
+
+| Method | Path | Resource | Description |
+|---|---|---|---|
+| GET | /api/v1/users | [Users](Endpoint-Users) | List all users |
+```
+
+---
+
+## Endpoint Documentation Template
+
+When documenting API endpoints for a resource group, use:
+
+```markdown
+[Home](Home) > [Endpoints](Endpoints) > Resource Name
+
+# Endpoints — Resource Name
+
+Brief description of this resource and its purpose.
+
+## Endpoints
+
+### METHOD /path/to/endpoint
+
+Brief description of what this endpoint does.
+
+**Authentication:** Required / Public
+**Rate Limit:** X requests per minute (if applicable)
+
+#### Request
+
+| Parameter | Location | Type | Required | Description |
+|---|---|---|---|---|
+| `param` | path / query / body | string | Yes / No | What it does |
+
+**Example request:**
+
+curl -s -X METHOD http://localhost:PORT/path/to/endpoint \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"key": "value"}'
+
+#### Response
+
+**Success (200):**
+
+{
+  "status": "success",
+  "data": {}
+}
+
+**Error (4xx/5xx):**
+
+{
+  "status": "error",
+  "error": "Description of the error"
+}
+
+#### Status Codes
+
+| Code | Description |
+|---|---|
+| 200 | Success |
+| 400 | Bad request — invalid parameters |
+| 401 | Unauthorized |
+| 404 | Resource not found |
+
+## Related
+
+- [Related Resource](Endpoint-Related-Resource)
 ```
 
 ---

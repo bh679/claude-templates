@@ -16,6 +16,26 @@ When copying `templates/product-engineer/`, replace these tokens:
 | `{{REPO_LIST}}` | `chess-client, chess-api` | Comma-separated list of sub-repos |
 | `{{GITHUB_USER}}` | `bh679` | GitHub username |
 | `{{WIKI_URL}}` | `github.com/bh679/chess-client/wiki` | Wiki URL for the main client/frontend repo |
+| `{{PROJECT_DESCRIPTION}}` | `A multiplayer chess platform` | One-sentence project description, used in wiki Home.md |
+
+### Backend Engineer Tokens
+
+When copying `templates/backend-engineer/`, replace these tokens:
+
+| Token | Example | Description |
+|---|---|---|
+| `{{PROJECT_NAME}}` | `Chess API` | Human-readable project name |
+| `{{PROJECT_SLUG}}` | `chess-api` | Lowercase, hyphenated, used in URLs and filenames |
+| `{{PROJECT_NUMBER}}` | `3` | GitHub Project V2 number (find in project URL: `/projects/3`) |
+| `{{LIVE_URL}}` | `api.brennan.games/chess` | Production API URL |
+| `{{BASE_PORT}}` | `4001` | Base port for local dev server |
+| `{{REPO_LIST}}` | `chess-api` | Comma-separated list of sub-repos |
+| `{{GITHUB_USER}}` | `bh679` | GitHub username |
+| `{{WIKI_URL}}` | `github.com/bh679/chess-api/wiki` | Wiki URL |
+| `{{API_BASE_PATH}}` | `/api/v1` | Base path prefix for all endpoints |
+| `{{DB_TYPE}}` | `PostgreSQL` | Database technology (or "None" if stateless) |
+| `{{TEST_COMMAND}}` | `npm test` | Command to run automated tests |
+| `{{PROJECT_DESCRIPTION}}` | `A chess game REST API` | One-sentence project description, used in wiki Home.md |
 
 ### Operator Tokens
 
@@ -79,6 +99,34 @@ When copying `templates/operator/`, replace these tokens:
 - [ ] Copy `templates/wiki/Features.md` → `<wiki-repo>/Features.md`
 - [ ] Copy `templates/wiki/Deployment.md` → `<wiki-repo>/Deployment.md` (optional — add when project has a deployment method)
 
+---
+
+### Backend Engineer Project
+
+### 1. Project-level setup
+
+- [ ] Copy `templates/backend-engineer/CLAUDE.md` → `<project>/CLAUDE.md`
+  - Replace all `{{TOKENS}}`
+- [ ] Copy `templates/product-engineer/.claude/settings.json` → `<project>/.claude/settings.json`
+  - Add any project-specific tool permissions
+- [ ] Create `<project>/ports/.gitkeep`
+
+### 2. Sub-repo setup (for each sub-repo)
+
+- [ ] Copy `templates/repo/CLAUDE.md` → `<sub-repo>/CLAUDE.md`
+  - Replace all `{{TOKENS}}`
+
+### 3. Wiki setup
+
+- [ ] Copy `templates/wiki/CLAUDE.md` → `<wiki-repo>/CLAUDE.md`
+  - Replace all `{{TOKENS}}`
+- [ ] Copy `templates/wiki/Home.md` → `<wiki-repo>/Home.md`
+- [ ] Copy `templates/wiki/Features.md` → `<wiki-repo>/Features.md`
+- [ ] Copy `templates/wiki/Endpoints.md` → `<wiki-repo>/Endpoints.md`
+- [ ] Copy `templates/wiki/Deployment.md` → `<wiki-repo>/Deployment.md` (optional)
+
+---
+
 ### 4. GitHub setup
 
 - [ ] Create GitHub repository
@@ -130,5 +178,26 @@ When copying `templates/operator/`, replace these tokens:
 ├── CLAUDE.md
 ├── Home.md
 ├── Features.md
+└── Deployment.md                 (optional)
+```
+
+### Backend Engineer
+
+```
+<project>/                        (orchestrator repo)
+├── CLAUDE.md                     (filled-in backend engineer template)
+├── .claude/
+│   └── settings.json
+└── ports/
+    └── .gitkeep
+
+<sub-repo>/                       (e.g. chess-api)
+└── CLAUDE.md                     (filled-in repo template)
+
+<wiki-repo>.wiki/                 (e.g. chess-api.wiki)
+├── CLAUDE.md
+├── Home.md
+├── Features.md
+├── Endpoints.md
 └── Deployment.md                 (optional)
 ```
