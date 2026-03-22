@@ -89,5 +89,11 @@
     "template": "product-engineer",
     "claude_md_path": "CLAUDE.md",
     "description": "CarkedItOnline — multiplayer card game web app"
+  },
+  {
+    "repo": "bh679/fill-in-the-blank",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Fill-in-the-Blank Card Game — Apples to Apples style party game"
   }
 ]
