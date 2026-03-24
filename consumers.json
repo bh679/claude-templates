@@ -95,5 +95,11 @@
     "template": "product-engineer",
     "claude_md_path": "CLAUDE.md",
     "description": "Fill-in-the-Blank Card Game — Apples to Apples style party game"
+  },
+  {
+    "repo": "bh679/carkedit-online",
+    "template": "product-engineer",
+    "claude_md_path": "CLAUDE.md",
+    "description": "CarkedIt Online — vanilla HTML/CSS/JS card game rewrite"
   }
 ]
