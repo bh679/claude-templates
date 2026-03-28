@@ -1,4 +1,4 @@
-<!-- standard: git | version: 1.1.0 -->
+<!-- standard: git | version: 1.2.0 -->
 # Git Standards
 
 > **Source of truth** for git workflow across all Claude-powered projects.
@@ -45,11 +45,7 @@ npm install   # or whatever the repo setup requires
 
 ### After Feature Merge
 
-You may continue working in the same worktree after merge. If you do, create or switch to a new branch first — never commit to `main`.
-
-```bash
-git checkout -b dev/<next-feature-slug>
-```
+After merge, clean up the branch and worktree. See **Post-Merge Cleanup** below for the full procedure. If continuing work, create a fresh worktree on a new branch — never commit to `main`.
 
 ### Why worktrees?
 
@@ -115,7 +111,53 @@ test: add Playwright test for checkout flow
 - Branch must be up to date with `main` before creating a PR _(enforced by hook)_
 - Use **squash merge** for feature branches to keep main history clean
 - PR title matches the commit message format: `feat: <description>`
-- Delete the feature branch after merge
+- Delete the feature branch after merge (see Post-Merge Cleanup below)
+
+---
+
+## Post-Merge Cleanup
+
+After a PR is successfully merged, **always** run the full cleanup sequence:
+
+```bash
+# 1. Switch back to main and pull the merge
+git checkout main
+git pull origin main
+
+# 2. Delete the remote feature branch
+git push origin --delete dev/<feature-slug>
+
+# 3. Delete the local feature branch
+git branch -d dev/<feature-slug>
+```
+
+### Continuing Work in the Same Session
+
+If the session continues after merge, **create a new branch before any new commits**:
+
+```bash
+git checkout -b dev/<next-feature-slug>
+```
+
+Never reuse a merged branch. Never commit directly to `main`.
+
+### Worktree Variant
+
+If working in a git worktree, exit the worktree first, then clean up:
+
+```bash
+# From the worktree directory — exit back to the main checkout
+# Then remove the worktree and its branch
+git worktree remove ../worktrees/<feature-slug>
+git branch -d dev/<feature-slug>
+git push origin --delete dev/<feature-slug>
+```
+
+If continuing work, create a fresh worktree:
+
+```bash
+git worktree add ../worktrees/<next-feature-slug> -b dev/<next-feature-slug>
+```
 
 ---
 

@@ -1,4 +1,4 @@
-<!-- standard: workflow | version: 1.1.0 -->
+<!-- standard: workflow | version: 1.2.0 -->
 # Workflow Standard — Three-Gate Approval
 
 > **Source of truth** for all Claude product engineer sessions.
@@ -109,6 +109,13 @@ Create a `Deployment.md` index page and at least one `Deployment-<Method>.md` pa
 4. Wait for approval
 
 **Gate requirement:** User clicks Approve, then agent merges the PR.
+
+**Post-merge cleanup (mandatory):**
+1. Delete the remote feature branch (`git push origin --delete dev/<slug>`)
+2. Delete the local feature branch (`git branch -d dev/<slug>`)
+3. If continuing work in this session, create a new branch (`git checkout -b dev/<next-slug>`)
+
+See `git.md` § Post-Merge Cleanup for the full procedure including worktree variants.
 
 **Never merge without Gate 3 approval.** Not even for hotfixes.
 
