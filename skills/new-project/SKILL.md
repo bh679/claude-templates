@@ -143,9 +143,19 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
 
 ### 3b. Sub-repos (repeat for each: client, API, etc.)
 
-1. Copy `~/Projects/Claude Templates/templates/repo/CLAUDE.md` → `<sub-repo>/CLAUDE.md`
-2. Replace all `{{TOKENS}}`
-3. Install hooks:
+Each sub-repo gets its own engineering template based on its role:
+- **Frontend/full-stack sub-repos** → use `engineering/product`
+- **Backend/API sub-repos** → use `engineering/backend`
+
+Ask the user which template to use for each sub-repo if not obvious from the name.
+
+1. Copy the appropriate engineering CLAUDE.md → `<sub-repo>/CLAUDE.md`
+   - `~/Projects/Claude Templates/templates/engineering/product/CLAUDE.md` for frontend/full-stack
+   - `~/Projects/Claude Templates/templates/engineering/backend/CLAUDE.md` for backend/API
+2. Resolve all `{{INCLUDE:...}}` tokens (see Step 2b)
+3. Resolve all `{{STANDARD:...}}` tokens (see Step 2b)
+4. Replace all `{{TOKENS}}` with values appropriate to the sub-repo
+5. Install hooks:
    ```bash
    cd <sub-repo>
    ~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
@@ -183,7 +193,7 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
 
 ### 3b-b. Sub-repos and wiki
 
-Same as Step 3b and 3c above, plus:
+Same as Step 3b and 3c in Step 3 above (each sub-repo gets its own engineering template), plus:
 - Copy `~/Projects/Claude Templates/templates/wiki/Endpoints.md` → `<wiki-repo>/Endpoints.md`
 
 ---
@@ -349,7 +359,7 @@ After completing all steps, report a summary:
 New project setup complete
 
 Project: {{PROJECT_NAME}}
-Template: Engineering Product | Engineering Backend | Operator | Repo | None
+Template: Engineering Product | Engineering Backend | Operator | None
 Repos created: {{list}}
 Consumer registered: Yes / No
 Skills installed: Yes / No

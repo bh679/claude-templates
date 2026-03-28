@@ -169,8 +169,14 @@ See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
 
 ### 2. Sub-repo setup (for each sub-repo: client, API, etc.)
 
-- [ ] Copy `templates/repo/CLAUDE.md` → `<sub-repo>/CLAUDE.md`
-  - Replace all `{{TOKENS}}`
+Each sub-repo gets its own engineering template based on its role:
+- **Frontend/full-stack** → `templates/engineering/product/CLAUDE.md`
+- **Backend/API** → `templates/engineering/backend/CLAUDE.md`
+
+- [ ] Copy the appropriate engineering CLAUDE.md → `<sub-repo>/CLAUDE.md`
+  - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
+  - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
+  - Replace all `{{TOKENS}}` with values appropriate to the sub-repo
 
 ### 3. Wiki setup (for each wiki repo)
 
@@ -200,8 +206,12 @@ See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
 
 ### 2. Sub-repo setup (for each sub-repo)
 
-- [ ] Copy `templates/repo/CLAUDE.md` → `<sub-repo>/CLAUDE.md`
-  - Replace all `{{TOKENS}}`
+Each sub-repo gets its own engineering template based on its role (see Product checklist above for details).
+
+- [ ] Copy the appropriate engineering CLAUDE.md → `<sub-repo>/CLAUDE.md`
+  - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
+  - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
+  - Replace all `{{TOKENS}}` with values appropriate to the sub-repo
 
 ### 3. Wiki setup
 
@@ -259,7 +269,7 @@ See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
     └── .gitkeep
 
 <sub-repo>/                       (e.g. chess-client)
-└── CLAUDE.md                     (filled-in repo template)
+└── CLAUDE.md                     (filled-in engineering template with embedded standards)
 
 <wiki-repo>.wiki/                 (e.g. chess-client.wiki)
 ├── CLAUDE.md
@@ -279,7 +289,7 @@ See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
     └── .gitkeep
 
 <sub-repo>/                       (e.g. chess-api)
-└── CLAUDE.md                     (filled-in repo template)
+└── CLAUDE.md                     (filled-in engineering template with embedded standards)
 
 <wiki-repo>.wiki/                 (e.g. chess-api.wiki)
 ├── CLAUDE.md
