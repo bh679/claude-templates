@@ -31,6 +31,7 @@ standards/hooks/
   workflow/                     ← enforces workflow.md (future)
   wiki/                         ← enforces wiki-writing.md (future)
   install-hooks.sh              ← composite: calls all per-standard installers
+  check-hooks.sh               ← compares installed vs source versions
   README.md
 ```
 
@@ -130,14 +131,54 @@ Hard blocks:
 
 ---
 
+## Hook Versioning
+
+Every hook script declares a `HOOK_VERSION` variable on line 3:
+
+```bash
+#!/usr/bin/env bash
+# git/pre-bash.sh
+HOOK_VERSION="1.0.0"
+```
+
+### How it works
+
+1. **Install scripts** write each hook's version to `.claude/hook-versions.json` in the consumer project
+2. **`check-hooks.sh`** compares installed versions against source versions
+3. Symlinked hooks auto-update but the version file tracks what was last installed
+4. Copied hooks (git hooks) go stale — `check-hooks.sh` catches this
+
+### Checking for updates
+
+```bash
+# From your consumer project root:
+~/Projects/Claude\ Templates/standards/hooks/check-hooks.sh
+```
+
+Output:
+```
+  ✓  git/pre-bash.sh           — 1.0.0 (symlinked)
+  ✓  git/post-bash.sh          — 1.0.0 (symlinked)
+  ✗  versioning/git-hook-pre-commit.sh  — outdated
+     Installed: 1.0.0  →  Source: 1.1.0  (copied)
+```
+
+### When to bump versions
+
+Bump `HOOK_VERSION` in the hook script whenever you change the hook's behaviour.
+Use semver: patch for tweaks, minor for new rules, major for breaking changes.
+
+---
+
 ## Adding a New Hook
 
 1. Create or identify the standard folder: `standards/hooks/<standard>/`
 2. Add your script following the naming convention above
-3. Make it executable: `chmod +x <script>.sh`
-4. For Claude Code hooks: add the entry to `settings.json` (see snippet above)
-5. For Git hooks: re-run `install-hooks.sh` in consumer projects
-6. Update this README
+3. Add `HOOK_VERSION="1.0.0"` on line 3 of your script
+4. Make it executable: `chmod +x <script>.sh`
+5. For Claude Code hooks: add the entry to `settings.json` (see snippet above)
+6. For Git hooks: re-run `install-hooks.sh` in consumer projects
+7. Update this README
 
 ---
 

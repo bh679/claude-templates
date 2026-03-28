@@ -1,4 +1,4 @@
-<!-- standard: git | version: 1.0.0 -->
+<!-- standard: git | version: 1.1.0 -->
 # Git Standards
 
 > **Source of truth** for git workflow across all Claude-powered projects.
@@ -32,7 +32,9 @@ For single-repo projects, a feature branch (`dev/<feature-slug>`) checked out no
 
 All feature development happens in an **isolated environment** — never directly on `main`.
 
-### Setup (do this after Gate 1 approval)
+### Manual Setup
+
+If your tooling doesn't create a worktree automatically:
 
 ```bash
 # In the repo root
@@ -41,7 +43,7 @@ cd ../worktrees/<feature-slug>
 npm install   # or whatever the repo setup requires
 ```
 
-### After Gate 3 Merge
+### After Feature Merge
 
 You may continue working in the same worktree after merge. If you do, create or switch to a new branch first — never commit to `main`.
 
@@ -110,6 +112,7 @@ test: add Playwright test for checkout flow
 ## Merge Strategy
 
 - Always merge via **Pull Request** (never direct push to main)
+- Branch must be up to date with `main` before creating a PR _(enforced by hook)_
 - Use **squash merge** for feature branches to keep main history clean
 - PR title matches the commit message format: `feat: <description>`
 - Delete the feature branch after merge

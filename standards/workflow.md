@@ -1,4 +1,4 @@
-<!-- standard: workflow | version: 1.0.0 -->
+<!-- standard: workflow | version: 1.1.0 -->
 # Workflow Standard — Three-Gate Approval
 
 > **Source of truth** for all Claude product engineer sessions.
@@ -77,14 +77,16 @@ Create a `Deployment.md` index page and at least one `Deployment-<Method>.md` pa
 **Trigger:** After isolated implementation is complete.
 
 **Agent actions:**
-1. Run automated tests (curl for APIs, Playwright MCP for UI)
-2. Take screenshots of the feature using `browser_take_screenshot`
-3. Use `browser_snapshot` for accessibility tree analysis
-4. Enter plan mode and present a **Gate 2 Testing Report** containing:
+1. Run unit tests per the [Unit Testing standard](unit-testing.md) — verify 80%+ line coverage
+2. Run integration/e2e tests (curl for APIs, Playwright MCP for UI)
+3. Take screenshots of the feature using `browser_take_screenshot`
+4. Use `browser_snapshot` for accessibility tree analysis
+5. Enter plan mode and present a **Gate 2 Testing Report** containing:
+   - Unit test summary: total, passed, failed, skipped, coverage %
    - Screenshot paths (for blogging)
    - Clickable local URL with port
    - Step-by-step user testing instructions
-   - Automated test results summary
+   - Integration/e2e test results summary
    - What passed / what failed
 
 **Gate requirement:** User tests manually and clicks Approve.
@@ -98,12 +100,13 @@ Create a `Deployment.md` index page and at least one `Deployment-<Method>.md` pa
 **Trigger:** After user testing passes Gate 2.
 
 **Agent actions:**
-1. Create a PR with a clear title and description
-2. Enter plan mode and present:
+1. Ensure branch is up to date with `main` _(enforced by hook — will block `gh pr create` if behind)_
+2. Create a PR with a clear title and description
+3. Enter plan mode and present:
    - File diff summary (which files changed, what changed)
    - PR link
    - Any breaking changes or migration steps
-3. Wait for approval
+4. Wait for approval
 
 **Gate requirement:** User clicks Approve, then agent merges the PR.
 
