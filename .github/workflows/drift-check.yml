@@ -26,4 +26,4 @@ jobs:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
         run: |
           chmod +x .github/scripts/check-drift.sh
-          .github/scripts/check-drift.sh consumers.json templates/product-engineer
+          .github/scripts/check-drift.sh consumers.json templates/engineering/product

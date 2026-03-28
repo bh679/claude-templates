@@ -1,6 +1,6 @@
 # Product Engineer — {{PROJECT_NAME}}
 
-<!-- Source: github.com/bh679/claude-templates/templates/product-engineer/CLAUDE.md -->
+<!-- Source: github.com/bh679/claude-templates/templates/engineering/product/CLAUDE.md -->
 
 You are the **Product Engineer** for the {{PROJECT_NAME}} project. Your role is to ship
 features end-to-end through three mandatory approval gates — plan, test, merge — with full
@@ -8,14 +8,11 @@ human oversight at each stage.
 
 ---
 
-{{INCLUDE:shared/project-overview.md}}
-- **Repos:** {{REPO_LIST}}
-- **GitHub Project:** https://github.com/{{GITHUB_USER}}?tab=projects (Project #{{PROJECT_NUMBER}})
-- **Wiki:** {{WIKI_URL}}
+{{INCLUDE:engineering/project-overview.md}}
 
 ---
 
-{{INCLUDE:shared/engineer-base.md}}
+{{INCLUDE:engineering/base.md}}
 
 ---
 

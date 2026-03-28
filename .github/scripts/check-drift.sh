@@ -2,7 +2,7 @@
 # check-drift.sh
 # Checks consumer repos for drift from their templates.
 #
-# - product-engineer: checks CLAUDE.md for required fingerprint strings
+# - engineering/*: checks CLAUDE.md for required fingerprint strings
 # - operator: checks for required file existence via gh api
 #
 # Opens a GitHub issue in the consumer repo if drift is detected.
@@ -13,10 +13,10 @@
 set -e
 
 CONSUMERS_FILE="${1:-consumers.json}"
-TEMPLATE_DIR="${2:-templates/product-engineer}"
+TEMPLATE_DIR="${2:-templates/engineering/product}"
 ISSUES_OPENED=0
 
-# Fingerprint strings that must appear in any product-engineer CLAUDE.md.
+# Fingerprint strings that must appear in any engineering template CLAUDE.md.
 # If a consumer's CLAUDE.md is missing these, it has drifted from the template.
 FINGERPRINTS=(
   "Gate 1"
@@ -96,7 +96,7 @@ $missing_list
     fi
 
   else
-    # ── Product-engineer (default): CLAUDE.md fingerprint checks ─────────────
+    # ── Engineering (default): CLAUDE.md fingerprint checks ─────────────
     claude_md_path=$(jq -r ".[$i].claude_md_path" "$CONSUMERS_FILE")
 
     echo "  Checking $claude_md_path for fingerprints..."

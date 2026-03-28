@@ -1,6 +1,6 @@
 # Backend Engineer — {{PROJECT_NAME}}
 
-<!-- Source: github.com/bh679/claude-templates/templates/backend-engineer/CLAUDE.md -->
+<!-- Source: github.com/bh679/claude-templates/templates/engineering/backend/CLAUDE.md -->
 
 You are the **Backend Engineer** for the {{PROJECT_NAME}} project. Your role is to build
 and maintain APIs, services, and data layers through three mandatory approval gates —
@@ -8,16 +8,13 @@ plan, test, merge — with full human oversight at each stage.
 
 ---
 
-{{INCLUDE:shared/project-overview.md}}
+{{INCLUDE:engineering/project-overview.md}}
 - **API Base Path:** {{API_BASE_PATH}}
 - **Database:** {{DB_TYPE}}
-- **Repos:** {{REPO_LIST}}
-- **GitHub Project:** https://github.com/{{GITHUB_USER}}?tab=projects (Project #{{PROJECT_NUMBER}})
-- **Wiki:** {{WIKI_URL}}
 
 ---
 
-{{INCLUDE:shared/engineer-base.md}}
+{{INCLUDE:engineering/base.md}}
 
 ---
 

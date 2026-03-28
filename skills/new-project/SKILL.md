@@ -39,13 +39,17 @@ gh api repos/bh679/claude-templates/contents/templates --jq '[.[] | select(.type
 
 List the discovered template directories to the user, then ask which applies if not already specified. Also offer **None** for a plain repo with no Claude workflow templates.
 
+Engineering templates are under `templates/engineering/`:
+- `engineering/product` — Full-stack product development (3-gate workflow)
+- `engineering/backend` — Backend API development (3-gate workflow + backend checklist)
+
 ---
 
 ## Step 2 — Gather Token Values
 
 Before copying any files, collect values for all tokens relevant to the chosen template type.
 
-### Product Engineer tokens
+### Engineering tokens (product and backend)
 
 | Token | Example | Description |
 |---|---|---|
@@ -60,6 +64,14 @@ Before copying any files, collect values for all tokens relevant to the chosen t
 
 `{{PROJECT_NUMBER}}` can only be filled after Step 5 (GitHub setup). Leave as a placeholder and return to fill it in.
 
+#### Backend-only additional tokens
+
+| Token | Example | Description |
+|---|---|---|
+| `{{API_BASE_PATH}}` | `/api/v1` | Base path prefix for all endpoints |
+| `{{DB_TYPE}}` | `PostgreSQL` | Database technology (or "None" if stateless) |
+| `{{TEST_COMMAND}}` | `npm test` | Command to run automated tests |
+
 ### Operator tokens
 
 | Token | Example | Description |
@@ -72,34 +84,49 @@ Before copying any files, collect values for all tokens relevant to the chosen t
 
 ---
 
-## Step 2b — Resolve Includes
+## Step 2b — Resolve Includes and Standards
 
-After copying any template file that contains `{{INCLUDE:...}}` tokens, resolve them **before** replacing value tokens.
+After copying any template file, resolve tokens **before** replacing value tokens.
+
+### Include tokens — `{{INCLUDE:<path>}}`
 
 For each `{{INCLUDE:<path>}}` found in the copied file:
 1. Read the referenced file from `~/Projects/Claude Templates/templates/<path>`
 2. Replace the entire `{{INCLUDE:<path>}}` line with the file contents
 3. Repeat until no `{{INCLUDE:...}}` tokens remain (includes can be nested)
 
-Then proceed to replace `{{VALUE}}` tokens as normal.
+Example: `{{INCLUDE:engineering/base.md}}` reads `~/Projects/Claude Templates/templates/engineering/base.md` and inlines it.
 
-Example: `{{INCLUDE:shared/engineer-base.md}}` reads `~/Projects/Claude Templates/templates/shared/engineer-base.md` and inlines it.
+### Standard tokens — `{{STANDARD:<name>}}`
 
+For each `{{STANDARD:<name>}}` found in the file:
+1. Read `~/Projects/Claude Templates/standards/<name>.md`
+2. The file's first line contains a version comment: `<!-- standard: <name> | version: X.Y.Z -->`
+3. Replace the entire `{{STANDARD:<name>}}` line with the full file contents (including the version comment)
+
+The embedded version comment enables drift detection — consumer projects can compare their version against the current version in the standards repo.
+
+### Resolution order
+
+1. Resolve all `{{INCLUDE:...}}` tokens (recursive — includes may contain other includes)
+2. Resolve all `{{STANDARD:...}}` tokens (inline versioned standard content)
+3. Replace all `{{VALUE}}` tokens with collected values
 
 ---
 
-## Step 3 — Product Engineer Setup
+## Step 3 — Engineering Product Setup
 
 Follow all sub-steps in order. Skip to Step 4 if using a different template type.
 
 ### 3a. Orchestrator repo
 
-1. Copy `~/Projects/Claude Templates/templates/product-engineer/CLAUDE.md` → `<project>/CLAUDE.md`
+1. Copy `~/Projects/Claude Templates/templates/engineering/product/CLAUDE.md` → `<project>/CLAUDE.md`
    - Resolve all `{{INCLUDE:...}}` tokens (see Step 2b)
+   - Resolve all `{{STANDARD:...}}` tokens (see Step 2b)
    - Replace all `{{TOKENS}}` with collected values
-2. Copy `~/Projects/Claude Templates/templates/product-engineer/.claude/settings.json` → `<project>/.claude/settings.json`
-3. Copy `~/Projects/Claude Templates/templates/product-engineer/playwright.config.js` → `<project>/playwright.config.js`
-4. Copy `~/Projects/Claude Templates/templates/product-engineer/package.json` → `<project>/package.json`
+2. Copy `~/Projects/Claude Templates/templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
+3. Copy `~/Projects/Claude Templates/templates/engineering/product/playwright.config.js` → `<project>/playwright.config.js`
+4. Copy `~/Projects/Claude Templates/templates/engineering/product/package.json` → `<project>/package.json`
    - Update the `name` field to `{{PROJECT_SLUG}}`
    - Run `npm install`
 5. Create placeholder directories:
@@ -131,6 +158,33 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
 2. Copy `~/Projects/Claude Templates/templates/wiki/Home.md` → `<wiki-repo>/Home.md`
 3. Copy `~/Projects/Claude Templates/templates/wiki/Features.md` → `<wiki-repo>/Features.md`
 4. Replace all `{{TOKENS}}` in each file
+
+---
+
+## Step 3b — Engineering Backend Setup
+
+Follow all sub-steps in order. Skip to Step 4 if using a different template type.
+
+### 3b-a. Orchestrator repo
+
+1. Copy `~/Projects/Claude Templates/templates/engineering/backend/CLAUDE.md` → `<project>/CLAUDE.md`
+   - Resolve all `{{INCLUDE:...}}` tokens (see Step 2b)
+   - Resolve all `{{STANDARD:...}}` tokens (see Step 2b)
+   - Replace all `{{TOKENS}}` with collected values
+2. Copy `~/Projects/Claude Templates/templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
+   - Add any project-specific tool permissions
+3. Create `<project>/ports/.gitkeep`
+4. Install hooks:
+   ```bash
+   cd <project>
+   ~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
+   ~/Projects/Claude\ Templates/standards/hooks/versioning/install-hooks.sh
+   ```
+
+### 3b-b. Sub-repos and wiki
+
+Same as Step 3b and 3c above, plus:
+- Copy `~/Projects/Claude Templates/templates/wiki/Endpoints.md` → `<wiki-repo>/Endpoints.md`
 
 ---
 
@@ -193,7 +247,7 @@ Add the new project to `~/Projects/Claude Templates/consumers.json`:
 ```json
 {
   "repo": "bh679/{{PROJECT_SLUG}}",
-  "template": "product-engineer",
+  "template": "engineering/product",
   "claude_md_path": "CLAUDE.md",
   "description": "{{PROJECT_NAME}} — short description"
 }
@@ -229,8 +283,8 @@ Each standard has its own installer. Run only the ones relevant to the template:
 
 | Standard | Installer | Templates that use it |
 |---|---|---|
-| git.md | `standards/hooks/git/install-hooks.sh` | product-engineer, backend-engineer |
-| versioning.md | `standards/hooks/versioning/install-hooks.sh` | product-engineer, backend-engineer |
+| git.md | `standards/hooks/git/install-hooks.sh` | engineering/product, engineering/backend |
+| versioning.md | `standards/hooks/versioning/install-hooks.sh` | engineering/product, engineering/backend |
 
 Run from each repo root:
 
@@ -252,12 +306,14 @@ Claude Code hooks are symlinked — updates propagate automatically. Git hooks a
 
 ## Step 8 — Verify Setup
 
-### Product Engineer checklist
+### Engineering checklist
 
 - [ ] No literal `{{INCLUDE:` tokens remaining (all includes resolved)
+- [ ] No literal `{{STANDARD:` tokens remaining (all standards inlined)
 - [ ] No literal `{{` value tokens remaining in any CLAUDE.md file
-- [ ] `npm install` completed in orchestrator repo
-- [ ] `tests/` and `ports/` directories exist with `.gitkeep`
+- [ ] Standards version comments are present (e.g. `<!-- standard: git | version: 1.0.0 -->`)
+- [ ] `npm install` completed in orchestrator repo (product only)
+- [ ] `tests/` and `ports/` directories exist with `.gitkeep` (product only)
 - [ ] GitHub repo created and initial commit pushed
 - [ ] GitHub Project V2 board exists with correct columns and fields
 - [ ] `{{PROJECT_NUMBER}}` filled in with the actual project number
@@ -293,7 +349,7 @@ After completing all steps, report a summary:
 New project setup complete
 
 Project: {{PROJECT_NAME}}
-Template: Product Engineer | Operator | Repo | None
+Template: Engineering Product | Engineering Backend | Operator | Repo | None
 Repos created: {{list}}
 Consumer registered: Yes / No
 Skills installed: Yes / No
