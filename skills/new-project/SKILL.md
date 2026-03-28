@@ -72,6 +72,22 @@ Before copying any files, collect values for all tokens relevant to the chosen t
 
 ---
 
+## Step 2b — Resolve Includes
+
+After copying any template file that contains `{{INCLUDE:...}}` tokens, resolve them **before** replacing value tokens.
+
+For each `{{INCLUDE:<path>}}` found in the copied file:
+1. Read the referenced file from `~/Projects/Claude Templates/templates/<path>`
+2. Replace the entire `{{INCLUDE:<path>}}` line with the file contents
+3. Repeat until no `{{INCLUDE:...}}` tokens remain (includes can be nested)
+
+Then proceed to replace `{{VALUE}}` tokens as normal.
+
+Example: `{{INCLUDE:shared/engineer-base.md}}` reads `~/Projects/Claude Templates/templates/shared/engineer-base.md` and inlines it.
+
+
+---
+
 ## Step 3 — Product Engineer Setup
 
 Follow all sub-steps in order. Skip to Step 4 if using a different template type.
@@ -79,6 +95,7 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
 ### 3a. Orchestrator repo
 
 1. Copy `~/Projects/Claude Templates/templates/product-engineer/CLAUDE.md` → `<project>/CLAUDE.md`
+   - Resolve all `{{INCLUDE:...}}` tokens (see Step 2b)
    - Replace all `{{TOKENS}}` with collected values
 2. Copy `~/Projects/Claude Templates/templates/product-engineer/.claude/settings.json` → `<project>/.claude/settings.json`
 3. Copy `~/Projects/Claude Templates/templates/product-engineer/playwright.config.js` → `<project>/playwright.config.js`
@@ -222,7 +239,8 @@ Hooks are symlinked to the claude-templates repo, so they stay up to date automa
 
 ### Product Engineer checklist
 
-- [ ] No literal `{{` tokens remaining in any CLAUDE.md file
+- [ ] No literal `{{INCLUDE:` tokens remaining (all includes resolved)
+- [ ] No literal `{{` value tokens remaining in any CLAUDE.md file
 - [ ] `npm install` completed in orchestrator repo
 - [ ] `tests/` and `ports/` directories exist with `.gitkeep`
 - [ ] GitHub repo created and initial commit pushed

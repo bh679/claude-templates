@@ -1,5 +1,26 @@
 # Bootstrapping a New Project
 
+## Include System
+
+Templates can reference shared content using `{{INCLUDE:<path>}}` tokens.
+The path is relative to the `templates/` directory.
+
+**Resolution order:**
+1. Copy the template file to the target project
+2. Resolve all `{{INCLUDE:...}}` tokens by inlining the referenced file contents
+3. Replace all `{{VALUE}}` tokens with collected values
+
+**Example:** `{{INCLUDE:shared/engineer-base.md}}` inlines `templates/shared/engineer-base.md`.
+
+### Shared files
+
+| File | Used by | Contains |
+|---|---|---|
+| `shared/project-overview.md` | product-engineer, backend-engineer | Project overview header (PROJECT_NAME, LIVE_URL) — templates append their own extra fields after the include |
+| `shared/engineer-base.md` | product-engineer, backend-engineer | Standards fetch, core workflow, session ID, board mgmt, git/worktrees, port mgmt, versioning, Gate 3, documentation preamble, blog trigger, key rules |
+
+---
+
 ## Token Reference
 
 ### Product Engineer Tokens
@@ -75,6 +96,7 @@ When copying `templates/operator/`, replace these tokens:
 ### 1. Project-level setup (orchestrator repo)
 
 - [ ] Copy `templates/product-engineer/CLAUDE.md` → `<project>/CLAUDE.md`
+  - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
   - Replace all `{{TOKENS}}`
   - Verify the GitHub Project V2 number is correct
 - [ ] Copy `templates/product-engineer/.claude/settings.json` → `<project>/.claude/settings.json`
@@ -106,6 +128,7 @@ When copying `templates/operator/`, replace these tokens:
 ### 1. Project-level setup
 
 - [ ] Copy `templates/backend-engineer/CLAUDE.md` → `<project>/CLAUDE.md`
+  - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
   - Replace all `{{TOKENS}}`
 - [ ] Copy `templates/product-engineer/.claude/settings.json` → `<project>/.claude/settings.json`
   - Add any project-specific tool permissions
