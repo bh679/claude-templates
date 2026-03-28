@@ -1,0 +1,29 @@
+name: Standards Version Check
+
+on:
+  pull_request:
+    paths:
+      - 'standards/**'
+      - '.github/scripts/standards-versions.json'
+
+permissions:
+  contents: read
+
+jobs:
+  check-versions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history needed for diff against base
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Check standards versions bumped
+        run: |
+          chmod +x .github/scripts/check-standards-versions.sh
+          chmod +x .github/scripts/build-versions-manifest.sh
+          .github/scripts/check-standards-versions.sh "origin/${{ github.base_ref }}"

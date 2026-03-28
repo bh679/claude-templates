@@ -114,12 +114,18 @@ Each standard file has a version comment on line 1:
 - **Minor** (0.x.0): New section, new guidance — backwards compatible
 - **Major** (x.0.0): Removed or changed existing rules — may break consumer workflows
 
-**Checking for drift:** Consumer projects embed the version comment when standards are
-inlined via `{{STANDARD:...}}` tokens. To check if a consumer is outdated:
+**Automated enforcement:** Version bumps are enforced by:
+- A **CI check** that fails PRs changing standards without a version bump
+- A **local pre-commit hook** for fast feedback before push
+- A **version manifest** (`standards-versions.json`) that stays in sync
 
-1. Find the `<!-- standard: <name> | version: X.Y.Z -->` comment in the consumer's CLAUDE.md
-2. Compare against the current version in `standards/<name>.md`
-3. If the consumer's version is lower, the standard has been updated since the project was set up
+See [`docs/version-enforcement.md`](../docs/version-enforcement.md) for full details.
+
+**Automated drift detection:** Consumer projects embed the version comment when standards
+are inlined via `{{STANDARD:...}}` tokens. A weekly GitHub Actions workflow compares
+consumer versions against current versions and opens issues in outdated repos.
+
+See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
 
 ---
 

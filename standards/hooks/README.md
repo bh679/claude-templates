@@ -28,6 +28,9 @@ standards/hooks/
   versioning/                   ← enforces versioning.md
     git-hook-pre-commit.sh      ← Git: pre-commit
     install-hooks.sh            ← installs versioning hooks only
+  standards/                    ← enforces version bumps in this repo
+    pre-commit-version-check.sh ← Git: pre-commit (claude-templates only)
+    install-hooks.sh            ← installs standards version hook only
   workflow/                     ← enforces workflow.md (future)
   wiki/                         ← enforces wiki-writing.md (future)
   install-hooks.sh              ← composite: calls all per-standard installers
@@ -65,6 +68,7 @@ Each standard has its own installer. Run only the ones your template uses.
 |---|---|---|
 | git | `git/install-hooks.sh` | `.claude/hooks/git/` (symlink) |
 | versioning | `versioning/install-hooks.sh` | `.git/hooks/pre-commit` (copy) |
+| standards | `standards/install-hooks.sh` | `.git/hooks/pre-commit` (copy) — claude-templates repo only |
 
 ---
 
@@ -167,6 +171,46 @@ Output:
 
 Bump `HOOK_VERSION` in the hook script whenever you change the hook's behaviour.
 Use semver: patch for tweaks, minor for new rules, major for breaking changes.
+
+---
+
+### standards/ — version enforcement (claude-templates repo only)
+
+#### `pre-commit-version-check.sh` (Git — pre-commit)
+
+Hard blocks:
+- `standards/*.md` content changed without bumping the `<!-- standard: ... | version: ... -->` comment
+- Standard file missing version comment on line 1
+
+This hook is for the claude-templates repo itself, not consumer projects. It works alongside the CI check (`.github/workflows/standards-version-check.yml`) for defense in depth.
+
+When both the versioning and standards hooks are installed, the installer creates a composite `pre-commit.d/` wrapper that runs both hooks on every commit.
+
+See [`docs/version-enforcement.md`](../../docs/version-enforcement.md) for full details.
+
+---
+
+## Hook Versioning
+
+All hook scripts include a version comment for tracking:
+
+```bash
+#!/usr/bin/env bash
+# hook-version: 1.0.0
+```
+
+| Hook | Current Version |
+|---|---|
+| `git/pre-bash.sh` | 1.0.0 |
+| `git/post-bash.sh` | 1.0.0 |
+| `versioning/git-hook-pre-commit.sh` | 1.0.0 |
+| `standards/pre-commit-version-check.sh` | 1.0.0 |
+
+**Why this matters:**
+- **Symlinked hooks** (Claude Code) auto-update when this repo is pulled
+- **Copied hooks** (Git) stay at whatever version was installed — re-run `install-hooks.sh` to update
+
+The [drift detection](../../docs/drift-detection.md) system reminds consumers to re-run `install-hooks.sh` when their project is flagged.
 
 ---
 

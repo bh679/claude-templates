@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# hook-version: 1.0.0
 # git/pre-bash.sh
 HOOK_VERSION="1.0.0"
 #
