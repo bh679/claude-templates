@@ -6,6 +6,8 @@ All shipped features in Claude Templates, newest first.
 
 | Shipped | Feature | Description |
 |---|---|---|
+| 2026-03-28 | [Port Management Standard](Port-Management-Standard) | System-wide dev-server port allocation across all projects |
+| 2026-03-28 | [Project Board Standard](Project-Board-Standard) | GitHub Projects board interaction extracted as versioned standard |
 | 2026-03-05 | [Unit Testing Standard](Unit-Testing-Standard) | Framework-agnostic unit test requirements with 80% coverage threshold |
 | 2026-03-05 | [HTTP Diagnostics Standard](HTTP-Diagnostics-Standard) | Observability standard for HTTP backend services |
 | 2026-03-05 | [Hook Versioning](Hook-Versioning) | Detect outdated local hook copies via version tracking |

@@ -8,13 +8,15 @@ Versioned policy documents that serve as the source of truth across all Claude-p
 
 | Standard | Version | Covers |
 |---|---|---|
-| [Git Standards](Git-Standards) | 1.1.0 | Branch naming, commit messages, worktrees, merge strategy |
-| [Three-Gate Workflow](Three-Gate-Workflow) | 1.1.0 | Plan, Test, Merge approval gates |
-| [Versioning](Versioning-Standard) | 1.0.0 | V.MM.PPPP scheme, bump rules, tagging |
-| [Wiki Writing](Wiki-Writing-Standard) | 1.0.0 | Documentation style, breadcrumbs, templates |
+| [Git Standards](Git-Standards) | 1.2.0 | Branch naming, commit messages, worktrees, merge strategy |
+| [Three-Gate Workflow](Three-Gate-Workflow) | 1.2.0 | Plan, Test, Merge approval gates |
+| [Versioning](Versioning-Standard) | 2.0.0 | V.MM.PPPP scheme, bump rules, tagging |
+| [Wiki Writing](Wiki-Writing-Standard) | 1.1.0 | Documentation style, breadcrumbs, templates |
 | [Operator](Operator-Standard) | 1.0.0 | Scheduled autonomous agent scaffolding |
 | [Unit Testing](Unit-Testing-Standard) | 1.0.0 | Test requirements, coverage, organization |
 | [HTTP Diagnostics](HTTP-Diagnostics-Standard) | 1.0.0 | Health endpoints, error logging, usage tracking |
+| [Project Board](Project-Board-Standard) | 1.0.0 | GitHub Projects board interaction, search-before-create |
+| [Port Management](Port-Management-Standard) | 1.1.1 | System-wide dev-server port allocation |
 
 ## How Standards Work
 

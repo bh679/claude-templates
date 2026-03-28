@@ -53,6 +53,8 @@ Projects currently using these templates and standards:
 
 | Date | Feature | Notes |
 |---|---|---|
+| 2026-03-28 | [Port Management Standard](Port-Management-Standard) | System-wide dev-server port allocation |
+| 2026-03-28 | [Project Board Standard](Project-Board-Standard) | GitHub Projects board interaction standard |
 | 2026-03-05 | [Unit Testing Standard](Unit-Testing-Standard) | Added standard for unit test requirements |
 | 2026-03-05 | [HTTP Diagnostics Standard](HTTP-Diagnostics-Standard) | Added observability standard for HTTP backends |
 | 2026-03-05 | [Hook Versioning](Hook-Versioning) | Version detection for outdated local hook copies |
