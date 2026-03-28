@@ -1,4 +1,4 @@
-<!-- standard: git | version: 1.0.0 -->
+<!-- standard: git | version: 1.1.0 -->
 # Git Standards
 
 > **Source of truth** for git workflow across all Claude-powered projects.
@@ -110,6 +110,7 @@ test: add Playwright test for checkout flow
 ## Merge Strategy
 
 - Always merge via **Pull Request** (never direct push to main)
+- Branch must be up to date with `main` before creating a PR _(enforced by hook)_
 - Use **squash merge** for feature branches to keep main history clean
 - PR title matches the commit message format: `feat: <description>`
 - Delete the feature branch after merge

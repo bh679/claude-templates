@@ -6,7 +6,8 @@
 # Rules enforced:
 #   1. Block commits directly to main/master       (hard block — exit 1)
 #   2. Warn if new branch missing dev/ prefix      (soft warn — exit 0)
-#   3. Block gh pr merge without --squash          (hard block — exit 1)
+#   3. Block gh pr create if branch is behind main (hard block — exit 1)
+#   4. Block gh pr merge without --squash          (hard block — exit 1)
 #
 # Note: force push, reset --hard, and rm -rf are blocked via settings.json
 #       deny permissions — no hook needed for those.
@@ -48,7 +49,24 @@ if echo "$CMD" | grep -qE "git (checkout|switch) -b "; then
   fi
 fi
 
-# ── 3. Block PR merge without --squash ─────────────────────────────────────
+# ── 3. Block PR creation if branch is behind main ────────────────────────
+if echo "$CMD" | grep -q "gh pr create"; then
+  # Fetch latest main silently
+  git fetch origin main --quiet 2>/dev/null || true
+  BEHIND=$(git rev-list --count HEAD..origin/main 2>/dev/null || echo "0")
+  if [ "$BEHIND" -gt 0 ]; then
+    red "BLOCKED: Your branch is $BEHIND commit(s) behind origin/main."
+    red "Merge main into your branch before creating a PR."
+    dim ""
+    dim "Run:"
+    dim "  git fetch origin"
+    dim "  git merge origin/main"
+    dim "  # Resolve any conflicts, then push"
+    exit 1
+  fi
+fi
+
+# ── 4. Block PR merge without --squash ─────────────────────────────────────
 if echo "$CMD" | grep -q "gh pr merge"; then
   if ! echo "$CMD" | grep -q -- "--squash"; then
     red "BLOCKED: PRs must be squash merged per git.md standards."
