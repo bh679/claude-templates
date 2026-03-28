@@ -66,19 +66,7 @@ git worktree remove ../worktrees/{{PROJECT_SLUG}}-<feature-slug>
 git branch -d dev/<feature-slug>
 ```
 
-### Port Management
-
-Each session claims a unique port to avoid conflicts:
-
-```bash
-# Claim a port
-echo '{"port": {{BASE_PORT}}, "session": "<session-id>", "feature": "<feature-slug>"}' > ./ports/<session-id>.json
-
-# Release port after session ends
-rm ./ports/<session-id>.json
-```
-
-Base port: `{{BASE_PORT}}`. If occupied, increment by 1 until a free port is found.
+{{STANDARD:port-management}}
 
 
 
