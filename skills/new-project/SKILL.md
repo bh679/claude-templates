@@ -22,22 +22,22 @@ GitHub, and registering the project.
 
 ## Pre-Check
 
-Verify the claude-templates repo is available:
+Verify the `gh` CLI is authenticated:
 ```bash
-ls ~/Projects/Claude\ Templates/templates/
+gh auth status
 ```
-If not found, tell the user to clone `bh679/claude-templates` to `~/Projects/Claude Templates/`.
+If not authenticated, guide the user through `gh auth login` before proceeding.
 
 ---
 
 ## Step 1 — Choose a Template Type
 
-First, discover what templates are available:
+First, discover what templates are available from GitHub:
 ```bash
-ls ~/Projects/Claude\ Templates/templates/
+gh api repos/bh679/claude-templates/contents/templates --jq '[.[] | select(.type == "dir") | .name]'
 ```
 
-List the discovered template directories (excluding `README.md`) to the user, then ask which applies if not already specified. Also offer **None** for a plain repo with no Claude workflow templates.
+List the discovered template directories to the user, then ask which applies if not already specified. Also offer **None** for a plain repo with no Claude workflow templates.
 
 ---
 
