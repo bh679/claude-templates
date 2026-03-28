@@ -46,6 +46,7 @@ Replaced with project-specific values collected during setup.
 | `project-overview.md` | engineering/project-overview.md | Project overview header (PROJECT_NAME, LIVE_URL) |
 | `engineering/project-overview.md` | engineering/product, engineering/backend | Includes project-overview.md + adds Repos, GitHub Project, Wiki fields |
 | `engineering/base.md` | engineering/product, engineering/backend | Standards (via STANDARD tokens), core workflow, session ID, board mgmt, git/worktrees, port mgmt, versioning, Gate 3, documentation, blog trigger, key rules |
+| `operator-base.md` | operator, executive-ops-officer | State management (state.json read/update/commit), skip guard, turn limit (30), human escalation (GitHub issue + stop) |
 
 ---
 
@@ -127,6 +128,7 @@ inlined via `{{STANDARD:...}}` tokens. To check if a consumer is outdated:
 ### Operator Project
 
 - [ ] Copy `templates/operator/CLAUDE.md` → `<repo>/CLAUDE.md`
+  - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
   - Replace all `{{TOKENS}}`
   - Fill in the skip guard condition
 - [ ] Copy `templates/operator/.github/workflows/operator.yml` → `<repo>/.github/workflows/<agent-slug>.yml`

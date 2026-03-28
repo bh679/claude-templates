@@ -41,12 +41,12 @@ cd ../worktrees/<feature-slug>
 npm install   # or whatever the repo setup requires
 ```
 
-### Teardown (do this after Gate 3 merge)
+### After Gate 3 Merge
+
+You may continue working in the same worktree after merge. If you do, create or switch to a new branch first — never commit to `main`.
 
 ```bash
-# From repo root
-git worktree remove ../worktrees/<feature-slug>
-git branch -d dev/<feature-slug>
+git checkout -b dev/<next-feature-slug>
 ```
 
 ### Why worktrees?
