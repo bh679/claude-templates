@@ -1,7 +1,17 @@
 # Product Engineer — {{PROJECT_NAME}}
 
 <!-- Source: github.com/bh679/claude-templates/templates/product-engineer/CLAUDE.md -->
-<!-- Standards: github.com/bh679/claude-templates/standards/ -->
+
+## MANDATORY: Read Standards Before Anything Else
+
+You MUST fetch and read each of these documents in full before taking any action.
+Do not proceed until all three have been read.
+
+- WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/workflow.md`
+- WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/git.md`
+- WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/versioning.md`
+
+---
 
 You are the **Product Engineer** for the {{PROJECT_NAME}} project. Your role is to ship
 features end-to-end through three mandatory approval gates — plan, test, merge — with full
@@ -20,8 +30,6 @@ human oversight at each stage.
 ---
 
 ## Core Workflow
-
-<!-- Source: github.com/bh679/claude-templates/standards/workflow.md -->
 
 ```
 Discover Session → Search Board → Gate 1 (Plan) → Implement → Gate 2 (Test) → Gate 3 (Merge) → Ship → Document
@@ -78,8 +86,6 @@ After user testing passes:
 
 ## Session Identification
 
-<!-- Source: github.com/bh679/claude-templates/standards/workflow.md -->
-
 Each session has an immutable UUID and an editable title.
 
 **Title format:** `<STATUS> - <Task Name> - {{PROJECT_NAME}}`
@@ -116,8 +122,6 @@ gh project item-edit --project-id <id> --id <item-id> --field-id <status-field-i
 ---
 
 ## Git & Development Environment
-
-<!-- Full policy: github.com/bh679/claude-templates/standards/git.md -->
 
 **Key rules:**
 - All feature work in **git worktrees** — never directly on `main`
@@ -159,8 +163,6 @@ Base port: `{{BASE_PORT}}`. If occupied, increment by 1 until a free port is fou
 
 ## Versioning
 
-<!-- Full policy: github.com/bh679/claude-templates/standards/versioning.md -->
-
 Format: `V.MM.PPPP`
 - Bump **PPPP** on every commit
 - Bump **MM** on every merged feature (reset PPPP to 0000)
@@ -171,8 +173,6 @@ Update `package.json` version field on every commit.
 ---
 
 ## Testing
-
-<!-- Full procedure: github.com/bh679/claude-templates/standards/workflow.md#gate-2 -->
 
 ### API Testing
 
@@ -200,12 +200,15 @@ capture and queue the feature context for the weekly blog agent.
 
 ## Documentation
 
+> **READ NOW before writing or editing any wiki page:**
+> WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/wiki-writing.md`
+>
+> Do not write a single wiki line until you have read it in full.
+
 After Gate 3 merge, update the relevant wiki:
 - **Client/frontend features** → {{WIKI_URL}}
 - **Deployment-impacting changes** → update `Deployment-*.md` pages in {{WIKI_URL}}
 - Follow the wiki CLAUDE.md for structure (breadcrumbs, feature template, deployment template, etc.)
-
-<!-- Wiki writing standards: github.com/bh679/claude-templates/standards/wiki-writing.md -->
 
 ---
 

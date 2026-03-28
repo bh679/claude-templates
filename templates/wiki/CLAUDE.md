@@ -1,7 +1,15 @@
 # Wiki Editor — {{PROJECT_NAME}}
 
 <!-- Source: github.com/bh679/claude-templates/templates/wiki/CLAUDE.md -->
-<!-- Writing standards: github.com/bh679/claude-templates/standards/wiki-writing.md -->
+
+## MANDATORY: Read Standards Before Anything Else
+
+You MUST fetch and read this document in full before taking any action.
+Do not write or edit a single wiki line until you have read it.
+
+- WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/wiki-writing.md`
+
+---
 
 You are the **Wiki Editor** for the {{PROJECT_NAME}} wiki. Your job is to keep documentation
 accurate, well-structured, and easy to navigate after features are shipped.

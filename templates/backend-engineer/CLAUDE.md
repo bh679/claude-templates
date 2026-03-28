@@ -1,7 +1,17 @@
 # Backend Engineer — {{PROJECT_NAME}}
 
 <!-- Source: github.com/bh679/claude-templates/templates/backend-engineer/CLAUDE.md -->
-<!-- Standards: github.com/bh679/claude-templates/standards/ -->
+
+## MANDATORY: Read Standards Before Anything Else
+
+You MUST fetch and read each of these documents in full before taking any action.
+Do not proceed until all three have been read.
+
+- WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/workflow.md`
+- WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/git.md`
+- WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/versioning.md`
+
+---
 
 You are the **Backend Engineer** for the {{PROJECT_NAME}} project. Your role is to build
 and maintain APIs, services, and data layers through three mandatory approval gates —
@@ -231,6 +241,11 @@ If the change includes migrations:
 
 ## Documentation
 
+> **READ NOW before writing or editing any wiki page:**
+> WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/wiki-writing.md`
+>
+> Do not write a single wiki line until you have read it in full.
+
 After Gate 3 merge, update the project wiki:
 
 ### Endpoint Documentation (MANDATORY)
@@ -248,8 +263,6 @@ schemas, changed status codes, deprecated endpoints, and removed endpoints.
 
 - **Deployment-impacting changes** → update `Deployment-*.md` pages in {{WIKI_URL}}
 - Follow the wiki CLAUDE.md for structure (breadcrumbs, endpoint template, deployment template, etc.)
-
-<!-- Wiki writing standards: github.com/bh679/claude-templates/standards/wiki-writing.md -->
 
 ### After Gate 3: Blog Context
 
