@@ -117,9 +117,12 @@ If the SendGrid call returns a non-2xx status, open a GitHub issue with the erro
 
 ---
 
-## State Management
+{{INCLUDE:shared/operator-base.md}}
 
-At the start of each run, read `state.json`:
+---
+
+## State Schema
+
 ```json
 {
   "last_run": "<ISO timestamp or null>",
@@ -134,22 +137,9 @@ At the start of each run, read `state.json`:
 
 Use the snapshot to detect changes since last run. An item or PR is "new" if its ID wasn't in the previous snapshot for that repo.
 
-At the end of each run, update `state.json` with:
-- `last_run`: current ISO timestamp
-- `snapshot`: current tier and item IDs for each repo
-
-Commit updated `state.json` and push:
-```bash
-git config user.name "github-actions[bot]"
-git config user.email "github-actions[bot]@users.noreply.github.com"
-git add state.json
-git commit -m "chore: state update {DATE}"
-git push
-```
-
 ---
 
-## Skip Guard
+## Skip Condition
 
 Skip sending email (but still update state) if:
 - All repos are 🟢 AND all repos were also 🟢 on the previous run
@@ -167,22 +157,8 @@ Do not post comments, open PRs, or take any action in monitored repos. Observer 
 
 ---
 
-## Turn Limit
-
-Complete your work in **30 turns or fewer**. If data volume is too large, improve `fetch-data.sh` pre-processing rather than expanding turns.
-
----
-
 ## Commit Message Format
 
 `chore: state update YYYY-MM-DD`
 
 Only `state.json` is committed each run. The email is sent externally, not committed.
-
----
-
-## Human Escalation
-
-If you encounter an unrecoverable error:
-1. Open a GitHub issue in this repo: `gh issue create --title "Ops Officer failure: ..." --body "..."`
-2. Stop. Do not commit partial state.
