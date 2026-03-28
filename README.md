@@ -9,6 +9,7 @@ Canonical home for workflow standards, project templates, and installable Claude
 | [`standards/`](standards/) | Living policy docs — source of truth for git, versioning, workflow, and wiki conventions |
 | [`templates/`](templates/) | Copy-once starting points for new projects (product engineer, sub-repos, wikis) |
 | [`skills/`](skills/) | Installable Claude skills — symlink into `~/.claude/skills/` |
+| [`docs/`](docs/) | Documentation for this repo's automation (version enforcement, drift detection) |
 
 ## Quick Start: Bootstrap a New Project
 
@@ -42,8 +43,19 @@ All skills install to `~/.claude/skills/` and are globally available. The **Scop
 |---|---|
 | [`standards/workflow.md`](standards/workflow.md) | 3-gate approval workflow, plan mode, session management |
 | [`standards/git.md`](standards/git.md) | Branch naming, commit messages, worktree procedure |
-| [`standards/versioning.md`](standards/versioning.md) | V.MM.PPPP scheme, bump rules, tag conventions |
+| [`standards/versioning.md`](standards/versioning.md) | SemVer conventions, bump rules, tag and rollback procedures |
 | [`standards/wiki-writing.md`](standards/wiki-writing.md) | Prose style, link rules, image naming for wikis |
+
+## Version Enforcement & Drift Detection
+
+Standards and hooks are version-tracked. Two automated systems keep everything in sync:
+
+| System | What it does | Docs |
+|---|---|---|
+| **Version enforcement** | CI check + pre-commit hook that block changes to standards without a version bump | [`docs/version-enforcement.md`](docs/version-enforcement.md) |
+| **Drift detection** | Weekly workflow that flags consumer projects with outdated standards | [`docs/drift-detection.md`](docs/drift-detection.md) |
+
+Current standard versions are tracked in [`.github/scripts/standards-versions.json`](.github/scripts/standards-versions.json).
 
 ## Consumer Projects
 
