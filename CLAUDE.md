@@ -61,7 +61,7 @@ See `templates/README.md` for the full checklist. Quick version:
 3. Resolve `{{STANDARD:...}}` tokens (inline versioned standards)
 4. Fill in `{{VALUE}}` tokens
 5. Copy `.claude/settings.json`, `playwright.config.js`, `package.json`
-6. For each sub-repo: copy `templates/repo/CLAUDE.md`, fill in tokens
+6. For each sub-repo: copy the appropriate engineering template (`product/` or `backend/`), resolve tokens
 7. For each wiki repo: copy `templates/wiki/` contents
 8. Run `./install-skills.sh` on the developer's machine
 
