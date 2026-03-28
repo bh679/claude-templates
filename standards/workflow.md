@@ -77,14 +77,16 @@ Create a `Deployment.md` index page and at least one `Deployment-<Method>.md` pa
 **Trigger:** After isolated implementation is complete.
 
 **Agent actions:**
-1. Run automated tests (curl for APIs, Playwright MCP for UI)
-2. Take screenshots of the feature using `browser_take_screenshot`
-3. Use `browser_snapshot` for accessibility tree analysis
-4. Enter plan mode and present a **Gate 2 Testing Report** containing:
+1. Run unit tests per the [Unit Testing standard](unit-testing.md) — verify 80%+ line coverage
+2. Run integration/e2e tests (curl for APIs, Playwright MCP for UI)
+3. Take screenshots of the feature using `browser_take_screenshot`
+4. Use `browser_snapshot` for accessibility tree analysis
+5. Enter plan mode and present a **Gate 2 Testing Report** containing:
+   - Unit test summary: total, passed, failed, skipped, coverage %
    - Screenshot paths (for blogging)
    - Clickable local URL with port
    - Step-by-step user testing instructions
-   - Automated test results summary
+   - Integration/e2e test results summary
    - What passed / what failed
 
 **Gate requirement:** User tests manually and clicks Approve.
