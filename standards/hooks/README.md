@@ -24,11 +24,13 @@ standards/hooks/
   git/                          ← enforces git.md
     pre-bash.sh                 ← Claude Code: PreToolUse Bash
     post-bash.sh                ← Claude Code: PostToolUse Bash
+    install-hooks.sh            ← installs git standard hooks only
   versioning/                   ← enforces versioning.md
     git-hook-pre-commit.sh      ← Git: pre-commit
+    install-hooks.sh            ← installs versioning hooks only
   workflow/                     ← enforces workflow.md (future)
   wiki/                         ← enforces wiki-writing.md (future)
-  install-hooks.sh
+  install-hooks.sh              ← composite: calls all per-standard installers
   README.md
 ```
 
@@ -42,15 +44,26 @@ standards/hooks/
 
 ## Installation
 
-Run from your **consumer project's root directory**:
+Each standard has its own installer. Run only the ones your template uses.
+
+### Per-standard (recommended)
+
+```bash
+# From your consumer project root:
+~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
+~/Projects/Claude\ Templates/standards/hooks/versioning/install-hooks.sh
+```
+
+### All standards at once
 
 ```bash
 ~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
 ```
 
-This installs:
-- All `git-hook-*.sh` scripts → `.git/hooks/` (copied, executable)
-- All standard folders containing Claude hooks → `.claude/hooks/<standard>/` (symlinked)
+| Standard | Installer | Installs |
+|---|---|---|
+| git | `git/install-hooks.sh` | `.claude/hooks/git/` (symlink) |
+| versioning | `versioning/install-hooks.sh` | `.git/hooks/pre-commit` (copy) |
 
 ---
 

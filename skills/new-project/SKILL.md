@@ -109,7 +109,9 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
    ```
 6. Install hooks:
    ```bash
-   cd <project> && ~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
+   cd <project>
+   ~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
+   ~/Projects/Claude\ Templates/standards/hooks/versioning/install-hooks.sh
    ```
 
 ### 3b. Sub-repos (repeat for each: client, API, etc.)
@@ -118,7 +120,9 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
 2. Replace all `{{TOKENS}}`
 3. Install hooks:
    ```bash
-   cd <sub-repo> && ~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
+   cd <sub-repo>
+   ~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
+   ~/Projects/Claude\ Templates/standards/hooks/versioning/install-hooks.sh
    ```
 
 ### 3c. Wiki repo (repeat for each wiki)
@@ -221,17 +225,28 @@ Verify `trigger-blog` appears in the Claude skill list.
 
 ### Hooks (once per repo)
 
-If not already done in Step 3, run from each repo root:
+Each standard has its own installer. Run only the ones relevant to the template:
+
+| Standard | Installer | Templates that use it |
+|---|---|---|
+| git.md | `standards/hooks/git/install-hooks.sh` | product-engineer, backend-engineer |
+| versioning.md | `standards/hooks/versioning/install-hooks.sh` | product-engineer, backend-engineer |
+
+Run from each repo root:
+
+```bash
+cd <repo>
+~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
+~/Projects/Claude\ Templates/standards/hooks/versioning/install-hooks.sh
+```
+
+Or install all standards at once:
 
 ```bash
 cd <repo> && ~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
 ```
 
-This installs:
-- **Git hooks** → `.git/hooks/` (e.g. version check on pre-commit)
-- **Claude Code hooks** → `.claude/hooks/` (e.g. git.md enforcement during tool use)
-
-Hooks are symlinked to the claude-templates repo, so they stay up to date automatically.
+Claude Code hooks are symlinked — updates propagate automatically. Git hooks are copied — re-run to pick up future changes.
 
 ---
 
