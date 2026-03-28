@@ -1,5 +1,5 @@
-<!-- Shared operator base — github.com/bh679/claude-templates/templates/shared/operator-base.md -->
-<!-- Included at copy time via {{INCLUDE:shared/operator-base.md}} -->
+<!-- Operator base — github.com/bh679/claude-templates/templates/operator-base.md -->
+<!-- Included at copy time via {{INCLUDE:operator-base.md}} -->
 
 ## State Management
 

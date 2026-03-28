@@ -1,7 +1,7 @@
+<!-- standard: wiki-writing | version: 1.0.0 -->
 # Wiki Writing Standard
 
 > **Source of truth** for documentation style across all project wikis.
-> Consumer wiki CLAUDE.md files reference this doc with a pointer comment.
 
 ---
 

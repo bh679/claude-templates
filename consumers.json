@@ -1,19 +1,19 @@
 [
   {
     "repo": "bh679/chess-project",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Chess game platform orchestrator"
   },
   {
     "repo": "bh679/Claude-Management-Dashboard",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Claude Management Dashboard (formerly AutoClaude)"
   },
   {
     "repo": "bh679/house-sitting-agent",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Autonomous house-sitting listing monitor and applicant"
   },
@@ -31,7 +31,7 @@
   },
   {
     "repo": "bh679/Claude-Max-Usage-Analytics",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Claude Max Usage Analytics — personal usage dashboard"
   },
@@ -62,43 +62,43 @@
   },
   {
     "repo": "bh679/Claude-Code-Session-Monitor",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Claude Code Session Monitor — real-time session tracking with hooks and project matching"
   },
   {
     "repo": "bh679/claude-oauth-distributor",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Claude OAuth Distributor — token generator, distributor CLI, and menubar app"
   },
   {
     "repo": "bh679/the-epstein-files",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "The Epstein Files — top-down pixel art game exploring a secret CIA library"
   },
   {
     "repo": "bh679/discord-image-dashboard",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Discord Image Dashboard — bot + web dashboard aggregating server images over 7 days"
   },
   {
     "repo": "bh679/CarkedIt",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "CarkedItOnline — multiplayer card game web app"
   },
   {
     "repo": "bh679/fill-in-the-blank",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Fill-in-the-Blank Card Game — Apples to Apples style party game"
   },
   {
     "repo": "bh679/carkedit-online",
-    "template": "product-engineer",
+    "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "CarkedIt Online — vanilla HTML/CSS/JS card game rewrite"
   }

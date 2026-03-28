@@ -1,7 +1,7 @@
+<!-- standard: workflow | version: 1.0.0 -->
 # Workflow Standard — Three-Gate Approval
 
 > **Source of truth** for all Claude product engineer sessions.
-> Consumer projects reference this doc with a pointer comment in their CLAUDE.md.
 
 ---
 
@@ -13,7 +13,15 @@ Every feature follows a linear sequence:
 Discover Session → Search Board → Gate 1 (Plan) → Implement → Gate 2 (Test) → Gate 3 (Merge) → Ship → Document
 ```
 
+
 One feature per session. Never work on multiple features in the same session.
+
+
+> **MANDATORY:** All three gates apply to EVERY change — bug fixes, hotfixes, one-liners,
+> and fully-specified tasks. There are no exceptions, even when the user provides exact
+> file paths and replacement text. Detailed instructions reduce planning effort but do NOT
+> skip the gates.
+
 
 ---
 
@@ -143,6 +151,8 @@ Re-read the project CLAUDE.md at every gate transition. This ensures you always 
 - Session title must reflect the active feature at all times
 
 ---
+
+
 
 ## After Gate 3: Documentation
 

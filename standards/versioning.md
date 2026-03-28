@@ -1,7 +1,17 @@
+<!-- standard: versioning | version: 1.0.0 -->
 # Versioning Standard — V.MM.PPPP
 
 > **Source of truth** for version numbering across all Claude-powered projects.
-> Consumer projects reference this doc with a pointer comment in their CLAUDE.md.
+
+
+## Versioning
+
+Format: `V.MM.PPPP`
+- Bump **PPPP** on every commit
+- Bump **MM** on every merged feature (reset PPPP to 0000)
+- Bump **V** only for breaking changes
+
+Update `package.json` version field on every commit.
 
 ---
 

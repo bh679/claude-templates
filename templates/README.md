@@ -1,32 +1,60 @@
 # Bootstrapping a New Project
 
-## Include System
+## Token System
 
-Templates can reference shared content using `{{INCLUDE:<path>}}` tokens.
-The path is relative to the `templates/` directory.
+Templates use three token types, resolved at copy time in this order:
+
+### 1. Include Tokens — `{{INCLUDE:<path>}}`
+
+Inline shared content from another file. Path is relative to the `templates/` directory.
+
+**Example:** `{{INCLUDE:engineering/base.md}}` inlines `templates/engineering/base.md`.
+
+### 2. Standard Tokens — `{{STANDARD:<name>}}`
+
+Inline a versioned standard from `standards/<name>.md`. When resolved, the full standard
+content is embedded with a version comment so consumer projects can detect drift:
+
+```markdown
+<!-- standard: git | version: 1.0.0 -->
+# Git Standards
+...full content...
+```
+
+Available standards: `workflow`, `git`, `versioning`, `wiki-writing`, `operator`
+
+**Version tracking:** Each standard has a `<!-- standard: <name> | version: X.Y.Z -->` header.
+When a standard is updated, its version is bumped. Consumer projects can compare their embedded
+version against the current version in this repo to check if they need updating.
+
+### 3. Value Tokens — `{{TOKEN_NAME}}`
+
+Replaced with project-specific values collected during setup.
 
 **Resolution order:**
 1. Copy the template file to the target project
-2. Resolve all `{{INCLUDE:...}}` tokens by inlining the referenced file contents
-3. Replace all `{{VALUE}}` tokens with collected values
+2. Resolve all `{{INCLUDE:...}}` tokens (recursive)
+3. Resolve all `{{STANDARD:...}}` tokens (inline standard with version comment)
+4. Replace all `{{VALUE}}` tokens with collected values
 
-**Example:** `{{INCLUDE:shared/engineer-base.md}}` inlines `templates/shared/engineer-base.md`.
+---
 
-### Shared files
+## Shared Files
 
 | File | Used by | Contains |
 |---|---|---|
-| `shared/project-overview.md` | product-engineer, backend-engineer | Project overview header (PROJECT_NAME, LIVE_URL) — templates append their own extra fields after the include |
-| `shared/engineer-base.md` | product-engineer, backend-engineer | Standards fetch, core workflow, session ID, board mgmt, git/worktrees, port mgmt, versioning, Gate 3, documentation preamble, blog trigger, key rules |
-| `shared/operator-base.md` | operator, executive-ops-officer | State management (state.json read/update/commit), skip guard, turn limit (30), human escalation (GitHub issue + stop) |
+| `project-overview.md` | engineering/project-overview.md | Project overview header (PROJECT_NAME, LIVE_URL) |
+| `engineering/project-overview.md` | engineering/product, engineering/backend | Includes project-overview.md + adds Repos, GitHub Project, Wiki fields |
+| `engineering/base.md` | engineering/product, engineering/backend | Standards (via STANDARD tokens), core workflow, session ID, board mgmt, git/worktrees, port mgmt, versioning, Gate 3, documentation, blog trigger, key rules |
+| `operator-base.md` | operator, executive-ops-officer | State management (state.json read/update/commit), skip guard, turn limit (30), human escalation (GitHub issue + stop) |
 
 ---
 
 ## Token Reference
 
-### Product Engineer Tokens
+### Engineering — Product Tokens
 
-When copying `templates/product-engineer/`, replace these tokens:
+When copying `templates/engineering/product/`, replace these tokens:
 
 | Token | Example | Description |
 |---|---|---|
@@ -40,9 +68,9 @@ When copying `templates/product-engineer/`, replace these tokens:
 | `{{WIKI_URL}}` | `github.com/bh679/chess-client/wiki` | Wiki URL for the main client/frontend repo |
 | `{{PROJECT_DESCRIPTION}}` | `A multiplayer chess platform` | One-sentence project description, used in wiki Home.md |
 
-### Backend Engineer Tokens
+### Engineering — Backend Tokens
 
-When copying `templates/backend-engineer/`, replace these tokens:
+When copying `templates/engineering/backend/`, replace these tokens:
 
 | Token | Example | Description |
 |---|---|---|
@@ -73,6 +101,28 @@ When copying `templates/operator/`, replace these tokens:
 
 ---
 
+## Standard Version Tracking
+
+Each standard file has a version comment on line 1:
+
+```markdown
+<!-- standard: git | version: 1.0.0 -->
+```
+
+**Bump rules:**
+- **Patch** (0.0.x): Clarification, typo fix, formatting — no behavioural change
+- **Minor** (0.x.0): New section, new guidance — backwards compatible
+- **Major** (x.0.0): Removed or changed existing rules — may break consumer workflows
+
+**Checking for drift:** Consumer projects embed the version comment when standards are
+inlined via `{{STANDARD:...}}` tokens. To check if a consumer is outdated:
+
+1. Find the `<!-- standard: <name> | version: X.Y.Z -->` comment in the consumer's CLAUDE.md
+2. Compare against the current version in `standards/<name>.md`
+3. If the consumer's version is lower, the standard has been updated since the project was set up
+
+---
+
 ## Bootstrapping Checklist
 
 ### Operator Project
@@ -93,18 +143,19 @@ When copying `templates/operator/`, replace these tokens:
 
 ---
 
-### Product Engineer Project
+### Engineering — Product Project
 
 ### 1. Project-level setup (orchestrator repo)
 
-- [ ] Copy `templates/product-engineer/CLAUDE.md` → `<project>/CLAUDE.md`
+- [ ] Copy `templates/engineering/product/CLAUDE.md` → `<project>/CLAUDE.md`
   - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
+  - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
   - Replace all `{{TOKENS}}`
   - Verify the GitHub Project V2 number is correct
-- [ ] Copy `templates/product-engineer/.claude/settings.json` → `<project>/.claude/settings.json`
+- [ ] Copy `templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
   - Add any project-specific tool permissions
-- [ ] Copy `templates/product-engineer/playwright.config.js` → `<project>/playwright.config.js`
-- [ ] Copy `templates/product-engineer/package.json` → `<project>/package.json`
+- [ ] Copy `templates/engineering/product/playwright.config.js` → `<project>/playwright.config.js`
+- [ ] Copy `templates/engineering/product/package.json` → `<project>/package.json`
   - Update `name` field
   - Run `npm install`
 - [ ] Create `<project>/tests/.gitkeep`
@@ -125,14 +176,15 @@ When copying `templates/operator/`, replace these tokens:
 
 ---
 
-### Backend Engineer Project
+### Engineering — Backend Project
 
 ### 1. Project-level setup
 
-- [ ] Copy `templates/backend-engineer/CLAUDE.md` → `<project>/CLAUDE.md`
+- [ ] Copy `templates/engineering/backend/CLAUDE.md` → `<project>/CLAUDE.md`
   - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
+  - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
   - Replace all `{{TOKENS}}`
-- [ ] Copy `templates/product-engineer/.claude/settings.json` → `<project>/.claude/settings.json`
+- [ ] Copy `templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
   - Add any project-specific tool permissions
 - [ ] Create `<project>/ports/.gitkeep`
 
@@ -182,11 +234,11 @@ When copying `templates/operator/`, replace these tokens:
         └── fetch-data.sh         (data gathering script)
 ```
 
-### Product Engineer
+### Engineering — Product
 
 ```
 <project>/                        (orchestrator repo)
-├── CLAUDE.md                     (filled-in product engineer template)
+├── CLAUDE.md                     (filled-in product engineer template with embedded standards)
 ├── .claude/
 │   └── settings.json
 ├── package.json
@@ -206,11 +258,11 @@ When copying `templates/operator/`, replace these tokens:
 └── Deployment.md                 (optional)
 ```
 
-### Backend Engineer
+### Engineering — Backend
 
 ```
 <project>/                        (orchestrator repo)
-├── CLAUDE.md                     (filled-in backend engineer template)
+├── CLAUDE.md                     (filled-in backend engineer template with embedded standards)
 ├── .claude/
 │   └── settings.json
 └── ports/

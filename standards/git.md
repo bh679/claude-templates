@@ -1,7 +1,7 @@
+<!-- standard: git | version: 1.0.0 -->
 # Git Standards
 
 > **Source of truth** for git workflow across all Claude-powered projects.
-> Consumer projects reference this doc with a pointer comment in their CLAUDE.md.
 
 ---
 

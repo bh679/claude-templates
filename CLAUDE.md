@@ -8,8 +8,9 @@ and installable skills used across all of Brennan's Claude-powered projects.
 
 | Directory | What it is | How it's consumed |
 |---|---|---|
-| `standards/` | Living policy docs — source of truth | Referenced by pointer comments in consumer CLAUDE.md files |
-| `templates/product-engineer/` | Product engineer starting point (human-initiated, 3-gate workflow) | Copied into new projects once, tokens filled in |
+| `standards/` | Versioned policy docs — source of truth | Embedded in consumer CLAUDE.md files via `{{STANDARD:name}}` tokens |
+| `templates/engineering/product/` | Product engineer starting point (3-gate workflow) | Copied into new projects once, tokens filled in |
+| `templates/engineering/backend/` | Backend engineer starting point (3-gate + backend checklist) | Copied into new projects once, tokens filled in |
 | `templates/operator/` | Operator starting point (scheduled autonomous agent) | Copied into new operator projects once, tokens filled in |
 | `skills/` | Installable Claude skills (SKILL.md format) | Symlinked into `~/.claude/skills/<name>/` |
 
@@ -19,10 +20,14 @@ and installable skills used across all of Brennan's Claude-powered projects.
 
 ### Updating a Standard
 
-Standards are referenced by other projects. When you change a standard:
+Standards are versioned and embedded in consumer projects. When you change a standard:
 1. Update the canonical doc in `standards/`
-2. Note in your commit message which consumer projects reference this standard
-3. The human maintainer propagates the change manually using the pointer comments in each consumer's CLAUDE.md
+2. Bump the version in the `<!-- standard: <name> | version: X.Y.Z -->` comment on line 1
+   - Patch: clarification/typo (no behavioural change)
+   - Minor: new section/guidance (backwards compatible)
+   - Major: removed/changed rules (may break consumer workflows)
+3. Note in your commit message which consumer projects embed this standard
+4. Consumer projects can detect outdated standards by comparing their embedded version comment
 
 Do NOT edit consumer repos directly from here.
 
@@ -51,12 +56,14 @@ what to propagate to existing projects.
 ## Bootstrapping a New Project
 
 See `templates/README.md` for the full checklist. Quick version:
-1. Copy `templates/product-engineer/CLAUDE.md` → fill in `{{TOKENS}}`
-2. Copy `templates/product-engineer/.claude/settings.json`
-3. Copy `templates/product-engineer/playwright.config.js` + `package.json`
-4. For each sub-repo: copy `templates/repo/CLAUDE.md`, fill in tokens
-5. For each wiki repo: copy `templates/wiki/` contents
-6. Run `./install-skills.sh` on the developer's machine
+1. Copy `templates/engineering/product/CLAUDE.md` (or `backend/`)
+2. Resolve `{{INCLUDE:...}}` tokens (inline shared content)
+3. Resolve `{{STANDARD:...}}` tokens (inline versioned standards)
+4. Fill in `{{VALUE}}` tokens
+5. Copy `.claude/settings.json`, `playwright.config.js`, `package.json`
+6. For each sub-repo: copy `templates/repo/CLAUDE.md`, fill in tokens
+7. For each wiki repo: copy `templates/wiki/` contents
+8. Run `./install-skills.sh` on the developer's machine
 
 ---
 

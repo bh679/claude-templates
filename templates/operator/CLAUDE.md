@@ -27,7 +27,7 @@ After producing output, update `state.json` with the current run timestamp and a
 
 ---
 
-{{INCLUDE:shared/operator-base.md}}
+{{INCLUDE:operator-base.md}}
 
 ---
 

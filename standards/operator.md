@@ -1,3 +1,4 @@
+<!-- standard: operator | version: 1.0.0 -->
 # Operator Standard
 
 An **Operator** is a Claude agent triggered on a schedule by GitHub Actions. It runs autonomously, gathering data and producing output (commits, issues, API calls) without a human in the loop. If something genuinely requires human attention, the Operator opens a GitHub issue and stops — it never blocks waiting for interactive input.

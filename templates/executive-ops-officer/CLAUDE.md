@@ -117,7 +117,7 @@ If the SendGrid call returns a non-2xx status, open a GitHub issue with the erro
 
 ---
 
-{{INCLUDE:shared/operator-base.md}}
+{{INCLUDE:operator-base.md}}
 
 ---
 
