@@ -23,11 +23,11 @@ npm run dev   # or: {{START_COMMAND}}
 
 <!-- Full policy: github.com/bh679/claude-templates/standards/versioning.md -->
 
-Format: `V.MM.PPPP` in `package.json`.
+Format: [SemVer](https://semver.org/) (`MAJOR.MINOR.PATCH`) in `package.json`.
 
-- Bump `PPPP` on every commit
-- Bump `MM` on every merged feature (reset PPPP to `0000`)
-- Bump `V` only for breaking changes
+- Bump `PATCH` on every commit
+- Bump `MINOR` on every merged feature (reset PATCH to `0`)
+- Bump `MAJOR` only for breaking changes
 
 ---
 

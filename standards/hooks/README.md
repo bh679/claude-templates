@@ -127,7 +127,7 @@ Soft reminds:
 
 Hard blocks:
 - `package.json` version not bumped since last commit
-- Version format not matching `V.MM.PPPP`
+- Version format not matching SemVer (`MAJOR.MINOR.PATCH`)
 
 ---
 
