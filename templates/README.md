@@ -21,7 +21,7 @@ content is embedded with a version comment so consumer projects can detect drift
 ...full content...
 ```
 
-Available standards: `workflow`, `git`, `versioning`, `wiki-writing`, `operator`, `http-diagnostics`
+Available standards: `workflow`, `git`, `versioning`, `wiki-writing`, `operator`, `http-diagnostics`, `unit-testing`, `project-board`
 
 **Version tracking:** Each standard has a `<!-- standard: <name> | version: X.Y.Z -->` header.
 When a standard is updated, its version is bumped. Consumer projects can compare their embedded
