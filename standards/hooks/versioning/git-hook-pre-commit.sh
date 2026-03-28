@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # pre-commit-version-check.sh
+HOOK_VERSION="1.0.0"
 #
 # Pre-commit hook that enforces the V.MM.PPPP versioning standard.
 # See standards/versioning.md for format details.
