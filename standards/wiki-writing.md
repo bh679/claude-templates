@@ -1,4 +1,4 @@
-<!-- standard: wiki-writing | version: 1.0.0 -->
+<!-- standard: wiki-writing | version: 1.1.0 -->
 # Wiki Writing Standard
 
 > **Source of truth** for documentation style across all project wikis.
@@ -47,6 +47,7 @@ Brief one-sentence description of what this page covers.
 - `##` — Major sections
 - `###` — Subsections
 - Never skip levels (no jumping from `#` to `###`)
+- Headings must be self-explanatory — a reader scanning only headings should understand the page's content without reading body text
 
 ---
 
