@@ -42,5 +42,28 @@ fi
 
 cp "$SOURCE" "$TARGET"
 chmod +x "$TARGET"
+
+# --- Record installed version ---
+INSTALLED_VERSION=$(grep '^HOOK_VERSION=' "$SOURCE" | head -1 | sed 's/HOOK_VERSION="//' | sed 's/"//')
+VERSIONS_FILE="${PROJECT_ROOT}/.claude/hook-versions.json"
+mkdir -p "$(dirname "$VERSIONS_FILE")"
+if [ -f "$VERSIONS_FILE" ]; then
+  # Update existing entry
+  TEMP=$(mktemp)
+  jq --arg hook "versioning/git-hook-pre-commit.sh" \
+     --arg ver "$INSTALLED_VERSION" \
+     --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+     '.[$hook] = {"version": $ver, "installedAt": $ts, "type": "copied"}' \
+     "$VERSIONS_FILE" > "$TEMP" && mv "$TEMP" "$VERSIONS_FILE"
+else
+  # Create new file
+  jq -n --arg hook "versioning/git-hook-pre-commit.sh" \
+        --arg ver "$INSTALLED_VERSION" \
+        --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+        '{($hook): {"version": $ver, "installedAt": $ts, "type": "copied"}}' \
+        > "$VERSIONS_FILE"
+fi
+
 green "✓  versioning pre-commit hook → ${TARGET}"
 dim "   Enforces: V.MM.PPPP format, version bumped on every commit"
+dim "   Version:  ${INSTALLED_VERSION}"
