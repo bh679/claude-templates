@@ -26,19 +26,7 @@ compare the `standard-version` comments below against the current versions in th
 
 ---
 
-## Project Board Management
-
-- Search for existing board items before creating new ones (avoid duplicates)
-- Create/update items via `gh` CLI using the GraphQL API
-- Required fields: Status, Priority, Categories, Time Estimate, Complexity
-
-```bash
-# Find existing item
-gh project item-list {{PROJECT_NUMBER}} --owner {{GITHUB_USER}} --format json | jq '.items[] | select(.title | test("search term"; "i"))'
-
-# Update item status
-gh project item-edit --project-id <id> --id <item-id> --field-id <status-field-id> --single-select-option-id <option-id>
-```
+{{STANDARD:project-board}}
 
 ---
 
