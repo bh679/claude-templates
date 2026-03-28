@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# hook-version: 1.0.0
 # git/pre-bash.sh
 #
 # Claude Code PreToolUse hook — enforces git.md standards before Bash tool executes.

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# hook-version: 1.0.0
 # git/post-bash.sh
 #
 # Claude Code PostToolUse hook — enforces git.md standards after Bash tool executes.
