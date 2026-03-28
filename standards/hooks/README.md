@@ -1,85 +1,138 @@
-# Git Hooks
+# Hooks
 
-> Reusable git hooks that enforce standards across all Claude-powered projects.
-> See [`versioning.md`](../versioning.md) for the V.MM.PPPP format specification.
+> Reusable hooks that enforce standards across all Claude-powered projects.
+> Organised by standard. Two types co-exist in the same folder structure.
 
 ---
 
-## Available Hooks
+## Hook Types
 
-### `pre-commit-version-check.sh`
+| Type | Trigger | Installed to | How |
+|---|---|---|---|
+| **Git hook** | Git event (pre-commit, etc.) | `.git/hooks/` | Copied |
+| **Claude Code hook** | Claude tool use (Bash, Write, Edit) | `.claude/hooks/` | Symlinked |
 
-Runs before every commit to enforce two rules:
+Git hooks are **copied** because `.git/` is not committed.
+Claude Code hooks are **symlinked** so updates to this repo propagate automatically.
 
-1. **Version was bumped** — `package.json` version must differ from the previous commit (PPPP bump at minimum)
-2. **Format is valid** — version must match `V.MM.PPPP` (`1.02.0015`, not `v1.2.15`)
+---
 
-| Segment | Rules |
-|---|---|
-| `V` | Integer (e.g. `0`, `1`, `2`) |
-| `MM` | 2-digit, zero-padded (`01`, `02`, ..., `99`) |
-| `PPPP` | 4-digit, zero-padded (`0000`, `0001`, ..., `9999`) |
-
-#### Error examples
+## Folder Structure
 
 ```
-ERROR: Version was not bumped.
-  Previous: 1.02.0015
-  Current:  1.02.0015
-
-Every commit must bump the version (PPPP at minimum).
-Example: 1.02.0015 -> 1.02.0016
+standards/hooks/
+  git/                          ← enforces git.md
+    pre-bash.sh                 ← Claude Code: PreToolUse Bash
+    post-bash.sh                ← Claude Code: PostToolUse Bash
+  versioning/                   ← enforces versioning.md
+    git-hook-pre-commit.sh      ← Git: pre-commit
+  workflow/                     ← enforces workflow.md (future)
+  wiki/                         ← enforces wiki-writing.md (future)
+  install-hooks.sh
+  README.md
 ```
 
-```
-ERROR: Invalid version format in package.json.
-  Found:    "1.2.15"
-  Expected: V.MM.PPPP (e.g. 1.02.0015)
-```
+### Naming Conventions
+
+- `pre-bash.sh` / `post-bash.sh` — Claude Code hooks (PreToolUse / PostToolUse on Bash)
+- `pre-write.sh` / `post-write.sh` — Claude Code hooks (PreToolUse / PostToolUse on Write/Edit)
+- `git-hook-<event>.sh` — Git hooks; the `<event>` suffix maps to the git hook name (e.g. `pre-commit`)
 
 ---
 
 ## Installation
 
-### Quick install
-
-From your **project root** (the repo you want to add the hook to):
+Run from your **consumer project's root directory**:
 
 ```bash
 ~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
 ```
 
-This copies the hook into `.git/hooks/pre-commit`. If a pre-commit hook already exists, it is backed up to `.git/hooks/pre-commit.bak`.
-
-### Manual install
-
-```bash
-cp ~/Projects/Claude\ Templates/standards/hooks/pre-commit-version-check.sh \
-   .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
-```
-
-### Worktree support
-
-The install script detects worktrees automatically — it installs to the correct `.git/hooks/` directory regardless of whether you're in a worktree or the main repo.
+This installs:
+- All `git-hook-*.sh` scripts → `.git/hooks/` (copied, executable)
+- All standard folders containing Claude hooks → `.claude/hooks/<standard>/` (symlinked)
 
 ---
 
-## Skipping the hook
+## settings.json — Claude Code Hook Config
 
-If you need to bypass the version check for a specific commit (e.g. docs-only changes):
+After running `install-hooks.sh`, add this to your project's `.claude/settings.json`:
 
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/git/pre-bash.sh" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": ".claude/hooks/git/post-bash.sh" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Add additional hook entries as more standards gain Claude Code hooks.
+
+---
+
+## Available Hooks
+
+### git/ — git.md
+
+#### `pre-bash.sh` (Claude Code — PreToolUse Bash)
+
+Hard blocks:
+- Commit directly to `main` / `master`
+- `gh pr merge` without `--squash`
+
+Soft warns:
+- New branch missing `dev/` prefix
+
+#### `post-bash.sh` (Claude Code — PostToolUse Bash)
+
+Soft reminds:
+- Push after every commit
+- Clean up branch + worktree after merge
+- Invoke `trigger-blog` after user-facing merges
+
+---
+
+### versioning/ — versioning.md
+
+#### `git-hook-pre-commit.sh` (Git — pre-commit)
+
+Hard blocks:
+- `package.json` version not bumped since last commit
+- Version format not matching `V.MM.PPPP`
+
+---
+
+## Adding a New Hook
+
+1. Create or identify the standard folder: `standards/hooks/<standard>/`
+2. Add your script following the naming convention above
+3. Make it executable: `chmod +x <script>.sh`
+4. For Claude Code hooks: add the entry to `settings.json` (see snippet above)
+5. For Git hooks: re-run `install-hooks.sh` in consumer projects
+6. Update this README
+
+---
+
+## Skipping Hooks
+
+**Git hooks** — bypass for a specific commit (use sparingly):
 ```bash
 git commit --no-verify -m "docs: update README"
 ```
 
-Use sparingly. The standard expects every commit to bump the version.
-
----
-
-## Adding new hooks
-
-1. Create the hook script in this directory: `standards/hooks/<hook-name>.sh`
-2. Make it executable: `chmod +x <hook-name>.sh`
-3. Update `install-hooks.sh` to include the new hook
-4. Document it in this README
+**Claude Code hooks** — cannot be bypassed per-command. Remove from `settings.json` temporarily if needed, then restore.
