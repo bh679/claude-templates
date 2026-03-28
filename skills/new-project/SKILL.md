@@ -90,11 +90,19 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
    mkdir -p <project>/tests && touch <project>/tests/.gitkeep
    mkdir -p <project>/ports && touch <project>/ports/.gitkeep
    ```
+6. Install hooks:
+   ```bash
+   cd <project> && ~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
+   ```
 
 ### 3b. Sub-repos (repeat for each: client, API, etc.)
 
 1. Copy `~/Projects/Claude Templates/templates/repo/CLAUDE.md` → `<sub-repo>/CLAUDE.md`
 2. Replace all `{{TOKENS}}`
+3. Install hooks:
+   ```bash
+   cd <sub-repo> && ~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
+   ```
 
 ### 3c. Wiki repo (repeat for each wiki)
 
@@ -181,7 +189,9 @@ git push
 
 ---
 
-## Step 7 — Install Skills (one-time per developer machine)
+## Step 7 — Install Skills and Hooks
+
+### Skills (one-time per developer machine)
 
 If skills are not yet installed on this machine:
 
@@ -191,6 +201,20 @@ cd ~/Projects/Claude\ Templates
 ```
 
 Verify `trigger-blog` appears in the Claude skill list.
+
+### Hooks (once per repo)
+
+If not already done in Step 3, run from each repo root:
+
+```bash
+cd <repo> && ~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
+```
+
+This installs:
+- **Git hooks** → `.git/hooks/` (e.g. version check on pre-commit)
+- **Claude Code hooks** → `.claude/hooks/` (e.g. git.md enforcement during tool use)
+
+Hooks are symlinked to the claude-templates repo, so they stay up to date automatically.
 
 ---
 
@@ -206,6 +230,8 @@ Verify `trigger-blog` appears in the Claude skill list.
 - [ ] `{{PROJECT_NUMBER}}` filled in with the actual project number
 - [ ] Project registered in `~/Projects/Claude Templates/consumers.json`
 - [ ] Skills installed (`trigger-blog` available)
+- [ ] Hooks installed in orchestrator repo (`.claude/hooks/git/` symlink exists, `.git/hooks/pre-commit` exists)
+- [ ] Hooks installed in each sub-repo
 
 ### Operator checklist
 
