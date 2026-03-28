@@ -32,7 +32,9 @@ For single-repo projects, a feature branch (`dev/<feature-slug>`) checked out no
 
 All feature development happens in an **isolated environment** — never directly on `main`.
 
-### Setup (do this after Gate 1 approval)
+### Manual Setup
+
+If your tooling doesn't create a worktree automatically:
 
 ```bash
 # In the repo root
@@ -41,7 +43,7 @@ cd ../worktrees/<feature-slug>
 npm install   # or whatever the repo setup requires
 ```
 
-### After Gate 3 Merge
+### After Feature Merge
 
 You may continue working in the same worktree after merge. If you do, create or switch to a new branch first — never commit to `main`.
 
