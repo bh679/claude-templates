@@ -45,7 +45,7 @@ Reset PPPP to `0000` when bumping MM.
 
 ### Minor (MM) — every merged feature
 
-Bump MM when a feature branch is merged to main (Gate 3):
+Bump MM when a feature branch is merged to main:
 
 ```
 V1.02.0015  →  V1.03.0000
