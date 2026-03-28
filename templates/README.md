@@ -18,6 +18,7 @@ The path is relative to the `templates/` directory.
 |---|---|---|
 | `shared/project-overview.md` | product-engineer, backend-engineer | Project overview header (PROJECT_NAME, LIVE_URL) — templates append their own extra fields after the include |
 | `shared/engineer-base.md` | product-engineer, backend-engineer | Standards fetch, core workflow, session ID, board mgmt, git/worktrees, port mgmt, versioning, Gate 3, documentation preamble, blog trigger, key rules |
+| `shared/operator-base.md` | operator, executive-ops-officer | State management (state.json read/update/commit), skip guard, turn limit (30), human escalation (GitHub issue + stop) |
 
 ---
 
@@ -77,6 +78,7 @@ When copying `templates/operator/`, replace these tokens:
 ### Operator Project
 
 - [ ] Copy `templates/operator/CLAUDE.md` → `<repo>/CLAUDE.md`
+  - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
   - Replace all `{{TOKENS}}`
   - Fill in the skip guard condition
 - [ ] Copy `templates/operator/.github/workflows/operator.yml` → `<repo>/.github/workflows/<agent-slug>.yml`
