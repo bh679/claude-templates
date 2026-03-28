@@ -32,14 +32,12 @@ If not found, tell the user to clone `bh679/claude-templates` to `~/Projects/Cla
 
 ## Step 1 — Choose a Template Type
 
-Ask the user which template type applies if not already specified:
+First, discover what templates are available:
+```bash
+ls ~/Projects/Claude\ Templates/templates/
+```
 
-| Type | When to use |
-|---|---|
-| **Product Engineer** | Multi-repo project (client + API + wiki). Full 3-gate workflow. |
-| **Operator** | Scheduled or automated agent. Single-repo. |
-| **Repo** | Individual sub-repo within an existing Product Engineer project. |
-| **None** | Plain repo — no Claude workflow templates needed. |
+List the discovered template directories (excluding `README.md`) to the user, then ask which applies if not already specified. Also offer **None** for a plain repo with no Claude workflow templates.
 
 ---
 
