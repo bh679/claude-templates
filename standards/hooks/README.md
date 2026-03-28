@@ -30,6 +30,7 @@ standards/hooks/
     install-hooks.sh            ← installs versioning hooks only
   standards/                    ← enforces version bumps in this repo
     pre-commit-version-check.sh ← Git: pre-commit (claude-templates only)
+    post-write-sync.sh          ← Claude Code: PostToolUse Write/Edit (claude-templates only)
     install-hooks.sh            ← installs standards version hook only
   workflow/                     ← enforces workflow.md (future)
   wiki/                         ← enforces wiki-writing.md (future)
@@ -188,6 +189,13 @@ When both the versioning and standards hooks are installed, the installer create
 
 See [`docs/version-enforcement.md`](../../docs/version-enforcement.md) for full details.
 
+#### `post-write-sync.sh` (Claude Code — PostToolUse Write/Edit)
+
+Auto-syncs:
+- When a `standards/*.md` file is edited via Write or Edit, runs `scripts/sync-standards.sh` to refresh the inlined standards in CLAUDE.md
+
+This hook is for the claude-templates repo itself, not consumer projects. It ensures CLAUDE.md stays in sync with the canonical standard files without manual intervention.
+
 ---
 
 ## Hook Versioning
@@ -205,6 +213,7 @@ All hook scripts include a version comment for tracking:
 | `git/post-bash.sh` | 1.0.0 |
 | `versioning/git-hook-pre-commit.sh` | 1.0.0 |
 | `standards/pre-commit-version-check.sh` | 1.0.0 |
+| `standards/post-write-sync.sh` | 1.0.0 |
 
 **Why this matters:**
 - **Symlinked hooks** (Claude Code) auto-update when this repo is pulled
