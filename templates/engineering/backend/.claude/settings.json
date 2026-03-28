@@ -2,6 +2,7 @@
   "permissions": {
     "allow": [
       "Read",
+      "Glob",
       "Edit",
       "Write",
       "Bash",
