@@ -24,7 +24,7 @@ FINGERPRINTS=(
   "Gate 1"
   "Gate 2"
   "Gate 3"
-  "V.MM.PPPP"
+  "Versioning Standard"
   "EnterPlanMode"
   "ExitPlanMode"
   "Product Engineer"
