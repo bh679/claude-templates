@@ -67,21 +67,11 @@ See `templates/README.md` for the full checklist. Quick version:
 
 ---
 
-## Versioning
+## Standards
 
-This repo uses standard semver (`MAJOR.MINOR.PATCH`) — not V.MM.PPPP (no sub-repos here).
-- `patch`: template or standard content updates
-- `minor`: new skill, template type, or standard doc added
-- `major`: breaking change to existing template structure or token names
+This repo dogfoods its own standards. At the start of every session, read and follow these:
 
-## Commit Standards
-
-`<type>: <short description>`
-
-Types: `feat`, `fix`, `docs`, `chore`
-
-Examples:
-- `feat: add trigger-blog skill`
-- `docs: update git standards with squash merge guidance`
-- `fix: correct playwright.config.js timeout value`
-- `chore: add autoclaude to consumers.json`
+- **Git workflow:** Read `standards/git.md` — branch naming, commit format, merge strategy, force push rules
+- **Development process:** Read `standards/workflow.md` — three-gate approval (plan, test, merge) for all changes
+- **Wiki writing:** Read `standards/wiki-writing.md` — documentation style, breadcrumbs, templates
+- **Versioning:** Read `standards/versioning.md` — version format, bump rules, tagging
