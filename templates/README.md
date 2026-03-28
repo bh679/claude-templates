@@ -21,7 +21,7 @@ content is embedded with a version comment so consumer projects can detect drift
 ...full content...
 ```
 
-Available standards: `workflow`, `git`, `versioning`, `wiki-writing`, `operator`
+Available standards: `workflow`, `git`, `versioning`, `wiki-writing`, `operator`, `http-diagnostics`
 
 **Version tracking:** Each standard has a `<!-- standard: <name> | version: X.Y.Z -->` header.
 When a standard is updated, its version is bumped. Consumer projects can compare their embedded
@@ -183,10 +183,14 @@ inlined via `{{STANDARD:...}}` tokens. To check if a consumer is outdated:
 - [ ] Copy `templates/engineering/backend/CLAUDE.md` → `<project>/CLAUDE.md`
   - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
   - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
+  - If this backend exposes HTTP services: uncomment `{{STANDARD:http-diagnostics}}`
   - Replace all `{{TOKENS}}`
 - [ ] Copy `templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
   - Add any project-specific tool permissions
 - [ ] Create `<project>/ports/.gitkeep`
+- [ ] If HTTP diagnostics enabled:
+  - Create `<project>/diagnostics/.gitkeep`
+  - Add `diagnostics/*.jsonl` and `diagnostics/snapshots/` to `.gitignore`
 
 ### 2. Sub-repo setup (for each sub-repo)
 

@@ -50,14 +50,16 @@ Assess every item — note "N/A" or describe the impact:
 After implementation is complete:
 1. Run automated tests (`npm test` or `{{TEST_COMMAND}}`)
 2. Test every changed endpoint with curl (see Testing section)
-3. If migrations were added: verify upgrade and rollback paths
-4. Enter plan mode and present a **Gate 2 Testing Report**:
+3. Verify health endpoint: `curl -s http://localhost:{{BASE_PORT}}/health | jq .`
+4. If migrations were added: verify upgrade and rollback paths
+5. Enter plan mode and present a **Gate 2 Testing Report**:
+   - Health check response JSON
    - Endpoint URLs tested
    - curl commands with example request/response
    - Status codes verified
    - Automated test result summary
    - Migration verification results (if applicable)
-5. Wait for user approval
+6. Wait for user approval
 
 ---
 
@@ -115,6 +117,11 @@ schemas, changed status codes, deprecated endpoints, and removed endpoints.
 
 - **Deployment-impacting changes** → update `Deployment-*.md` pages in {{WIKI_URL}}
 - Follow the wiki CLAUDE.md for structure (breadcrumbs, endpoint template, deployment template, etc.)
+
+---
+
+<!-- Include when this backend exposes HTTP services -->
+<!-- {{STANDARD:http-diagnostics}} -->
 
 ---
 
