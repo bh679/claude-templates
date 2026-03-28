@@ -21,7 +21,7 @@ content is embedded with a version comment so consumer projects can detect drift
 ...full content...
 ```
 
-Available standards: `workflow`, `git`, `versioning`, `wiki-writing`, `operator`, `http-diagnostics`
+Available standards: `workflow`, `git`, `versioning`, `wiki-writing`, `operator`, `http-diagnostics`, `unit-testing`
 
 **Version tracking:** Each standard has a `<!-- standard: <name> | version: X.Y.Z -->` header.
 When a standard is updated, its version is bumped. Consumer projects can compare their embedded
@@ -99,6 +99,23 @@ When copying `templates/operator/`, replace these tokens:
 | `{{DATA_SOURCES}}` | `GitHub events from bh679/* repos, pending-context.json` | What data the fetch script gathers |
 | `{{OUTPUT_DESCRIPTION}}` | `A weekly markdown blog post saved to posts/YYYY-MM-DD.md` | What the operator produces each run |
 
+### Executive Ops Officer Tokens
+
+When copying `templates/executive-ops-officer/`, replace these tokens:
+
+| Token | Example | Description |
+|---|---|---|
+| `{{OWNER}}` | `bh679` | GitHub org/user owning monitored repos |
+| `{{REPO_NAME}}` | `chess-project` | Repo to monitor (add multiple entries to the `repos` array) |
+| `{{TO_EMAIL}}` | `brennan@example.com` | Digest email recipient |
+| `{{FROM_EMAIL}}` | `ops@example.com` | Digest email sender address |
+
+The executive-ops-officer extends the operator template with:
+- `ops-config.json` — repos to monitor, email config, staleness thresholds
+- Email-based output via SendGrid (instead of file commits)
+- Escalation tiers (red/yellow/green) for repo health classification
+- Observer Mode — reads only, never modifies monitored repos
+
 ---
 
 ## Standard Version Tracking
@@ -146,6 +163,23 @@ See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
   - Fill in all sections (tone, format, length, include/exclude rules)
 - [ ] Copy `templates/operator/state.json` → `<repo>/state.json`
 - [ ] Add the repo to `consumers.json` in claude-templates with `"template": "operator"` and `"required_files"`
+
+---
+
+### Executive Ops Officer Project
+
+- [ ] Copy `templates/executive-ops-officer/CLAUDE.md` → `<repo>/CLAUDE.md`
+  - Resolve `{{INCLUDE:operator-base.md}}` token
+  - Replace all `{{TOKENS}}`
+- [ ] Copy `templates/executive-ops-officer/.github/workflows/executive-ops.yml` → `<repo>/.github/workflows/executive-ops.yml`
+- [ ] Copy `templates/executive-ops-officer/.github/scripts/fetch-data.sh` → `<repo>/.github/scripts/fetch-data.sh`
+  - Implement data fetching for GitHub Projects V2, PRs, and workflow runs
+- [ ] Copy `templates/executive-ops-officer/guidelines.md` → `<repo>/guidelines.md`
+- [ ] Copy `templates/executive-ops-officer/ops-config.json` → `<repo>/ops-config.json`
+  - Fill in repos to monitor, email addresses, and staleness thresholds
+- [ ] Copy `templates/executive-ops-officer/state.json` → `<repo>/state.json`
+- [ ] Add GitHub secrets: `ANTHROPIC_API_KEY`, `SENDGRID_API_KEY`
+- [ ] Add the repo to `consumers.json` in claude-templates with `"template": "executive-ops-officer"` and `"required_files"`
 
 ---
 
@@ -242,6 +276,21 @@ See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
     │   └── <agent-slug>.yml      (cron-triggered workflow)
     └── scripts/
         └── fetch-data.sh         (data gathering script)
+```
+
+### Executive Ops Officer
+
+```
+<eoo-repo>/
+├── CLAUDE.md                     (filled-in EOO template)
+├── guidelines.md                 (output quality rules — tone, format, length)
+├── ops-config.json               (repos to monitor, email config, thresholds)
+├── state.json                    (cross-run memory with per-repo tier snapshots)
+└── .github/
+    ├── workflows/
+    │   └── executive-ops.yml     (daily cron-triggered workflow)
+    └── scripts/
+        └── fetch-data.sh         (GitHub Projects V2, PR, and workflow data)
 ```
 
 ### Engineering — Product

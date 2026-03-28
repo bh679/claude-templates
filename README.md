@@ -45,6 +45,9 @@ All skills install to `~/.claude/skills/` and are globally available. The **Scop
 | [`standards/git.md`](standards/git.md) | Branch naming, commit messages, worktree procedure |
 | [`standards/versioning.md`](standards/versioning.md) | SemVer conventions, bump rules, tag and rollback procedures |
 | [`standards/wiki-writing.md`](standards/wiki-writing.md) | Prose style, link rules, image naming for wikis |
+| [`standards/operator.md`](standards/operator.md) | Scheduled autonomous agent scaffolding and conventions |
+| [`standards/unit-testing.md`](standards/unit-testing.md) | Unit test requirements, 80% coverage, test quality rules |
+| [`standards/http-diagnostics.md`](standards/http-diagnostics.md) | Health endpoints, error logging, usage tracking for HTTP backends |
 
 ## Version Enforcement & Drift Detection
 
