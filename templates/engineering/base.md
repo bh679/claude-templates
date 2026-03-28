@@ -42,48 +42,6 @@ gh project item-edit --project-id <id> --id <item-id> --field-id <status-field-i
 
 ---
 
-## Git & Development Environment
-
-**Key rules:**
-- All feature work in **git worktrees** — never directly on `main`
-- **Commit after every meaningful unit of work**
-- **Push immediately after every commit**
-- Branch naming: `dev/<feature-slug>`
-
-### Worktree Setup (after Gate 1 approval)
-
-```bash
-# In the sub-repo that needs changes
-git worktree add ../worktrees/{{PROJECT_SLUG}}-<feature-slug> -b dev/<feature-slug>
-cd ../worktrees/{{PROJECT_SLUG}}-<feature-slug>
-npm install
-```
-
-### Worktree Teardown (after Gate 3 merge)
-
-```bash
-git worktree remove ../worktrees/{{PROJECT_SLUG}}-<feature-slug>
-git branch -d dev/<feature-slug>
-```
-
-### Port Management
-
-Each session claims a unique port to avoid conflicts:
-
-```bash
-# Claim a port
-echo '{"port": {{BASE_PORT}}, "session": "<session-id>", "feature": "<feature-slug>"}' > ./ports/<session-id>.json
-
-# Release port after session ends
-rm ./ports/<session-id>.json
-```
-
-Base port: `{{BASE_PORT}}`. If occupied, increment by 1 until a free port is found.
-
-
-
----
-
 ## Documentation
 
 {{STANDARD:wiki-writing}}
