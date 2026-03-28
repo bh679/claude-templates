@@ -69,7 +69,7 @@ See `templates/README.md` for the full checklist. Quick version:
 
 ## Versioning
 
-This repo uses standard semver (`MAJOR.MINOR.PATCH`) — not V.MM.PPPP (no sub-repos here).
+This repo uses [SemVer](https://semver.org/) (`MAJOR.MINOR.PATCH`).
 - `patch`: template or standard content updates
 - `minor`: new skill, template type, or standard doc added
 - `major`: breaking change to existing template structure or token names

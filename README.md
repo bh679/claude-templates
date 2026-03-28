@@ -42,7 +42,7 @@ All skills install to `~/.claude/skills/` and are globally available. The **Scop
 |---|---|
 | [`standards/workflow.md`](standards/workflow.md) | 3-gate approval workflow, plan mode, session management |
 | [`standards/git.md`](standards/git.md) | Branch naming, commit messages, worktree procedure |
-| [`standards/versioning.md`](standards/versioning.md) | V.MM.PPPP scheme, bump rules, tag conventions |
+| [`standards/versioning.md`](standards/versioning.md) | SemVer conventions, bump rules, tag and rollback procedures |
 | [`standards/wiki-writing.md`](standards/wiki-writing.md) | Prose style, link rules, image naming for wikis |
 
 ## Consumer Projects
