@@ -1,4 +1,4 @@
-<!-- standard: workflow | version: 1.0.0 -->
+<!-- standard: workflow | version: 1.1.0 -->
 # Workflow Standard — Three-Gate Approval
 
 > **Source of truth** for all Claude product engineer sessions.
@@ -98,12 +98,13 @@ Create a `Deployment.md` index page and at least one `Deployment-<Method>.md` pa
 **Trigger:** After user testing passes Gate 2.
 
 **Agent actions:**
-1. Create a PR with a clear title and description
-2. Enter plan mode and present:
+1. Ensure branch is up to date with `main` _(enforced by hook — will block `gh pr create` if behind)_
+2. Create a PR with a clear title and description
+3. Enter plan mode and present:
    - File diff summary (which files changed, what changed)
    - PR link
    - Any breaking changes or migration steps
-3. Wait for approval
+4. Wait for approval
 
 **Gate requirement:** User clicks Approve, then agent merges the PR.
 
