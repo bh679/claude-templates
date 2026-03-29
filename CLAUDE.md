@@ -72,7 +72,7 @@ See `templates/README.md` for the full checklist. Quick version:
 This repo dogfoods its own standards. All standards below are inlined from `standards/` and kept in sync by `scripts/sync-standards.sh`. Do NOT edit the content between BEGIN/END markers directly — edit the source file in `standards/` instead.
 
 <!-- BEGIN STANDARD: workflow -->
-<!-- standard: workflow | version: 1.1.0 -->
+<!-- standard: workflow | version: 1.2.0 -->
 # Workflow Standard — Three-Gate Approval
 
 > **Source of truth** for all Claude product engineer sessions.
@@ -184,6 +184,13 @@ Create a `Deployment.md` index page and at least one `Deployment-<Method>.md` pa
 
 **Gate requirement:** User clicks Approve, then agent merges the PR.
 
+**Post-merge cleanup (mandatory):**
+1. Delete the remote feature branch (`git push origin --delete dev/<slug>`)
+2. Delete the local feature branch (`git branch -d dev/<slug>`)
+3. If continuing work in this session, create a new branch (`git checkout -b dev/<next-slug>`)
+
+See `git.md` § Post-Merge Cleanup for the full procedure including worktree variants.
+
 **Never merge without Gate 3 approval.** Not even for hotfixes.
 
 ---
@@ -251,7 +258,7 @@ trigger-blog
 <!-- END STANDARD: workflow -->
 
 <!-- BEGIN STANDARD: git -->
-<!-- standard: git | version: 1.1.0 -->
+<!-- standard: git | version: 1.2.0 -->
 # Git Standards
 
 > **Source of truth** for git workflow across all Claude-powered projects.
@@ -298,11 +305,7 @@ npm install   # or whatever the repo setup requires
 
 ### After Feature Merge
 
-You may continue working in the same worktree after merge. If you do, create or switch to a new branch first — never commit to `main`.
-
-```bash
-git checkout -b dev/<next-feature-slug>
-```
+After merge, clean up the branch and worktree. See **Post-Merge Cleanup** below for the full procedure. If continuing work, create a fresh worktree on a new branch — never commit to `main`.
 
 ### Why worktrees?
 
@@ -368,7 +371,53 @@ test: add Playwright test for checkout flow
 - Branch must be up to date with `main` before creating a PR _(enforced by hook)_
 - Use **squash merge** for feature branches to keep main history clean
 - PR title matches the commit message format: `feat: <description>`
-- Delete the feature branch after merge
+- Delete the feature branch after merge (see Post-Merge Cleanup below)
+
+---
+
+## Post-Merge Cleanup
+
+After a PR is successfully merged, **always** run the full cleanup sequence:
+
+```bash
+# 1. Switch back to main and pull the merge
+git checkout main
+git pull origin main
+
+# 2. Delete the remote feature branch
+git push origin --delete dev/<feature-slug>
+
+# 3. Delete the local feature branch
+git branch -d dev/<feature-slug>
+```
+
+### Continuing Work in the Same Session
+
+If the session continues after merge, **create a new branch before any new commits**:
+
+```bash
+git checkout -b dev/<next-feature-slug>
+```
+
+Never reuse a merged branch. Never commit directly to `main`.
+
+### Worktree Variant
+
+If working in a git worktree, exit the worktree first, then clean up:
+
+```bash
+# From the worktree directory — exit back to the main checkout
+# Then remove the worktree and its branch
+git worktree remove ../worktrees/<feature-slug>
+git branch -d dev/<feature-slug>
+git push origin --delete dev/<feature-slug>
+```
+
+If continuing work, create a fresh worktree:
+
+```bash
+git worktree add ../worktrees/<next-feature-slug> -b dev/<next-feature-slug>
+```
 
 ---
 
@@ -396,7 +445,7 @@ See [`versioning.md`](versioning.md) for version format details.
 <!-- END STANDARD: git -->
 
 <!-- BEGIN STANDARD: wiki-writing -->
-<!-- standard: wiki-writing | version: 1.0.0 -->
+<!-- standard: wiki-writing | version: 1.1.0 -->
 # Wiki Writing Standard
 
 > **Source of truth** for documentation style across all project wikis.
@@ -445,6 +494,7 @@ Brief one-sentence description of what this page covers.
 - `##` — Major sections
 - `###` — Subsections
 - Never skip levels (no jumping from `#` to `###`)
+- Headings must be self-explanatory — a reader scanning only headings should understand the page's content without reading body text
 
 ---
 
@@ -645,11 +695,10 @@ docs: fix broken link on Features index
 <!-- END STANDARD: wiki-writing -->
 
 <!-- BEGIN STANDARD: versioning -->
-<!-- standard: versioning | version: 2.0.0 -->
+<!-- standard: versioning | version: 2.1.0 -->
 # Versioning Standard — SemVer
 
-> **Source of truth** for version numbering across all Claude-powered projects.
-> Format follows [Semantic Versioning 2.0.0](https://semver.org/).
+> Source of truth for version numbering. Follows [SemVer 2.0.0](https://semver.org/).
 
 ## Bump Conventions
 
@@ -661,70 +710,43 @@ docs: fix broken link on Features index
 
 Update `package.json` version field on every commit.
 
----
-
 ## Where Version Lives
 
 | Context | Location | Example |
 |---|---|---|
 | npm projects | `package.json` `version` field | `"1.3.15"` |
 | Non-npm repos | `VERSION` file at repo root | `1.3.0` |
-| Data files | `generatedVersion` field in output JSON | `"1.3.0"` |
 
-In multi-repo projects, each repo versions independently.
-
----
+In multi-repo projects, each repo versions independently. For data files, use a `generatedVersion` field in output JSON.
 
 ## Git Tags
 
-- Tag every MINOR and MAJOR bump: `git tag v1.3.0`
-- Use lowercase `v` prefix: `v1.3.0`
-- Push tags immediately: `git push origin v1.3.0`
-- Patch-level tags are optional but encouraged for hotfixes
-
----
+Tag every MINOR and MAJOR bump with lowercase `v` prefix and push immediately:
+```bash
+git tag v1.3.0 && git push origin v1.3.0
+```
+Patch-level tags are optional.
 
 ## Rollback
 
-- **Revert** to last good tag when the fix is non-trivial
-- **Bump forward** with a new patch when the fix is simple (< 15 min)
+- **Non-trivial fix:** revert to last good tag (`git tag --sort=-version:refname | head -10`)
+- **Simple fix (< 15 min):** bump forward with a new patch
 - Never reuse a version number
-
-```bash
-git tag --sort=-version:refname | head -10   # find last good tag
-git checkout v1.2.0                           # roll back
-```
-
----
 
 ## Data Contract Versioning
 
-For repos consumed as data sources, add a `schemaVersion` field (`MAJOR.MINOR` format):
-
-```json
-{
-  "schemaVersion": "1.0",
-  "data": { ... }
-}
-```
+For repos consumed as data sources, add `"schemaVersion": "MAJOR.MINOR"`:
 
 | Change type | Breaking? | Action |
 |---|---|---|
 | Add optional field | No | Bump minor |
 | Add/remove/rename required field, change type | Yes | Bump major |
 
----
-
 ## Cross-Repo Version Gating
 
-Declare dependencies in the consumer's `package.json`:
+Declare minimum required versions in the consumer's `package.json` and validate at deploy time:
 
 ```json
-{
-  "requiredAnalyticsVersion": "1.2.0",
-  "requiredApiVersion": "1.5.0"
-}
+{ "requiredAnalyticsVersion": "1.2.0", "requiredApiVersion": "1.5.0" }
 ```
-
-Deploy scripts should validate consumed versions meet declared minimums before starting.
 <!-- END STANDARD: versioning -->
