@@ -72,8 +72,8 @@ See `templates/README.md` for the full checklist. Quick version:
 This repo dogfoods its own standards. All standards below are inlined from `standards/` and kept in sync by `scripts/sync-standards.sh`. Do NOT edit the content between BEGIN/END markers directly — edit the source file in `standards/` instead.
 
 <!-- BEGIN STANDARD: workflow -->
-<!-- standard: workflow | version: 2.0.0 -->
-# Workflow Standard — Three-Gate Approval
+<!-- standard: workflow | version: 2.1.0 -->
+# Workflow Standard — Four-Gate Approval
 
 > **Source of truth** for all Claude product engineer sessions.
 
@@ -84,12 +84,12 @@ This repo dogfoods its own standards. All standards below are inlined from `stan
 Every feature follows a linear sequence:
 
 ```
-Discover Session → Search Board → Gate 1 (Plan) → Implement → Gate 2 (Test) → Gate 3 (Merge) → Ship → Document
+Discover Session → Search Board → Gate 1 (Plan) → Implement → Gate 2 (Test) → Gate 3 (Merge) → Ship → Document → Gate 4 (Review)
 ```
 
 One feature per session. Never work on multiple features in the same session. If the user asks for a new feature mid-session, document it as a board item (IDEA status) and finish the current feature first.
 
-> **MANDATORY:** All three gates apply to EVERY change — bug fixes, hotfixes, one-liners,
+> **MANDATORY:** All four gates apply to EVERY change — bug fixes, hotfixes, one-liners,
 > and fully-specified tasks. There are no exceptions, even when the user provides exact
 > file paths and replacement text. Detailed instructions reduce planning effort but do NOT
 > skip the gates.
@@ -128,6 +128,17 @@ One feature per session. Never work on multiple features in the same session. If
 **Gate requirement:** User clicks Approve, then agent merges the PR.
 
 **Never merge without Gate 3 approval.** Not even for hotfixes.
+
+---
+
+## Gate 4 — Session Review
+
+**Trigger:** After documentation is complete — the final gate before closing the session.
+
+1. Read `standards/gates/session-review.md` for full gate instructions
+2. Follow the procedure described there
+
+**Gate requirement:** User clicks Approve after reviewing the report.
 
 ---
 
