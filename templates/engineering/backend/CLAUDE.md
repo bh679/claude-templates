@@ -53,11 +53,14 @@ After implementation is complete:
 3. Verify health endpoint: `curl -s http://localhost:{{BASE_PORT}}/health | jq .`
 4. If migrations were added: verify upgrade and rollback paths
 5. Enter plan mode and present a **Gate 2 Testing Report**:
+   - Clickable local URL with port
+   - Unit test summary: total, passed, failed, skipped, coverage %
    - Health check response JSON
    - Endpoint URLs tested
    - curl commands with example request/response
    - Status codes verified
-   - Automated test result summary
+   - Integration/e2e test results summary
+   - What passed / what failed
    - Migration verification results (if applicable)
 6. Wait for user approval
 

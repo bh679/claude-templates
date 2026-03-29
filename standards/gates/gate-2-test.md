@@ -10,9 +10,9 @@
 3. Take screenshots using `browser_take_screenshot`
 4. Use `browser_snapshot` for accessibility tree analysis
 5. Enter plan mode and present a **Gate 2 Testing Report** containing:
+   - Clickable local URL with port
    - Unit test summary: total, passed, failed, skipped, coverage %
    - Screenshot paths (for blogging)
-   - Clickable local URL with port
    - Step-by-step user testing instructions
    - Integration/e2e test results summary
    - What passed / what failed
