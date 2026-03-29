@@ -72,7 +72,7 @@ See `templates/README.md` for the full checklist. Quick version:
 This repo dogfoods its own standards. All standards below are inlined from `standards/` and kept in sync by `scripts/sync-standards.sh`. Do NOT edit the content between BEGIN/END markers directly — edit the source file in `standards/` instead.
 
 <!-- BEGIN STANDARD: workflow -->
-<!-- standard: workflow | version: 1.1.0 -->
+<!-- standard: workflow | version: 1.2.0 -->
 # Workflow Standard — Three-Gate Approval
 
 > **Source of truth** for all Claude product engineer sessions.
@@ -184,6 +184,13 @@ Create a `Deployment.md` index page and at least one `Deployment-<Method>.md` pa
 
 **Gate requirement:** User clicks Approve, then agent merges the PR.
 
+**Post-merge cleanup (mandatory):**
+1. Delete the remote feature branch (`git push origin --delete dev/<slug>`)
+2. Delete the local feature branch (`git branch -d dev/<slug>`)
+3. If continuing work in this session, create a new branch (`git checkout -b dev/<next-slug>`)
+
+See `git.md` § Post-Merge Cleanup for the full procedure including worktree variants.
+
 **Never merge without Gate 3 approval.** Not even for hotfixes.
 
 ---
@@ -251,7 +258,7 @@ trigger-blog
 <!-- END STANDARD: workflow -->
 
 <!-- BEGIN STANDARD: git -->
-<!-- standard: git | version: 1.1.0 -->
+<!-- standard: git | version: 1.3.0 -->
 # Git Standards
 
 > **Source of truth** for git workflow across all Claude-powered projects.
@@ -260,82 +267,27 @@ trigger-blog
 
 ## Branch Naming
 
-```
-dev/<feature-slug>
-```
-
-Examples:
-- `dev/user-authentication`
-- `dev/board-score-recalculation`
-- `dev/fix-login-redirect`
-
-Rules:
-- Always prefix with `dev/`
-- Use kebab-case
-- Keep it short but descriptive (3-5 words max)
-- One branch per feature/session
+Format: `dev/<feature-slug>` — kebab-case, 3-5 words, one branch per feature/session.
 
 ---
 
 ## Git Worktrees
 
-**Recommended for multi-repo projects. Optional for single-repo projects.**
+Use worktrees for multi-repo projects (e.g. client + API on separate ports). Optional for single-repo — a normal feature branch is sufficient.
 
-For single-repo projects, a feature branch (`dev/<feature-slug>`) checked out normally is sufficient — no worktree needed. Use worktrees when you need multiple features or sub-repos running simultaneously (e.g. a client + API pair that must run together on separate ports).
-
-All feature development happens in an **isolated environment** — never directly on `main`.
-
-### Manual Setup
-
-If your tooling doesn't create a worktree automatically:
-
-```bash
-# In the repo root
-git worktree add ../worktrees/<feature-slug> -b dev/<feature-slug>
-cd ../worktrees/<feature-slug>
-npm install   # or whatever the repo setup requires
-```
-
-### After Feature Merge
-
-You may continue working in the same worktree after merge. If you do, create or switch to a new branch first — never commit to `main`.
-
-```bash
-git checkout -b dev/<next-feature-slug>
-```
-
-### Why worktrees?
-
-- Multiple sessions can work on different features simultaneously without conflicts
-- `main` stays clean and always deployable
-- Each worktree has its own working directory — no stashing needed
+All development happens in isolation — never directly on `main`.
 
 ---
 
-## Commit Frequency
+## Commits
 
-**Commit after every meaningful unit of work.** Do not accumulate changes.
-
-What counts as a commit:
-- A function is added or modified
-- A bug is fixed
-- A file is created
-- A test is added
-- A config is changed
-
-Never: end a session with uncommitted changes.
-
-### Push After Every Commit
+**Commit and push after every meaningful unit of work.** Never end a session with uncommitted changes.
 
 ```bash
 git push origin dev/<feature-slug>
 ```
 
-Push immediately after every commit. This creates a remote backup and keeps the PR diff current.
-
----
-
-## Commit Message Format
+### Message Format
 
 ```
 <type>: <short description>
@@ -345,58 +297,59 @@ Push immediately after every commit. This creates a remote backup and keeps the 
 |---|---|
 | `feat` | New feature or user-visible addition |
 | `fix` | Bug fix |
-| `version` | Version bump commit (auto-generated) |
-| `docs` | Wiki or documentation update |
+| `version` | Version bump (auto-generated) |
+| `docs` | Documentation update |
 | `test` | Test additions or changes |
-| `chore` | Config, tooling, dependency updates |
-| `refactor` | Code restructuring without behaviour change |
-
-Examples:
-```
-feat: add email validation to registration form
-fix: correct JWT expiry on password reset
-version: bump to V.01.0012
-docs: update Features wiki with login flow
-test: add Playwright test for checkout flow
-```
+| `chore` | Config, tooling, dependencies |
+| `refactor` | Code restructuring, no behaviour change |
 
 ---
 
 ## Merge Strategy
 
 - Always merge via **Pull Request** (never direct push to main)
-- Branch must be up to date with `main` before creating a PR _(enforced by hook)_
-- Use **squash merge** for feature branches to keep main history clean
-- PR title matches the commit message format: `feat: <description>`
-- Delete the feature branch after merge
+- Branch must be up to date with `main` before PR _(enforced by hook)_
+- **Squash merge** feature branches to keep main history clean
+- PR title format: `<type>: <description>`
+- Delete feature branch after merge
+
+---
+
+## Post-Merge Cleanup
+
+```bash
+git checkout main && git pull origin main
+git push origin --delete dev/<feature-slug>
+git branch -d dev/<feature-slug>
+```
+
+**Worktree variant:** remove the worktree first (`git worktree remove ...`), then delete branch.
+
+**Continuing work?** Create a new branch — never reuse a merged branch or commit to `main`:
+
+```bash
+git checkout -b dev/<next-feature-slug>
+```
 
 ---
 
 ## Force Push and Destructive Commands
 
-The following are **blocked** in `.claude/settings.json`:
-- `git push --force *`
-- `git reset --hard *`
-- `rm -rf *`
-
-These must never be used. If you think you need one, ask the user.
+**Blocked** in `.claude/settings.json`: `git push --force`, `git reset --hard`, `rm -rf`. If you think you need one, ask the user.
 
 ---
 
 ## Tagging Releases
 
-After a minor version milestone (MM bump), tag the release:
+Tag on minor/major version bumps. See [`versioning.md`](versioning.md) for format.
 
 ```bash
-git tag v<version>   # e.g. git tag v1.02.0000
-git push origin v<version>
+git tag v<version> && git push origin v<version>
 ```
-
-See [`versioning.md`](versioning.md) for version format details.
 <!-- END STANDARD: git -->
 
 <!-- BEGIN STANDARD: wiki-writing -->
-<!-- standard: wiki-writing | version: 1.0.0 -->
+<!-- standard: wiki-writing | version: 1.1.0 -->
 # Wiki Writing Standard
 
 > **Source of truth** for documentation style across all project wikis.
@@ -445,6 +398,7 @@ Brief one-sentence description of what this page covers.
 - `##` — Major sections
 - `###` — Subsections
 - Never skip levels (no jumping from `#` to `###`)
+- Headings must be self-explanatory — a reader scanning only headings should understand the page's content without reading body text
 
 ---
 
