@@ -106,10 +106,14 @@ For each `{{STANDARD:<name>}}` found in the file:
 
 The embedded version comment enables drift detection — consumer projects can compare their version against the current version in the standards repo.
 
+### Gate files — `.claude/gates/*.md`
+
+Gate files copied from `standards/gates/` may also contain `{{STANDARD:<name>}}` tokens. After copying gate files, resolve these tokens the same way as in CLAUDE.md — replace the token line with the full contents of `standards/<name>.md`.
+
 ### Resolution order
 
 1. Resolve all `{{INCLUDE:...}}` tokens (recursive — includes may contain other includes)
-2. Resolve all `{{STANDARD:...}}` tokens (inline versioned standard content)
+2. Resolve all `{{STANDARD:...}}` tokens in CLAUDE.md **and** `.claude/gates/*.md` files
 3. Replace all `{{VALUE}}` tokens with collected values
 
 ---
@@ -336,7 +340,7 @@ Claude Code hooks are symlinked — updates propagate automatically. Git hooks a
 ### Engineering checklist
 
 - [ ] No literal `{{INCLUDE:` tokens remaining (all includes resolved)
-- [ ] No literal `{{STANDARD:` tokens remaining (all standards inlined)
+- [ ] No literal `{{STANDARD:` tokens remaining in CLAUDE.md or `.claude/gates/` files
 - [ ] No literal `{{` value tokens remaining in any CLAUDE.md file
 - [ ] Standards version comments are present (e.g. `<!-- standard: git | version: 1.0.0 -->`)
 - [ ] Gate files exist at `.claude/gates/gate-{1,2,3}-*.md` with version comments

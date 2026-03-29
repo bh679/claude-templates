@@ -76,7 +76,38 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   echo "$line" >> "$TMPFILE"
 done < "$CLAUDE_MD"
 
+# resolve_standard_tokens FILE
+# Replaces {{STANDARD:<name>}} lines in FILE with contents of standards/<name>.md
+resolve_standard_tokens() {
+  local file="$1"
+  local tmp_resolved
+  tmp_resolved=$(mktemp)
+  local changed=false
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ "$line" =~ \{\{STANDARD:([a-zA-Z0-9_-]+)\}\} ]]; then
+      local std_name="${BASH_REMATCH[1]}"
+      local std_file="$STANDARDS_DIR/${std_name}.md"
+      if [[ -f "$std_file" ]]; then
+        cat "$std_file" >> "$tmp_resolved"
+        changed=true
+      else
+        echo "WARNING: Standard file not found: $std_file — leaving token" >&2
+        echo "$line" >> "$tmp_resolved"
+      fi
+    else
+      echo "$line" >> "$tmp_resolved"
+    fi
+  done < "$file"
+
+  if $changed; then
+    cp "$tmp_resolved" "$file"
+  fi
+  rm -f "$tmp_resolved"
+}
+
 # Sync gate files: standards/gates/ → .claude/gates/
+# Gate source files may contain {{STANDARD:<name>}} tokens which are resolved after copying.
 GATES_SRC="$STANDARDS_DIR/gates"
 GATES_DST="$REPO_ROOT/.claude/gates"
 GATES_CHANGED=false
@@ -86,12 +117,17 @@ if [[ -d "$GATES_SRC" ]]; then
   for gate_file in "$GATES_SRC"/*.md; do
     [[ -f "$gate_file" ]] || continue
     dst_file="$GATES_DST/$(basename "$gate_file")"
-    if ! diff -q "$gate_file" "$dst_file" > /dev/null 2>&1; then
+    # Build a resolved copy to compare against destination
+    tmp_gate=$(mktemp)
+    cp "$gate_file" "$tmp_gate"
+    resolve_standard_tokens "$tmp_gate"
+    if ! diff -q "$tmp_gate" "$dst_file" > /dev/null 2>&1; then
       GATES_CHANGED=true
       if ! $CHECK_ONLY; then
-        cp "$gate_file" "$dst_file"
+        cp "$tmp_gate" "$dst_file"
       fi
     fi
+    rm -f "$tmp_gate"
   done
 fi
 
