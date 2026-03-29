@@ -34,12 +34,6 @@ compare the `standard-version` comments below against the current versions in th
 
 ---
 
-## Documentation
-
-{{STANDARD:wiki-writing}}
-
----
-
 
 ## Key Rules Summary
 

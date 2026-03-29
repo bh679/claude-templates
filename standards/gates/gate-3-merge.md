@@ -1,4 +1,4 @@
-<!-- gate: gate-3-merge | version: 1.0.0 -->
+<!-- gate: gate-3-merge | version: 1.1.0 -->
 # Gate 3 — Merge Approval
 
 **Trigger:** After user testing passes Gate 2.
@@ -35,7 +35,9 @@ Update the relevant wiki:
 - **Frontend/client features** → project wiki
 - **Backend/API features** → API repo wiki
 - **Deployment-impacting changes** → update `Deployment-*.md` wiki pages
-- Follow the wiki-writing standard for structure
+- Follow the wiki-writing standard for structure:
+
+{{STANDARD:wiki-writing}}
 
 If deployment docs were flagged in Gate 1:
 1. Update affected `Deployment-<Method>.md` pages
