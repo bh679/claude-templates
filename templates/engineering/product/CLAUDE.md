@@ -33,10 +33,12 @@ After implementation is complete:
 1. Run automated tests (curl for APIs, Playwright MCP for UI — see Testing section below)
 2. Take screenshots of the feature
 3. Enter plan mode and present a **Gate 2 Testing Report**:
-   - Screenshot paths (for blogging)
    - Clickable local URL: `http://localhost:{{BASE_PORT}}`
+   - Unit test summary: total, passed, failed, skipped, coverage %
+   - Screenshot paths (for blogging)
    - Step-by-step user testing instructions
-   - Automated test result summary
+   - Integration/e2e test results summary
+   - What passed / what failed
 4. Wait for user approval
 
 ---

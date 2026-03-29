@@ -106,10 +106,14 @@ For each `{{STANDARD:<name>}}` found in the file:
 
 The embedded version comment enables drift detection — consumer projects can compare their version against the current version in the standards repo.
 
+### Gate files — `.claude/gates/*.md`
+
+Gate files copied from `standards/gates/` may also contain `{{STANDARD:<name>}}` tokens. After copying gate files, resolve these tokens the same way as in CLAUDE.md — replace the token line with the full contents of `standards/<name>.md`.
+
 ### Resolution order
 
 1. Resolve all `{{INCLUDE:...}}` tokens (recursive — includes may contain other includes)
-2. Resolve all `{{STANDARD:...}}` tokens (inline versioned standard content)
+2. Resolve all `{{STANDARD:...}}` tokens in CLAUDE.md **and** `.claude/gates/*.md` files
 3. Replace all `{{VALUE}}` tokens with collected values
 
 ---
@@ -125,16 +129,23 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
    - Resolve all `{{STANDARD:...}}` tokens (see Step 2b)
    - Replace all `{{TOKENS}}` with collected values
 2. Copy `~/Projects/Claude Templates/templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
-3. Copy `~/Projects/Claude Templates/templates/engineering/product/playwright.config.js` → `<project>/playwright.config.js`
-4. Copy `~/Projects/Claude Templates/templates/engineering/product/package.json` → `<project>/package.json`
+3. Copy gate files:
+   ```bash
+   mkdir -p <project>/.claude/gates
+   cp ~/Projects/Claude\ Templates/standards/gates/gate-1-plan.md <project>/.claude/gates/
+   cp ~/Projects/Claude\ Templates/standards/gates/gate-2-test.md <project>/.claude/gates/
+   cp ~/Projects/Claude\ Templates/standards/gates/gate-3-merge.md <project>/.claude/gates/
+   ```
+4. Copy `~/Projects/Claude Templates/templates/engineering/product/playwright.config.js` → `<project>/playwright.config.js`
+5. Copy `~/Projects/Claude Templates/templates/engineering/product/package.json` → `<project>/package.json`
    - Update the `name` field to `{{PROJECT_SLUG}}`
    - Run `npm install`
-5. Create placeholder directories:
+6. Create placeholder directories:
    ```bash
    mkdir -p <project>/tests && touch <project>/tests/.gitkeep
    mkdir -p <project>/ports && touch <project>/ports/.gitkeep
    ```
-6. Install hooks:
+7. Install hooks:
    ```bash
    cd <project>
    ~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
@@ -152,10 +163,15 @@ Ask the user which template to use for each sub-repo if not obvious from the nam
 1. Copy the appropriate engineering CLAUDE.md → `<sub-repo>/CLAUDE.md`
    - `~/Projects/Claude Templates/templates/engineering/product/CLAUDE.md` for frontend/full-stack
    - `~/Projects/Claude Templates/templates/engineering/backend/CLAUDE.md` for backend/API
-2. Resolve all `{{INCLUDE:...}}` tokens (see Step 2b)
-3. Resolve all `{{STANDARD:...}}` tokens (see Step 2b)
-4. Replace all `{{TOKENS}}` with values appropriate to the sub-repo
-5. Install hooks:
+2. Copy gate files:
+   ```bash
+   mkdir -p <sub-repo>/.claude/gates
+   cp ~/Projects/Claude\ Templates/standards/gates/gate-*.md <sub-repo>/.claude/gates/
+   ```
+3. Resolve all `{{INCLUDE:...}}` tokens (see Step 2b)
+4. Resolve all `{{STANDARD:...}}` tokens (see Step 2b)
+5. Replace all `{{TOKENS}}` with values appropriate to the sub-repo
+6. Install hooks:
    ```bash
    cd <sub-repo>
    ~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
@@ -183,8 +199,13 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
    - Replace all `{{TOKENS}}` with collected values
 2. Copy `~/Projects/Claude Templates/templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
    - Add any project-specific tool permissions
-3. Create `<project>/ports/.gitkeep`
-4. Install hooks:
+3. Copy gate files:
+   ```bash
+   mkdir -p <project>/.claude/gates
+   cp ~/Projects/Claude\ Templates/standards/gates/gate-*.md <project>/.claude/gates/
+   ```
+4. Create `<project>/ports/.gitkeep`
+5. Install hooks:
    ```bash
    cd <project>
    ~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
@@ -319,9 +340,10 @@ Claude Code hooks are symlinked — updates propagate automatically. Git hooks a
 ### Engineering checklist
 
 - [ ] No literal `{{INCLUDE:` tokens remaining (all includes resolved)
-- [ ] No literal `{{STANDARD:` tokens remaining (all standards inlined)
+- [ ] No literal `{{STANDARD:` tokens remaining in CLAUDE.md or `.claude/gates/` files
 - [ ] No literal `{{` value tokens remaining in any CLAUDE.md file
 - [ ] Standards version comments are present (e.g. `<!-- standard: git | version: 1.0.0 -->`)
+- [ ] Gate files exist at `.claude/gates/gate-{1,2,3}-*.md` with version comments
 - [ ] `npm install` completed in orchestrator repo (product only)
 - [ ] `tests/` and `ports/` directories exist with `.gitkeep` (product only)
 - [ ] GitHub repo created and initial commit pushed
