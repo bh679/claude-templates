@@ -1,4 +1,4 @@
-<!-- standard: workflow | version: 1.2.0 -->
+<!-- standard: workflow | version: 1.3.0 -->
 # Workflow Standard — Three-Gate Approval
 
 > **Source of truth** for all Claude product engineer sessions.
@@ -10,14 +10,14 @@
 Every feature follows a linear sequence:
 
 ```
-Discover Session → Search Board → Gate 1 (Plan) → Implement → Gate 2 (Test) → Gate 3 (Merge) → Ship → Document
+Discover Session → Search Board → Gate 1 (Plan) → Implement → Gate 2 (Test) → Gate 3 (Merge) → Ship → Document → Gate 4 (Review)
 ```
 
 
 One feature per session. Never work on multiple features in the same session.
 
 
-> **MANDATORY:** All three gates apply to EVERY change — bug fixes, hotfixes, one-liners,
+> **MANDATORY:** All four gates apply to EVERY change — bug fixes, hotfixes, one-liners,
 > and fully-specified tasks. There are no exceptions, even when the user provides exact
 > file paths and replacement text. Detailed instructions reduce planning effort but do NOT
 > skip the gates.
@@ -181,3 +181,9 @@ Then trigger the blog skill if applicable:
 ```
 trigger-blog
 ```
+
+---
+
+## Gate 4 — Session Review
+
+After documentation, run [Gate 4 — Session Review](gates/session-review.md) to verify all standards were followed during the session.
