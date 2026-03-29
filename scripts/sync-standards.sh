@@ -76,18 +76,52 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   echo "$line" >> "$TMPFILE"
 done < "$CLAUDE_MD"
 
+# Sync gate files: standards/gates/ → .claude/gates/
+GATES_SRC="$STANDARDS_DIR/gates"
+GATES_DST="$REPO_ROOT/.claude/gates"
+GATES_CHANGED=false
+
+if [[ -d "$GATES_SRC" ]]; then
+  mkdir -p "$GATES_DST"
+  for gate_file in "$GATES_SRC"/*.md; do
+    [[ -f "$gate_file" ]] || continue
+    dst_file="$GATES_DST/$(basename "$gate_file")"
+    if ! diff -q "$gate_file" "$dst_file" > /dev/null 2>&1; then
+      GATES_CHANGED=true
+      if ! $CHECK_ONLY; then
+        cp "$gate_file" "$dst_file"
+      fi
+    fi
+  done
+fi
+
 # Compare
+CLAUDE_CHANGED=true
 if diff -q "$CLAUDE_MD" "$TMPFILE" > /dev/null 2>&1; then
-  echo "CLAUDE.md is up to date — no changes needed."
+  CLAUDE_CHANGED=false
+fi
+
+if ! $CLAUDE_CHANGED && ! $GATES_CHANGED; then
+  echo "CLAUDE.md and gate files are up to date — no changes needed."
   exit 0
 fi
 
 if $CHECK_ONLY; then
-  echo "CLAUDE.md is OUT OF SYNC with standards/. Run: ./scripts/sync-standards.sh" >&2
-  diff --unified "$CLAUDE_MD" "$TMPFILE" || true
+  if $CLAUDE_CHANGED; then
+    echo "CLAUDE.md is OUT OF SYNC with standards/. Run: ./scripts/sync-standards.sh" >&2
+    diff --unified "$CLAUDE_MD" "$TMPFILE" || true
+  fi
+  if $GATES_CHANGED; then
+    echo "Gate files are OUT OF SYNC. Run: ./scripts/sync-standards.sh" >&2
+  fi
   exit 1
 fi
 
-# Apply update
-cp "$TMPFILE" "$CLAUDE_MD"
-echo "CLAUDE.md updated with latest standards."
+# Apply updates
+if $CLAUDE_CHANGED; then
+  cp "$TMPFILE" "$CLAUDE_MD"
+  echo "CLAUDE.md updated with latest standards."
+fi
+if $GATES_CHANGED; then
+  echo "Gate files synced to .claude/gates/."
+fi

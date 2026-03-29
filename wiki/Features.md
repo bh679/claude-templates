@@ -11,6 +11,7 @@ All shipped features in Claude Templates, newest first.
 | 2026-03-05 | [Hook Versioning](Hook-Versioning) | Detect outdated local hook copies via version tracking |
 | 2026-03-05 | [Merge-Main-Before-PR Enforcement](Merge-Main-Before-PR) | Hook blocks PR creation when branch is behind main |
 | 2026-03-05 | [Deployment Documentation](Deployment-Documentation) | Gate 1 deployment impact checklist and wiki templates |
+| 2026-03-05 | [Version Enforcement](Version-Enforcement) | CI + pre-commit hook blocking standard changes without version bumps |
 | 2026-03-04 | [Three-Gate Workflow](Three-Gate-Workflow) | Plan, Test, Merge approval gates for all changes |
 | 2026-03-04 | [Git Standards](Git-Standards) | Branch naming, commit format, merge strategy, worktrees |
 | 2026-03-04 | [Versioning Standard](Versioning-Standard) | V.MM.PPPP version scheme with cross-repo gating |
@@ -24,4 +25,5 @@ All shipped features in Claude Templates, newest first.
 | 2026-03-04 | [Engineering Product Template](Engineering-Product-Template) | Full-stack product dev template with 3-gate workflow |
 | 2026-03-04 | [Engineering Backend Template](Engineering-Backend-Template) | Backend API template with HTTP diagnostics |
 | 2026-03-04 | [Operator Template](Operator-Template) | Scheduled agent template with state management |
+| 2026-03-04 | [Executive Ops Officer Template](Executive-Ops-Officer-Template) | Daily digest email operator with escalation tiers |
 | 2026-03-04 | [Wiki Template](Wiki-Template) | Wiki documentation starter files |

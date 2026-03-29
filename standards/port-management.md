@@ -2,29 +2,24 @@
 # Port Management Standard
 
 > **Source of truth** for dev-server port allocation across all Claude-powered projects.
+> Claims are stored in `~/.claude/ports/` so every project shares the same view.
 
-## How It Works
+## Configuration
 
-Each session claims a unique port starting from the project's `BASE_PORT` (set in `.env` or via the `{{BASE_PORT}}` template token). Claims are stored in `~/.claude/ports/` so all projects share the same view.
+Set `BASE_PORT` in `.env` (templates use `{{BASE_PORT}}` token, filled at bootstrap):
 
-**Claim a port** (session start):
-```bash
-mkdir -p ~/.claude/ports
-# Find first free port: start at BASE_PORT, increment until no claim file matches
-grep -l '"port": <port>' ~/.claude/ports/*.json 2>/dev/null
-# Write claim
-echo '{"port": <port>, "project": "<slug>", "session": "<id>", "feature": "<feature>"}' \
-  > ~/.claude/ports/<session-id>.json
+```
+BASE_PORT=3000
 ```
 
-**Release a port** (session end):
-```bash
-rm ~/.claude/ports/<session-id>.json
-```
+## Lifecycle
 
-## Stale Claims
+| Step | Command |
+|---|---|
+| **Claim** — find first free port from `BASE_PORT` | `mkdir -p ~/.claude/ports && echo '{"port": <port>, "project": "<slug>", "session": "<id>", "feature": "<feature>"}' > ~/.claude/ports/<session-id>.json` |
+| **Use** — start dev server on claimed port | (use the claimed port) |
+| **Release** — on session end | `rm ~/.claude/ports/<session-id>.json` |
 
-If a port is claimed but nothing is listening, the claim is stale — ignore or delete it:
-```bash
-lsof -i :<port> | grep LISTEN
-```
+**Allocation:** Starting at `BASE_PORT`, scan `~/.claude/ports/*.json` for conflicts. Increment until a free port is found, then write the claim file.
+
+**Stale claims:** If a claim file exists but `lsof -i :<port> | grep LISTEN` shows nothing, the claim is stale — ignore or delete it.
