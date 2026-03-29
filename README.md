@@ -108,6 +108,9 @@ Skills are symlinked into `~/.claude/skills/`, so `git pull` in this repo automa
 | [`git.md`](standards/git.md) | Branch naming, commit message format, worktree procedures |
 | [`versioning.md`](standards/versioning.md) | SemVer conventions, auto-bump rules, tag and rollback procedures |
 | [`wiki-writing.md`](standards/wiki-writing.md) | Prose style, breadcrumbs, link conventions, image naming |
+| [`operator.md`](standards/operator.md) | Scheduled autonomous agent scaffolding and conventions |
+| [`unit-testing.md`](standards/unit-testing.md) | Unit test requirements, 80% coverage, test quality rules |
+| [`http-diagnostics.md`](standards/http-diagnostics.md) | Health endpoints, error logging, usage tracking for HTTP backends |
 
 Current versions are tracked in [`.github/scripts/standards-versions.json`](.github/scripts/standards-versions.json).
 

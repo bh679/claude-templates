@@ -6,6 +6,16 @@ Planned and in-progress work for Claude Templates.
 
 ---
 
+## Recently Completed
+
+| Item | Completed |
+|---|---|
+| Missing README coverage for standards (operator, unit-testing, http-diagnostics) | 2026-03-28 |
+| Executive Ops Officer template documentation | 2026-03-28 |
+| Version enforcement CI + pre-commit hook | 2026-03-28 |
+
+---
+
 ## Backlog — Gaps Identified
 
 These items represent missing pieces discovered during documentation review.
@@ -29,67 +39,6 @@ The git standard already has enforcement hooks. The workflow standard is the mos
 
 ---
 
-### Wiki Writing Hooks
-
-**Status:** Planned
-**Priority:** Medium
-
-The hooks folder structure has `wiki/` marked as "(future)" but no hooks exist yet.
-
-### Acceptance Criteria
-
-- [ ] Hook that validates breadcrumb format on wiki page writes
-- [ ] Hook that checks for broken internal wiki links
-
----
-
-### Executive Ops Officer Template Documentation
-
-**Status:** Planned
-**Priority:** Medium
-
-The `templates/executive-ops-officer/` template exists with a full set of files (CLAUDE.md, guidelines, ops-config.json, state.json, GitHub Actions workflow) but has no documentation in `templates/README.md`, no bootstrapping checklist, and no token reference table.
-
-### Acceptance Criteria
-
-- [ ] Add executive-ops-officer to the template README
-- [ ] Document its unique `ops-config.json` file
-- [ ] Add token reference table
-- [ ] Add bootstrapping checklist
-
----
-
-### Missing README Coverage for Standards
-
-**Status:** Planned
-**Priority:** Medium
-
-The project README lists 4 standards (workflow, git, versioning, wiki-writing) but 3 more exist: operator, unit-testing, http-diagnostics.
-
-### Acceptance Criteria
-
-- [ ] Add operator, unit-testing, and http-diagnostics to README standards table
-
----
-
-### Drift Detection for Standards Beyond CLAUDE.md
-
-**Status:** Planned
-**Priority:** Medium
-
-The drift check script currently compares version comments in consumer CLAUDE.md files. It does not detect drift in:
-- Hook versions (already handled by `check-hooks.sh`, but not in CI)
-- Wiki template drift
-- Settings.json drift
-
-### Acceptance Criteria
-
-- [ ] Integrate `check-hooks.sh` into the drift-check GitHub Action
-- [ ] Add wiki template version checking
-- [ ] Add settings.json structure comparison
-
----
-
 ### Unit Test Infrastructure in Product Engineer Template
 
 **Status:** Planned
@@ -110,17 +59,35 @@ This was identified and scoped in a previous session. Implementation was approve
 
 ---
 
-### Consumer Project Freshness
+### Wiki Writing Hooks
 
 **Status:** Planned
-**Priority:** Low
+**Priority:** Medium
 
-Some consumer projects in `consumers.json` may have been bootstrapped before recent standard additions (unit-testing, http-diagnostics, hooks). There is no systematic way to track which standards each consumer has adopted vs. which are available.
+The hooks folder structure has `wiki/` marked as "(future)" but no hooks exist yet.
 
 ### Acceptance Criteria
 
-- [ ] Add `embedded_standards` field to consumers.json entries
-- [ ] Drift detection reports which optional standards a consumer has NOT adopted
+- [ ] Hook that validates breadcrumb format on wiki page writes
+- [ ] Hook that checks for broken internal wiki links
+
+---
+
+### Drift Detection for Standards Beyond CLAUDE.md
+
+**Status:** Planned
+**Priority:** Medium
+
+The drift check currently covers version comments in consumer CLAUDE.md files. It does not detect drift in:
+- Hook versions (already handled by `check-hooks.sh`, but not in CI)
+- Wiki template drift
+- Settings.json drift
+
+### Acceptance Criteria
+
+- [ ] Integrate `check-hooks.sh` into the drift-check GitHub Action
+- [ ] Add wiki template version checking
+- [ ] Add settings.json structure comparison
 
 ---
 
@@ -140,6 +107,20 @@ The claude-templates repo itself lacks the enforcement hooks it prescribes for c
 ### Notes
 
 Identified in a previous session. The repo dogfoods its standards in CLAUDE.md but does not enforce them mechanically.
+
+---
+
+### Consumer Project Freshness
+
+**Status:** Planned
+**Priority:** Low
+
+Some consumer projects in `consumers.json` may have been bootstrapped before recent standard additions (unit-testing, http-diagnostics, hooks). There is no systematic way to track which standards each consumer has adopted vs. which are available.
+
+### Acceptance Criteria
+
+- [ ] Add `embedded_standards` field to consumers.json entries
+- [ ] Drift detection reports which optional standards a consumer has NOT adopted
 
 ---
 
