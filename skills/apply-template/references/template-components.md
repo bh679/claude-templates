@@ -31,8 +31,21 @@ What each template type includes. Use this to detect the current state and know 
 |---|---|
 | `CLAUDE.md` | Main instructions |
 | `.claude/settings.json` | Permissions + hooks |
+| `.claude/gates/gate-1-plan.md` | Gate 1 detailed instructions |
+| `.claude/gates/gate-2-test.md` | Gate 2 detailed instructions |
+| `.claude/gates/gate-3-merge.md` | Gate 3 detailed instructions |
 | `package.json` | Playwright dependency |
 | `playwright.config.js` | Playwright config |
+
+### Gate Files
+Source: `standards/gates/` — copied to `.claude/gates/` in consumer projects.
+Version comment format: `<!-- gate: <name> | version: X.Y.Z -->`
+
+| Gate | Version | Purpose |
+|---|---|---|
+| `gate-1-plan.md` | 1.0.0 | Plan approval — deployment checklist, session ID |
+| `gate-2-test.md` | 1.0.0 | Testing approval — screenshots, accessibility |
+| `gate-3-merge.md` | 1.0.0 | Merge approval — PR, documentation, blog |
 
 ### Settings (permissions)
 - allow: Read, Glob, Edit, Write, Bash, WebSearch, WebFetch
@@ -72,6 +85,12 @@ Same as product (workflow, git, versioning, project-board, port-management, wiki
 |---|---|
 | `CLAUDE.md` | Main instructions |
 | `.claude/settings.json` | Permissions + hooks (same as product) |
+| `.claude/gates/gate-1-plan.md` | Gate 1 detailed instructions |
+| `.claude/gates/gate-2-test.md` | Gate 2 detailed instructions |
+| `.claude/gates/gate-3-merge.md` | Gate 3 detailed instructions |
+
+### Gate Files
+Same as product — all three gates required.
 
 ### Fingerprints
 - "Gate 1", "Gate 2", "Gate 3"
