@@ -192,6 +192,7 @@ See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
   - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
   - Replace all `{{TOKENS}}`
   - Verify the GitHub Project V2 number is correct
+- [ ] Copy `standards/gates/` → `<project>/.claude/gates/`
 - [ ] Copy `templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
   - Add any project-specific tool permissions
 - [ ] Copy `templates/engineering/product/playwright.config.js` → `<project>/playwright.config.js`
@@ -231,6 +232,7 @@ Each sub-repo gets its own engineering template based on its role:
   - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
   - If this backend exposes HTTP services: uncomment `{{STANDARD:http-diagnostics}}`
   - Replace all `{{TOKENS}}`
+- [ ] Copy `standards/gates/` → `<project>/.claude/gates/`
 - [ ] Copy `templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
   - Add any project-specific tool permissions
 - [ ] Create `<project>/ports/.gitkeep`
@@ -309,7 +311,11 @@ Each sub-repo gets its own engineering template based on its role (see Product c
 <project>/                        (orchestrator repo)
 ├── CLAUDE.md                     (filled-in product engineer template with embedded standards)
 ├── .claude/
-│   └── settings.json
+│   ├── settings.json
+│   └── gates/
+│       ├── gate-1-plan.md
+│       ├── gate-2-test.md
+│       └── gate-3-merge.md
 ├── package.json
 ├── playwright.config.js
 ├── tests/
@@ -333,7 +339,11 @@ Each sub-repo gets its own engineering template based on its role (see Product c
 <project>/                        (orchestrator repo)
 ├── CLAUDE.md                     (filled-in backend engineer template with embedded standards)
 ├── .claude/
-│   └── settings.json
+│   ├── settings.json
+│   └── gates/
+│       ├── gate-1-plan.md
+│       ├── gate-2-test.md
+│       └── gate-3-merge.md
 └── ports/
     └── .gitkeep
 
