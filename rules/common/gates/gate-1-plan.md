@@ -3,17 +3,29 @@
 
 **Trigger:** Before writing any code.
 
+## Research & Reuse
+
+**Mandatory before writing the plan.**
+
+- **GitHub code search first:** Run `gh search repos` and `gh search code` to find existing implementations, templates, and patterns before writing anything new.
+- **Check package registries:** Search npm, PyPI, crates.io, and other registries before writing utility code. Prefer battle-tested libraries over hand-rolled solutions.
+- **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
+- Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
+
+---
+
 ## Agent Actions
 
-1. Enter plan mode (`EnterPlanMode`)
-2. Explore the codebase — read relevant files, understand existing patterns
-3. Write a plan to the plan file covering:
+1. Research & reuse (see above)
+2. Enter plan mode (`EnterPlanMode`)
+3. Explore the codebase — read relevant files, understand existing patterns
+4. Write a plan to the plan file covering:
    - What will be built
    - Which files will be changed and why
    - Estimated complexity
    - Risks or dependencies
    - Deployment impact (see checklist below)
-4. Present the plan to the user via `ExitPlanMode`
+5. Present the plan to the user via `ExitPlanMode`
 
 **Gate requirement:** User clicks Approve in plan mode.
 

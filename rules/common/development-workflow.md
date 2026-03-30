@@ -10,7 +10,7 @@
 Every feature follows a linear sequence:
 
 ```
-Discover Session → Search Board → Research → Gate 1 (Plan) → Implement → Gate 2 (Test) → Gate 3 (Merge) → Ship → Document → Gate 4 (Review)
+Discover Session → Search Board → Gate 1 (Plan) → Implement → Gate 2 (Test) → Gate 3 (Merge) → Ship → Document → Gate 4 (Review)
 ```
 
 One feature per session. Never work on multiple features in the same session. If the user asks for a new feature mid-session, document it as a board item (IDEA status) and finish the current feature first.
@@ -19,17 +19,6 @@ One feature per session. Never work on multiple features in the same session. If
 > and fully-specified tasks. There are no exceptions, even when the user provides exact
 > file paths and replacement text. Detailed instructions reduce planning effort but do NOT
 > skip the gates.
-
----
-
-## Research & Reuse
-
-**Before Gate 1 — mandatory before any new implementation.**
-
-- **GitHub code search first:** Run `gh search repos` and `gh search code` to find existing implementations, templates, and patterns before writing anything new.
-- **Check package registries:** Search npm, PyPI, crates.io, and other registries before writing utility code. Prefer battle-tested libraries over hand-rolled solutions.
-- **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
-- Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
 
 ---
 
