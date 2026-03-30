@@ -3,9 +3,11 @@
 ## Minimum Test Coverage: 80%
 
 Test Types (ALL required):
-1. **Unit Tests** - Individual functions, utilities, components
+1. **Unit Tests** - Individual functions, utilities, components — co-located as `<file>.test.<ext>` next to source
 2. **Integration Tests** - API endpoints, database operations
 3. **E2E Tests** - Critical user flows (framework chosen per language)
+
+Unit tests are **mandatory on every feature**. No code ships without a corresponding `.test.*` file.
 
 ## Test-Driven Development
 

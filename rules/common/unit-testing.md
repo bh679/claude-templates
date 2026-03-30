@@ -1,4 +1,9 @@
-<!-- standard: unit-testing | version: 1.0.0 -->
+---
+paths:
+  - "**/*.test.*"
+---
+
+<!-- standard: unit-testing | version: 1.1.0 -->
 # Unit Testing Standard
 
 > **Source of truth** for unit testing requirements across all Claude-powered projects.
