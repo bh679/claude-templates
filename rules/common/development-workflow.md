@@ -1,37 +1,84 @@
-# Development Workflow
+<!-- standard: workflow | version: 2.2.0 -->
+# Workflow — Four-Gate Approval
 
-> This file extends [common/git-workflow.md](./git-workflow.md) with the full feature development process that happens before git operations.
+> **Source of truth** for all Claude product engineer sessions.
 
-The Feature Implementation Workflow describes the development pipeline: research, planning, TDD, code review, and then committing to git.
+---
 
-## Feature Implementation Workflow
+## Overview
 
-0. **Research & Reuse** _(mandatory before any new implementation)_
-   - **GitHub code search first:** Run `gh search repos` and `gh search code` to find existing implementations, templates, and patterns before writing anything new.
-   - **Exa MCP for research:** Use `exa-web-search` MCP during the planning phase for broader research, data ingestion, and discovering prior art.
-   - **Check package registries:** Search npm, PyPI, crates.io, and other registries before writing utility code. Prefer battle-tested libraries over hand-rolled solutions.
-   - **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
-   - Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
+Every feature follows a linear sequence:
 
-1. **Plan First**
-   - Use **planner** agent to create implementation plan
-   - Generate planning docs before coding: PRD, architecture, system_design, tech_doc, task_list
-   - Identify dependencies and risks
-   - Break down into phases
+```
+Discover Session → Search Board → Research → Gate 1 (Plan) → Implement → Gate 2 (Test) → Gate 3 (Merge) → Ship → Document → Gate 4 (Review)
+```
 
-2. **TDD Approach**
-   - Use **tdd-guide** agent
-   - Write tests first (RED)
-   - Implement to pass tests (GREEN)
-   - Refactor (IMPROVE)
-   - Verify 80%+ coverage
+One feature per session. Never work on multiple features in the same session. If the user asks for a new feature mid-session, document it as a board item (IDEA status) and finish the current feature first.
 
-3. **Code Review**
-   - Use **code-reviewer** agent immediately after writing code
-   - Address CRITICAL and HIGH issues
-   - Fix MEDIUM issues when possible
+> **MANDATORY:** All four gates apply to EVERY change — bug fixes, hotfixes, one-liners,
+> and fully-specified tasks. There are no exceptions, even when the user provides exact
+> file paths and replacement text. Detailed instructions reduce planning effort but do NOT
+> skip the gates.
 
-4. **Commit & Push**
-   - Detailed commit messages
-   - Follow conventional commits format
-   - See [git-workflow.md](./git-workflow.md) for commit message format and PR process
+---
+
+## Research & Reuse
+
+**Before Gate 1 — mandatory before any new implementation.**
+
+- **GitHub code search first:** Run `gh search repos` and `gh search code` to find existing implementations, templates, and patterns before writing anything new.
+- **Check package registries:** Search npm, PyPI, crates.io, and other registries before writing utility code. Prefer battle-tested libraries over hand-rolled solutions.
+- **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
+- Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
+
+---
+
+## Gate 1 — Plan Approval
+
+**Trigger:** Before writing any code.
+
+1. Read `.claude/gates/gate-1-plan.md` for full gate instructions
+2. Follow the procedure described there
+
+**Gate requirement:** User clicks Approve in plan mode.
+
+---
+
+## Gate 2 — Testing Approval
+
+**Trigger:** After isolated implementation is complete.
+
+1. Read `.claude/gates/gate-2-test.md` for full gate instructions
+2. Follow the procedure described there
+
+**Gate requirement:** User tests manually and clicks Approve.
+
+---
+
+## Gate 3 — Merge Approval
+
+**Trigger:** After user testing passes Gate 2.
+
+1. Read `.claude/gates/gate-3-merge.md` for full gate instructions
+2. Follow the procedure described there
+
+**Gate requirement:** User clicks Approve, then agent merges the PR.
+
+**Never merge without Gate 3 approval.** Not even for hotfixes.
+
+---
+
+## Gate 4 — Session Review
+
+**Trigger:** After documentation is complete — the final gate before closing the session.
+
+1. Read `.claude/gates/gate-4-review.md` for full gate instructions
+2. Follow the procedure described there
+
+**Gate requirement:** User clicks Approve after reviewing the report.
+
+---
+
+## Re-reading CLAUDE.md
+
+Re-read the project CLAUDE.md at every gate transition. This ensures you always act on the current state of instructions, not a cached version from session start.
