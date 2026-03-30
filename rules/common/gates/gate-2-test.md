@@ -4,7 +4,6 @@
 **Trigger:** After isolated implementation is complete.
 
 ## Agent Actions
-
 1. Run unit tests — verify 80%+ line coverage (see unit-testing standard)
 2. Run integration/e2e tests (curl for APIs, Playwright MCP for UI)
 3. Take screenshots using `browser_take_screenshot`
@@ -19,18 +18,12 @@
 
 **Gate requirement:** User tests manually and clicks Approve.
 
----
-
 ## Screenshot Naming
-
 ```
 gate2-<feature-slug>-<timestamp>.png
 ```
 
 Save in `./test-results/`.
 
----
-
 ## Session Title Update
-
 Update title to: `TEST - <Task Name> - <Project Name>`

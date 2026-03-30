@@ -4,7 +4,6 @@
 **Trigger:** Before writing any code.
 
 ## Research & Reuse
-
 **Mandatory before writing the plan.**
 
 - **GitHub code search first:** Run `gh search repos` and `gh search code` to find existing implementations, templates, and patterns before writing anything new.
@@ -12,10 +11,7 @@
 - **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
 - Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
 
----
-
 ## Agent Actions
-
 1. Research & reuse (see above)
 2. Enter plan mode (`EnterPlanMode`)
 3. Explore the codebase — read relevant files, understand existing patterns
@@ -31,10 +27,7 @@
 
 **Never skip:** Even for "simple" changes. Plan mode catches assumptions early.
 
----
-
 ## Deployment Impact Checklist
-
 Assess whether the planned changes impact deployment. Flag if any apply:
 
 - Environment variable additions, removals, or changes
@@ -55,10 +48,7 @@ Assess whether the planned changes impact deployment. Flag if any apply:
 
 **If no deployment docs exist yet:** create them after Gate 3 (see gate-3-merge.md).
 
----
-
 ## Session Identification
-
 Update the session title on entering this gate:
 
 **Title format:** `PLAN - <Task Name> - <Project Name>`

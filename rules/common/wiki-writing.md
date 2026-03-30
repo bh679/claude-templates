@@ -6,12 +6,7 @@ paths:
 <!-- standard: wiki-writing | version: 1.1.0 -->
 # Wiki Writing Standard
 
-> **Source of truth** for documentation style across all project wikis.
-
----
-
 ## Breadcrumbs
-
 Every wiki page (except Home) starts with a breadcrumb trail:
 
 ```markdown
@@ -23,10 +18,7 @@ Rules:
 - The current page name is plain text — not a link
 - Breadcrumbs go on the very first line, before the `#` heading
 
----
-
 ## Page Structure
-
 ```markdown
 [Home](Home) > [Section](Section) > Page Title
 
@@ -44,22 +36,16 @@ Brief one-sentence description of what this page covers.
 - [Related Page](Related-Page)
 ```
 
----
-
 ## Heading Levels
-
 - `#` — Page title (one per page)
 - `##` — Major sections
 - `###` — Subsections
 - Never skip levels (no jumping from `#` to `###`)
 - Headings must be self-explanatory — a reader scanning only headings should understand the page's content without reading body text
 
----
-
 ## Links
 
 ### Wiki-Internal Links
-
 Use wiki link syntax — page name with hyphens replacing spaces, no `.md` extension:
 
 ```markdown
@@ -68,7 +54,6 @@ Use wiki link syntax — page name with hyphens replacing spaces, no `.md` exten
 ```
 
 ### External Links
-
 Full URLs in standard markdown:
 
 ```markdown
@@ -76,16 +61,12 @@ Full URLs in standard markdown:
 ```
 
 ### Never use
-
 - Relative file paths (`./features/auth.md`)
 - Full GitHub wiki URLs for internal links (breaks portability)
-
----
 
 ## Images
 
 ### Screenshot Naming
-
 ```
 <feature-slug>-<context>-<date>.png
 ```
@@ -95,7 +76,6 @@ Examples:
 - `board-score-calculation-2025-03.png`
 
 ### Embedding Images
-
 ```markdown
 ![Alt text describing the image](images/feature-slug-context-date.png)
 ```
@@ -103,13 +83,9 @@ Examples:
 Always include descriptive alt text.
 
 ### Image Storage
-
 Store images in the wiki repo's `images/` directory (create if absent).
 
----
-
 ## Feature Documentation Template
-
 Use this structure when documenting a shipped feature:
 
 ```markdown
@@ -137,10 +113,7 @@ Any implementation details worth preserving (API endpoints, data structures, etc
 - [API Docs](API-Reference)
 ```
 
----
-
 ## Roadmap Feature Template
-
 Use this structure for planned (not yet shipped) features:
 
 ```markdown
@@ -161,12 +134,9 @@ Brief description of the planned feature.
 Any design decisions or open questions.
 ```
 
----
-
 ## Deployment Documentation Template
 
 ### Deployment Index Page
-
 Use this structure for the deployment index page (`Deployment.md`):
 
 ```markdown
@@ -182,7 +152,6 @@ All deployment methods for {{PROJECT_NAME}}.
 ```
 
 ### Deployment Method Page
-
 Use this structure for each deployment method (`Deployment-<Method>.md`):
 
 ```markdown
@@ -231,20 +200,14 @@ How to verify the deployment succeeded.
 - [Feature That Uses This](Feature-Name)
 ```
 
----
-
 ## Tone and Style
-
 - Write in present tense ("The system validates..." not "The system will validate...")
 - Use second person for user instructions ("Click the button" not "The user clicks")
 - Avoid jargon unless it's defined elsewhere in the wiki
 - Keep sentences short — one idea per sentence
 - Use bullet lists for steps and options; prose for explanations
 
----
-
 ## Commit Messages for Wiki Changes
-
 ```
 docs: add User Authentication feature page
 docs: update Roadmap with board score feature
