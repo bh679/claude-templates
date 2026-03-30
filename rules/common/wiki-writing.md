@@ -1,3 +1,8 @@
+---
+paths:
+  - "**wiki**/*.md"
+---
+
 <!-- standard: wiki-writing | version: 1.1.0 -->
 # Wiki Writing Standard
 
