@@ -20,7 +20,7 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "standards/hooks/git/pre-bash.sh" }
+          { "type": "command", "command": "hooks/git/pre-bash.sh" }
         ]
       }
     ],
@@ -28,16 +28,7 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "standards/hooks/git/post-bash.sh" }
-        ]
-      },
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "standards/hooks/standards/post-write-sync.sh"
-          }
+          { "type": "command", "command": "hooks/git/post-bash.sh" }
         ]
       }
     ]
