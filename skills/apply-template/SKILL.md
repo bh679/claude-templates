@@ -1,9 +1,9 @@
 ---
 name: apply-template
-version: 1.0.0
+version: 1.1.0
 description: >
   Apply or update a claude-templates template to an existing project. Detects
-  current template state, compares standards/hooks/settings against the latest
+  current template state, compares gates/hooks/settings against the latest
   versions, and walks the user through each change interactively. Use when the
   user says "apply template", "update template", "sync standards", "update
   CLAUDE.md", "update hooks", "check for template updates", or when drift
@@ -20,7 +20,7 @@ Custom content is always preserved.
 ## When to Use
 
 - Applying a template to a project that has never had one
-- Updating an outdated project to the latest standards, hooks, and settings
+- Updating an outdated project to the latest gates, hooks, and settings
 - After drift detection flags a project as outdated
 - When the user wants to sync their project with the latest template
 
@@ -87,8 +87,8 @@ ls -d "$TEMPLATES_ROOT"/templates/engineering/*/  "$TEMPLATES_ROOT"/templates/op
 | State | How to detect |
 |---|---|
 | **Greenfield** | No CLAUDE.md exists |
-| **Partial** | CLAUDE.md exists but no `<!-- standard: ... | version: ... -->` comments |
-| **Applied (possibly outdated)** | CLAUDE.md has standard version comments |
+| **Partial** | CLAUDE.md exists but no `.claude/gates/` directory |
+| **Applied (possibly outdated)** | CLAUDE.md and `.claude/gates/` both exist |
 
 Read `~/.claude/skills/apply-template/references/template-components.md` to know exactly which files, standards, hooks, and settings each template type expects.
 
@@ -96,55 +96,32 @@ Read `~/.claude/skills/apply-template/references/template-components.md` to know
 
 ---
 
-## Step 2 — Compare Standards and Gate Versions
+## Step 2 — Compare Gate Versions
 
-### Standards
+Gates are standalone files in `.claude/gates/`. Check what exists and compare against source:
 
-Extract embedded standard versions from the target CLAUDE.md:
 ```bash
-grep '<!-- standard:.*version:' CLAUDE.md
+# Check installed gates
+ls .claude/gates/ 2>/dev/null || echo "No gates directory"
+
+# Check available gate files in rules
+ls "$TEMPLATES_ROOT"/rules/common/gates/gate-*.md
 ```
 
-Compare against the latest versions manifest:
-```bash
-cat "$TEMPLATES_ROOT/.github/scripts/standards-versions.json"
-```
-
-### Gate Files
-
-Gates are standalone files in `.claude/gates/`. Check what exists and compare versions:
-```bash
-# Check installed gate versions
-for gate in "$TARGET_ROOT"/.claude/gates/gate-*.md; do
-  [ -f "$gate" ] && head -1 "$gate"
-done
-
-# Check latest gate versions from source
-for gate in "$TEMPLATES_ROOT"/standards/gates/gate-*.md; do
-  head -1 "$gate"
-done
-```
-
-Gate files use a different version comment format: `<!-- gate: gate-1-plan | version: 1.0.0 -->`.
-
-### Present Comparison
-
-Build and present a combined comparison table to the user:
+Build and present a comparison table to the user:
 
 ```
-Standards Comparison:
-  workflow        — installed: 1.1.0 → latest: 2.0.0  (MAJOR update)
-  git             — installed: 1.2.0 → latest: 1.3.0  (MINOR update)
-  versioning      — installed: 2.0.0 → latest: 2.1.0  (MINOR update)
-  wiki-writing    — not found → latest: 1.1.0          (missing)
-
 Gate Files:
-  gate-1-plan     — not found → latest: 1.0.0          (missing)
-  gate-2-test     — not found → latest: 1.0.0          (missing)
-  gate-3-merge    — not found → latest: 1.0.0          (missing)
+  gate-1-plan     — installed / not found → latest: rules/common/gates/gate-1-plan.md
+  gate-2-test     — installed / not found → latest: rules/common/gates/gate-2-test.md
+  gate-3-merge    — installed / not found → latest: rules/common/gates/gate-3-merge.md
 ```
 
-Determine which standards and gates should be present for this template type by consulting the template-components reference.
+Gate files expected per template type:
+- **engineering/product** and **engineering/backend**: all three gates
+- **operator**: none
+
+Note: Standards are now loaded automatically from `rules/common/` — no comparison needed.
 
 Note: Do NOT apply any changes yet. This step is information gathering only.
 
@@ -155,7 +132,7 @@ Note: Do NOT apply any changes yet. This step is information gathering only.
 Run the existing hook checker from the target project root:
 ```bash
 cd "$TARGET_ROOT"
-"$TEMPLATES_ROOT/standards/hooks/check-hooks.sh"
+"$TEMPLATES_ROOT/hooks/check-hooks.sh"
 ```
 
 If `.claude/hook-versions.json` does not exist, report that no hooks are installed.
@@ -188,91 +165,34 @@ If `.claude/settings.json` does not exist, note it as missing entirely.
 
 ---
 
-## Step 5 — Update Standards in CLAUDE.md (Interactive)
+## Step 5 — Update Gate Files (Interactive)
 
-**CRITICAL: Present each standard update ONE AT A TIME. Wait for user approval before proceeding to the next.**
-
-### For each OUTDATED standard (version behind latest):
-
-1. Read the latest standard content:
-   ```bash
-   cat "$TEMPLATES_ROOT/standards/<name>.md"
-   ```
-
-2. Present to the user:
-   - Standard name and what it governs
-   - Version change: `X.Y.Z → A.B.C`
-   - Bump type: PATCH (clarification only), MINOR (new guidance, backwards compatible), or MAJOR (breaking changes)
-   - For MAJOR bumps, add a warning: "This is a major version change that may affect your existing workflow."
-
-3. Ask the user: **Update / Skip / Show diff**
-   - If "Show diff": summarise the key changes between old and new version
-   - If "Update": replace the standard block in CLAUDE.md (see Replacement Logic below)
-   - If "Skip": move to the next standard
-
-### For each MISSING standard (expected by template but not in CLAUDE.md):
-
-1. Present to the user:
-   - Standard name and what it covers (one sentence)
-   - Version: `A.B.C` (new)
-
-2. Ask the user: **Add / Skip**
-   - If "Add": insert the standard at the appropriate location in CLAUDE.md
-   - If "Skip": move to the next standard
-
-### Replacement Logic
-
-**If BEGIN/END markers exist** (pattern: `<!-- BEGIN STANDARD: name -->` ... `<!-- END STANDARD: name -->`):
-- Replace everything between the markers with the new standard content
-- This is the same logic as `scripts/sync-standards.sh`
-
-**If only version comments exist** (pattern: `<!-- standard: name | version: X.Y.Z -->`):
-- Find the version comment line
-- The standard block runs from that line to the next `---` separator (a line that is exactly `---`)
-- Replace that entire block (version comment through the line before `---`) with the new standard content
-- Preserve the `---` separator
-
-**For new standards being added:**
-- Consult `templates/engineering/base.md` for the canonical ordering of standards
-- Insert the new standard at the correct position relative to existing standards
-- Add a `---` separator before and after
-
-### Preserving Custom Content
-
-- NEVER modify lines that are NOT inside a recognized standard block
-- If you cannot confidently identify the standard block boundaries, show the user the surrounding context and ask them to confirm the boundaries before replacing
-
----
-
-## Step 5b — Update Gate Files (Interactive)
-
-Gate files live in `.claude/gates/` as standalone files (not embedded in CLAUDE.md). They use the version comment format `<!-- gate: <name> | version: X.Y.Z -->` on line 1.
+Gate files live in `.claude/gates/` as standalone files. Source of truth is `rules/common/gates/`.
 
 **CRITICAL: Present each gate file update ONE AT A TIME.**
 
-### For each OUTDATED gate file (version behind latest):
+### For each OUTDATED gate file (differs from source):
 
 1. Read the latest gate content:
    ```bash
-   cat "$TEMPLATES_ROOT/standards/gates/<name>.md"
+   diff .claude/gates/<name>.md "$TEMPLATES_ROOT/rules/common/gates/<name>.md"
    ```
 
 2. Present to the user:
    - Gate name and what it governs
-   - Version change: `X.Y.Z → A.B.C`
+   - Summary of what changed
 
 3. Ask the user: **Update / Skip / Show diff**
-   - If "Update": replace the file at `.claude/gates/<name>.md` with the latest version
+   - If "Update": replace the file at `.claude/gates/<name>.md` with the latest version from `rules/common/gates/`
    - If "Skip": move to the next gate
 
 ### For each MISSING gate file (expected by template but not present):
 
 1. Present to the user:
    - Gate name and what it covers (one sentence)
-   - Version: `A.B.C` (new)
 
 2. Ask the user: **Add / Skip**
-   - If "Add": copy from `$TEMPLATES_ROOT/standards/gates/<name>.md` to `.claude/gates/<name>.md`
+   - If "Add": copy from `$TEMPLATES_ROOT/rules/common/gates/<name>.md` to `.claude/gates/<name>.md`
    - Create the `.claude/gates/` directory if it doesn't exist:
      ```bash
      mkdir -p .claude/gates
@@ -281,7 +201,7 @@ Gate files live in `.claude/gates/` as standalone files (not embedded in CLAUDE.
 
 ### Gate files expected per template type:
 
-- **engineering/product** and **engineering/backend**: all three gates (gate-1-plan.md, gate-2-test.md, gate-3-merge.md)
+- **engineering/product** and **engineering/backend**: gate-1-plan.md, gate-2-test.md, gate-3-merge.md
 - **operator**: none (operators don't use gates)
 
 ---
@@ -300,11 +220,11 @@ For each outdated or missing hook identified in Step 3:
 3. If approved, run the relevant installer:
    ```bash
    cd "$TARGET_ROOT"
-   "$TEMPLATES_ROOT/standards/hooks/git/install-hooks.sh"
+   "$TEMPLATES_ROOT/hooks/git/install-hooks.sh"
    ```
    Or for versioning hooks:
    ```bash
-   "$TEMPLATES_ROOT/standards/hooks/versioning/install-hooks.sh"
+   "$TEMPLATES_ROOT/hooks/versioning/install-hooks.sh"
    ```
 
 Only run installers for hooks the user has approved. Each installer is idempotent.
@@ -432,17 +352,12 @@ Run verification checks:
 # Check for unresolved tokens (should be none after applying)
 grep -rn '{{' CLAUDE.md | grep -v '<!--' | grep -v 'example' || echo "No unresolved tokens"
 
-# Verify standard version comments are present
-grep '<!-- standard:.*version:' CLAUDE.md
-
 # Verify gate files are present (engineering templates)
-for gate in .claude/gates/gate-*.md; do
-  [ -f "$gate" ] && head -1 "$gate"
-done
+ls .claude/gates/gate-*.md 2>/dev/null || echo "No gate files found"
 
 # Check hook status
 cd "$TARGET_ROOT"
-"$TEMPLATES_ROOT/standards/hooks/check-hooks.sh" 2>/dev/null || echo "Hook check skipped"
+"$TEMPLATES_ROOT/hooks/check-hooks.sh" 2>/dev/null || echo "Hook check skipped"
 
 # Validate settings.json
 jq . .claude/settings.json > /dev/null 2>&1 && echo "settings.json: valid JSON" || echo "settings.json: invalid or missing"
@@ -455,17 +370,10 @@ Apply-Template Summary for <project-name>
 ==========================================
 Template type: engineering/product
 
-Standards:
-  workflow        1.1.0 → 2.0.0    UPDATED
-  git             1.2.0 → 1.3.0    UPDATED
-  versioning      2.0.0 → 2.1.0    UPDATED
-  wiki-writing    (new)   1.1.0     ADDED
-  port-management (new)   1.2.0     SKIPPED (user choice)
-
 Gates:
-  gate-1-plan     (new)   1.0.0     ADDED
-  gate-2-test     (new)   1.0.0     ADDED
-  gate-3-merge    (new)   1.0.0     ADDED
+  gate-1-plan     ADDED
+  gate-2-test     ADDED
+  gate-3-merge    UPDATED
 
 Hooks:
   git/pre-bash.sh         1.0.0     UPDATED
@@ -491,8 +399,6 @@ Verification: All checks passed
 
 - **Template repo not found:** Guide user to clone: `gh repo clone bh679/claude-templates ~/Projects/Claude\ Templates`
 - **Template repo out of date:** `git pull` was run in Pre-Check; if it fails, warn the user
-- **No recognizable standard blocks in CLAUDE.md:** Treat as partial application; offer to rebuild standards section from template
-- **Cannot determine standard block boundaries:** Show surrounding context, ask user to confirm before replacing
 - **User declines all updates:** Report "No changes applied" and exit gracefully
 - **settings.json merge conflict:** Present both versions side by side, let user choose
 - **Git remote not set:** Ask user for the `owner/repo` slug manually
