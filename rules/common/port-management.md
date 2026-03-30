@@ -1,11 +1,9 @@
 <!-- standard: port-management | version: 1.2.0 -->
 # Port Management Standard
 
-> **Source of truth** for dev-server port allocation across all Claude-powered projects.
-> Claims are stored in `~/.claude/ports/` so every project shares the same view.
+Dev-server port allocation across all Claude-powered projects. Claims are stored in `~/.claude/ports/` so every project shares the same view.
 
 ## Configuration
-
 Set `BASE_PORT` in `.env` (templates use `{{BASE_PORT}}` token, filled at bootstrap):
 
 ```
@@ -13,7 +11,6 @@ BASE_PORT=3000
 ```
 
 ## Lifecycle
-
 | Step | Command |
 |---|---|
 | **Claim** — find first free port from `BASE_PORT` | `mkdir -p ~/.claude/ports && echo '{"port": <port>, "project": "<slug>", "session": "<id>", "feature": "<feature>"}' > ~/.claude/ports/<session-id>.json` |

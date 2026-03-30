@@ -1,18 +1,12 @@
 <!-- standard: gate-4-review | version: 1.0.0 -->
 # Gate 4 — Session Review
 
-> **Source of truth** for end-of-session standards compliance review.
-
----
+End-of-session standards compliance review.
 
 ## Trigger
-
 After documentation is complete — the final gate before closing the session.
 
----
-
 ## Agent Actions
-
 1. Re-read the project CLAUDE.md to get the current list of embedded standards
 2. Enter plan mode and present a **Gate 4 Review Report**
 3. For each standard referenced in CLAUDE.md, review the session's actions against it:
@@ -51,16 +45,10 @@ After documentation is complete — the final gate before closing the session.
 5. Present the report to the user via `ExitPlanMode`
 6. If any deviations are found, ask the user whether to fix them now or accept them as-is
 
----
-
 ## Gate Requirement
-
 User clicks Approve after reviewing the report. If deviations exist, the user decides whether to remediate or accept.
 
----
-
 ## Rules
-
 - Only check standards that are embedded in the project's CLAUDE.md — not all standards in this repo
 - Mark a standard as **N/A** if it doesn't apply to the session (e.g. `port-management` when no services were started)
 - A **PASS** means all requirements of that standard were met
