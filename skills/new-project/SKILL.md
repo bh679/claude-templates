@@ -1,5 +1,6 @@
 ---
 name: new-project
+version: 1.0.0
 description: >
   Bootstrap a new project using claude-templates standards and templates.
   Use when the user says "set up a new project", "create a new repo",

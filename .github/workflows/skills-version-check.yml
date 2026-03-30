@@ -1,0 +1,29 @@
+name: Skills Version Check
+
+on:
+  pull_request:
+    paths:
+      - 'skills/**'
+      - '.github/scripts/skills-versions.json'
+
+permissions:
+  contents: read
+
+jobs:
+  check-versions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history needed for diff against base
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Check skill versions bumped
+        run: |
+          chmod +x .github/scripts/check-skill-versions-ci.sh
+          chmod +x .github/scripts/build-skills-manifest.sh
+          .github/scripts/check-skill-versions-ci.sh "origin/${{ github.base_ref }}"
