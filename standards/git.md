@@ -1,4 +1,4 @@
-<!-- standard: git | version: 1.3.0 -->
+<!-- standard: git | version: 1.4.0 -->
 # Git Standards
 
 > **Source of truth** for git workflow across all Claude-powered projects.
@@ -31,6 +31,8 @@ git push origin dev/<feature-slug>
 
 ```
 <type>: <short description>
+
+<optional body>
 ```
 
 | Type | When to use |
@@ -42,6 +44,8 @@ git push origin dev/<feature-slug>
 | `test` | Test additions or changes |
 | `chore` | Config, tooling, dependencies |
 | `refactor` | Code restructuring, no behaviour change |
+| `perf`     | Performance improvement |
+| `ci`       | CI/CD configuration changes |
 
 ---
 
@@ -52,6 +56,17 @@ git push origin dev/<feature-slug>
 - **Squash merge** feature branches to keep main history clean
 - PR title format: `<type>: <description>`
 - Delete feature branch after merge
+
+---
+
+## PR Procedure
+
+When creating a PR:
+1. Analyze full commit history (not just latest commit)
+2. Use `git diff [base-branch]...HEAD` to see all changes
+3. Draft comprehensive PR summary
+4. Include test plan with TODOs
+5. Push with `-u` flag if new branch
 
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: trigger-blog
+version: 1.0.0
 description: >
   Capture feature shipping details and send them to the weekly-blog agent.
   Use when the user ships a feature and says "blog this", "trigger the blog",

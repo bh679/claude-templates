@@ -39,12 +39,32 @@ what to propagate to existing projects.
 
 ### Creating or Updating a Skill
 
+Skills are versioned using SemVer in their YAML frontmatter. When you change a skill:
+
 1. Skills live in `skills/<skill-name>/` with a `SKILL.md` and optional `references/` and `scripts/`
-2. To test, symlink into your skills directory:
+2. Every `SKILL.md` must have a `version` field in frontmatter:
+   ```yaml
+   ---
+   name: my-skill
+   version: 1.0.0
+   description: >
+     What the skill does...
+   ---
+   ```
+3. Bump the version when content changes:
+   - Patch: clarification/typo (no behavioural change)
+   - Minor: new step/section (backwards compatible)
+   - Major: removed/changed behaviour (may break workflows)
+4. Regenerate the manifest after version changes:
+   ```bash
+   .github/scripts/build-skills-manifest.sh
+   ```
+5. CI enforces version bumps — PRs that change skills without bumping the version will fail
+6. To test, symlink into your skills directory:
    ```bash
    ln -sf "$(pwd)/skills/<skill-name>" ~/.claude/skills/<skill-name>
    ```
-3. Run `./install-skills.sh` to (re)install all skills via symlinks
+7. Run `./install-skills.sh` to (re)install all skills via symlinks
 
 ### Adding a Consumer Repo
 
