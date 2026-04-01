@@ -18,7 +18,7 @@ Versioned policy documents that serve as the source of truth across all Claude-p
 
 ## How Standards Work
 
-1. Standards live in `standards/` as versioned markdown files
+1. Standards live in `rules/` (always-loaded) and `playbooks/` (on-demand) as versioned markdown files
 2. Each file has a version comment on line 1: `<!-- standard: name | version: X.Y.Z -->`
 3. Templates reference standards via `{{STANDARD:name}}` tokens
 4. At bootstrap time, the full standard content is inlined into the consumer's CLAUDE.md

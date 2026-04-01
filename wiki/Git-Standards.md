@@ -40,7 +40,7 @@ Force push, hard reset, and `rm -rf` are blocked in `.claude/settings.json`.
 ## Technical Notes
 
 - Current version: 1.1.0
-- Enforced by hooks in `standards/hooks/git/`
+- Enforced by hooks in `hooks/git/`
 - Pre-bash hook blocks: commits to main, PR merge without squash
 - Post-bash hook reminds: push after commit, clean up after merge
 

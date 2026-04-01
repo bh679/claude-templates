@@ -7,7 +7,7 @@
 You MUST fetch and read this document in full before taking any action.
 Do not write or edit a single wiki line until you have read it.
 
-- WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/standards/wiki-writing.md`
+- WebFetch `https://raw.githubusercontent.com/bh679/claude-templates/main/playbooks/wiki-writing.md`
 
 ---
 
@@ -34,7 +34,7 @@ images/                   — Screenshots and diagrams
 
 ## Breadcrumb Convention
 
-<!-- Full rules: github.com/bh679/claude-templates/standards/wiki-writing.md -->
+<!-- Full rules: github.com/bh679/claude-templates/playbooks/wiki-writing.md -->
 
 Every page except Home starts with:
 

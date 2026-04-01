@@ -14,7 +14,7 @@ A GitHub Actions workflow (`standards-version-check.yml`) runs on every PR. It c
 
 ### 2. Local Pre-Commit Hook
 
-A pre-commit hook (`standards/hooks/standards/pre-commit-version-check.sh`) provides fast local feedback before push. It checks staged files and blocks the commit if a version bump is missing.
+A pre-commit hook (`hooks/standards/pre-commit-version-check.sh`) provides fast local feedback before push. It checks staged files and blocks the commit if a version bump is missing.
 
 ### Version Manifest
 

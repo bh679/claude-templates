@@ -21,7 +21,8 @@ Claude Templates provides a reusable infrastructure layer for bootstrapping and 
 
 ```
 claude-templates/
-├── standards/          — Versioned policy docs (source of truth)
+├── rules/             — Always-loaded policy docs (source of truth)
+├── playbooks/         — On-demand policy docs and gates
 ├── templates/          — Copy-once starting points for new projects
 ├── skills/             — Installable Claude skills (symlinked)
 ├── consumers.json      — Registry of projects using these templates

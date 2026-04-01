@@ -105,23 +105,23 @@ Gates are standalone files in `.claude/gates/`. Check what exists and compare ag
 ls .claude/gates/ 2>/dev/null || echo "No gates directory"
 
 # Check available gate files in rules
-ls "$TEMPLATES_ROOT"/rules/common/gates/gate-*.md
+ls "$TEMPLATES_ROOT"/playbooks/gates/gate-*.md
 ```
 
 Build and present a comparison table to the user:
 
 ```
 Gate Files:
-  gate-1-plan     — installed / not found → latest: rules/common/gates/gate-1-plan.md
-  gate-2-test     — installed / not found → latest: rules/common/gates/gate-2-test.md
-  gate-3-merge    — installed / not found → latest: rules/common/gates/gate-3-merge.md
+  gate-1-plan     — installed / not found → latest: playbooks/gates/gate-1-plan.md
+  gate-2-test     — installed / not found → latest: playbooks/gates/gate-2-test.md
+  gate-3-merge    — installed / not found → latest: playbooks/gates/gate-3-merge.md
 ```
 
 Gate files expected per template type:
 - **engineering/product** and **engineering/backend**: all three gates
 - **operator**: none
 
-Note: Standards are now loaded automatically from `rules/common/` — no comparison needed.
+Note: Core standards (workflow, git, versioning, coding-style, security) are loaded automatically from `rules/`. Other playbooks are read on demand from `~/.claude/playbooks/`.
 
 Note: Do NOT apply any changes yet. This step is information gathering only.
 
@@ -167,7 +167,7 @@ If `.claude/settings.json` does not exist, note it as missing entirely.
 
 ## Step 5 — Update Gate Files (Interactive)
 
-Gate files live in `.claude/gates/` as standalone files. Source of truth is `rules/common/gates/`.
+Gate files live in `.claude/gates/` as standalone files. Source of truth is `playbooks/gates/`.
 
 **CRITICAL: Present each gate file update ONE AT A TIME.**
 
@@ -175,7 +175,7 @@ Gate files live in `.claude/gates/` as standalone files. Source of truth is `rul
 
 1. Read the latest gate content:
    ```bash
-   diff .claude/gates/<name>.md "$TEMPLATES_ROOT/rules/common/gates/<name>.md"
+   diff .claude/gates/<name>.md "$TEMPLATES_ROOT/playbooks/gates/<name>.md"
    ```
 
 2. Present to the user:
@@ -183,7 +183,7 @@ Gate files live in `.claude/gates/` as standalone files. Source of truth is `rul
    - Summary of what changed
 
 3. Ask the user: **Update / Skip / Show diff**
-   - If "Update": replace the file at `.claude/gates/<name>.md` with the latest version from `rules/common/gates/`
+   - If "Update": replace the file at `.claude/gates/<name>.md` with the latest version from `playbooks/gates/`
    - If "Skip": move to the next gate
 
 ### For each MISSING gate file (expected by template but not present):
@@ -192,7 +192,7 @@ Gate files live in `.claude/gates/` as standalone files. Source of truth is `rul
    - Gate name and what it covers (one sentence)
 
 2. Ask the user: **Add / Skip**
-   - If "Add": copy from `$TEMPLATES_ROOT/rules/common/gates/<name>.md` to `.claude/gates/<name>.md`
+   - If "Add": copy from `$TEMPLATES_ROOT/playbooks/gates/<name>.md` to `.claude/gates/<name>.md`
    - Create the `.claude/gates/` directory if it doesn't exist:
      ```bash
      mkdir -p .claude/gates

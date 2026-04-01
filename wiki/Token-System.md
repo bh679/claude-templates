@@ -14,7 +14,7 @@ Example: `{{INCLUDE:engineering/base.md}}` inlines the shared engineering base c
 
 ### 2. Standard Tokens — `{{STANDARD:<name>}}`
 
-Inline a versioned standard from `standards/<name>.md`. The full content is embedded with a version comment enabling drift detection.
+Inline a versioned standard from `rules/<name>.md` or `playbooks/<name>.md`. The full content is embedded with a version comment enabling drift detection.
 
 Example: `{{STANDARD:git}}` inlines the git standard with its version header.
 

@@ -17,7 +17,7 @@ One feature per session. Never work on multiple features in the same session. If
 ## Gate 1 — Plan Approval
 **Trigger:** Before writing any code.
 
-1. Read `.claude/gates/gate-1-plan.md` for full gate instructions
+1. Read `~/.claude/playbooks/gates/gate-1-plan.md` for full gate instructions
 2. Follow the procedure described there
 
 **Gate requirement:** User clicks Approve in plan mode.
@@ -25,7 +25,7 @@ One feature per session. Never work on multiple features in the same session. If
 ## Gate 2 — Testing Approval
 **Trigger:** After isolated implementation is complete.
 
-1. Read `.claude/gates/gate-2-test.md` for full gate instructions
+1. Read `~/.claude/playbooks/gates/gate-2-test.md` for full gate instructions
 2. Follow the procedure described there
 
 **Gate requirement:** User tests manually and clicks Approve.
@@ -33,7 +33,7 @@ One feature per session. Never work on multiple features in the same session. If
 ## Gate 3 — Merge Approval
 **Trigger:** After user testing passes Gate 2.
 
-1. Read `.claude/gates/gate-3-merge.md` for full gate instructions
+1. Read `~/.claude/playbooks/gates/gate-3-merge.md` for full gate instructions
 2. Follow the procedure described there
 
 **Gate requirement:** User clicks Approve, then agent merges the PR.
@@ -43,7 +43,7 @@ One feature per session. Never work on multiple features in the same session. If
 ## Gate 4 — Session Review
 **Trigger:** After documentation is complete — the final gate before closing the session.
 
-1. Read `.claude/gates/gate-4-review.md` for full gate instructions
+1. Read `~/.claude/playbooks/gates/session-review.md` for full gate instructions
 2. Follow the procedure described there
 
 **Gate requirement:** User clicks Approve after reviewing the report.

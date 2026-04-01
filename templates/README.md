@@ -12,7 +12,7 @@ Inline shared content from another file. Path is relative to the `templates/` di
 
 ### 2. Standard Tokens — `{{STANDARD:<name>}}`
 
-Inline a versioned standard from `standards/<name>.md`. When resolved, the full standard
+Inline a versioned standard from `rules/<name>.md` or `playbooks/<name>.md`. When resolved, the full standard
 content is embedded with a version comment so consumer projects can detect drift:
 
 ```markdown
@@ -192,7 +192,7 @@ See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
   - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
   - Replace all `{{TOKENS}}`
   - Verify the GitHub Project V2 number is correct
-- [ ] Copy `standards/gates/` → `<project>/.claude/gates/`
+- [ ] Copy `playbooks/gates/` → `<project>/.claude/gates/`
 - [ ] Copy `templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
   - Add any project-specific tool permissions
 - [ ] Copy `templates/engineering/product/playwright.config.js` → `<project>/playwright.config.js`
@@ -232,7 +232,7 @@ Each sub-repo gets its own engineering template based on its role:
   - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
   - If this backend exposes HTTP services: uncomment `{{STANDARD:http-diagnostics}}`
   - Replace all `{{TOKENS}}`
-- [ ] Copy `standards/gates/` → `<project>/.claude/gates/`
+- [ ] Copy `playbooks/gates/` → `<project>/.claude/gates/`
 - [ ] Copy `templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
   - Add any project-specific tool permissions
 - [ ] Create `<project>/ports/.gitkeep`
@@ -269,7 +269,7 @@ Each sub-repo gets its own engineering template based on its role (see Product c
 
 ### 5. Skills (one-time per developer machine)
 
-- [ ] Run `./install-skills.sh` from the claude-templates repo root
+- [ ] Run `./install.sh` from the claude-templates repo root
 - [ ] Verify `trigger-blog` appears in Claude skill list
 
 ---

@@ -160,7 +160,7 @@ $missing_list"
 
 $outdated_list
 
-Update these standards by re-resolving the \`{{STANDARD:...}}\` tokens from the latest [standards/](https://github.com/bh679/claude-templates/tree/main/standards)."
+Update these standards by re-resolving the \`{{STANDARD:...}}\` tokens from the latest [playbooks/](https://github.com/bh679/claude-templates/tree/main/playbooks)."
       fi
 
       issue_body+="
@@ -168,7 +168,7 @@ Update these standards by re-resolving the \`{{STANDARD:...}}\` tokens from the 
 ### What to Do
 
 1. Review the operator template: [\`templates/operator/\`](https://github.com/bh679/claude-templates/tree/main/templates/operator)
-2. Review the operator standard: [\`standards/operator.md\`](https://github.com/bh679/claude-templates/blob/main/standards/operator.md)
+2. Review the operator standard: [\`playbooks/operator.md\`](https://github.com/bh679/claude-templates/blob/main/playbooks/operator.md)
 3. Address the issues listed above
 4. Re-run \`install-hooks.sh\` to update any copied git hooks
 5. Close this issue once resolved
@@ -251,7 +251,7 @@ $missing_list"
 
 $outdated_list
 
-Update these standards by re-resolving the \`{{STANDARD:...}}\` tokens from the latest [standards/](https://github.com/bh679/claude-templates/tree/main/standards)."
+Update these standards by re-resolving the \`{{STANDARD:...}}\` tokens from the latest [playbooks/](https://github.com/bh679/claude-templates/tree/main/playbooks)."
       fi
 
       issue_body+="
@@ -259,7 +259,7 @@ Update these standards by re-resolving the \`{{STANDARD:...}}\` tokens from the 
 ### What to Do
 
 1. Review the latest template: [\`templates/$template/CLAUDE.md\`](https://github.com/bh679/claude-templates/blob/main/templates/$template/CLAUDE.md)
-2. Review the relevant standards docs: [standards/](https://github.com/bh679/claude-templates/tree/main/standards)
+2. Review the relevant standards docs: [playbooks/](https://github.com/bh679/claude-templates/tree/main/playbooks)
 3. Address the issues listed above
 4. Re-run \`install-hooks.sh\` to update any copied git hooks
 5. Close this issue once updated

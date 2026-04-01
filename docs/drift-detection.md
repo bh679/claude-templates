@@ -135,6 +135,6 @@ When a consumer receives a drift issue listing outdated standards:
 
 1. Open the consumer's CLAUDE.md
 2. Find the `<!-- standard: <name> | version: X.Y.Z -->` comment for each outdated standard
-3. Replace the entire standard section (from the version comment to the next `---` separator) with the current content from `standards/<name>.md`
+3. Replace the entire standard section (from the version comment to the next `---` separator) with the current content from the corresponding file in `rules/` or `playbooks/`
 4. Re-run `install-hooks.sh` to update any copied git hooks
 5. Close the drift issue

@@ -30,14 +30,14 @@ Triggered by Claude tool use. Symlinked into `.claude/hooks/` so updates propaga
 Per-standard (recommended):
 
 ```bash
-~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
-~/Projects/Claude\ Templates/standards/hooks/versioning/install-hooks.sh
+~/Projects/Claude\ Templates/hooks/git/install-hooks.sh
+~/Projects/Claude\ Templates/hooks/versioning/install-hooks.sh
 ```
 
 Or all at once:
 
 ```bash
-~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
+~/Projects/Claude\ Templates/hooks/install-hooks.sh
 ```
 
 ## Technical Notes

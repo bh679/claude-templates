@@ -14,7 +14,7 @@ Version tracking system that detects when locally installed hooks are outdated c
 ### Checking for Updates
 
 ```bash
-~/Projects/Claude\ Templates/standards/hooks/check-hooks.sh
+~/Projects/Claude\ Templates/hooks/check-hooks.sh
 ```
 
 Output shows which hooks are current and which need updating.

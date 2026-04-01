@@ -38,7 +38,7 @@ What each template type includes. Use this to detect the current state and know 
 | `playwright.config.js` | Playwright config |
 
 ### Gate Files
-Source: `standards/gates/` — copied to `.claude/gates/` in consumer projects.
+Source: `playbooks/gates/` — available globally via `~/.claude/playbooks/` symlink.
 Version comment format: `<!-- gate: <name> | version: X.Y.Z -->`
 
 | Gate | Version | Purpose |
@@ -54,9 +54,9 @@ Version comment format: `<!-- gate: <name> | version: X.Y.Z -->`
 ### Hooks
 | Hook | Type | Source |
 |---|---|---|
-| `.claude/hooks/git/pre-bash.sh` | Claude Code PreToolUse | `standards/hooks/git/pre-bash.sh` |
-| `.claude/hooks/git/post-bash.sh` | Claude Code PostToolUse | `standards/hooks/git/post-bash.sh` |
-| `.git/hooks/pre-commit` | Git pre-commit | `standards/hooks/versioning/git-hook-pre-commit.sh` |
+| `.claude/hooks/git/pre-bash.sh` | Claude Code PreToolUse | `hooks/git/pre-bash.sh` |
+| `.claude/hooks/git/post-bash.sh` | Claude Code PostToolUse | `hooks/git/post-bash.sh` |
+| `.git/hooks/pre-commit` | Git pre-commit | `hooks/versioning/git-hook-pre-commit.sh` |
 
 ### Fingerprints (for detection)
 Strings that should appear in a fully-applied product CLAUDE.md:
