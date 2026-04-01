@@ -1,6 +1,6 @@
 ---
 name: apply-template
-version: 1.1.0
+version: 1.1.1
 description: >
   Apply or update a claude-templates template to an existing project. Detects
   current template state, compares gates/hooks/settings against the latest
