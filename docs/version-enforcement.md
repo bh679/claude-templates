@@ -6,13 +6,13 @@
 
 ## How It Works
 
-Standards in `standards/` have a version comment on line 1:
+Standards in `rules/` and `playbooks/` have a version comment on line 1:
 
 ```markdown
 <!-- standard: git | version: 1.0.0 -->
 ```
 
-Hooks in `standards/hooks/` have a version comment on line 2:
+Hooks in `hooks/` have a version comment on line 2:
 
 ```bash
 #!/usr/bin/env bash
@@ -30,9 +30,9 @@ Two enforcement layers prevent changes without version bumps:
 
 **File:** `.github/workflows/standards-version-check.yml`
 
-Runs automatically on PRs that touch `standards/` or `standards-versions.json`. The workflow:
+Runs automatically on PRs that touch `rules/`, `playbooks/`, or `standards-versions.json`. The workflow:
 
-1. For each changed `standards/*.md` file, extracts the version from the PR branch and the base branch
+1. For each changed `rules/*.md` or `playbooks/*.md` file, extracts the version from the PR branch and the base branch
 2. If content changed (excluding the version line itself) but the version stayed the same — **fails the check**
 3. Verifies `standards-versions.json` is in sync with current standard versions
 
@@ -58,18 +58,18 @@ Runs automatically on PRs that touch `standards/` or `standards-versions.json`. 
 
 ## Local Pre-Commit Hook
 
-**File:** `standards/hooks/standards/pre-commit-version-check.sh`
+**File:** `hooks/standards/pre-commit-version-check.sh`
 
-Blocks commits that modify `standards/*.md` files without bumping the version comment. Provides immediate feedback before you push.
+Blocks commits that modify `rules/*.md` or `playbooks/*.md` files without bumping the version comment. Provides immediate feedback before you push.
 
 ### Installation
 
 ```bash
 # From the claude-templates repo root:
-standards/hooks/standards/install-hooks.sh
+hooks/standards/install-hooks.sh
 
 # Or install all hooks at once:
-standards/hooks/install-hooks.sh
+hooks/install-hooks.sh
 ```
 
 The installer handles three scenarios:

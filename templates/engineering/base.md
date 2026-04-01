@@ -4,7 +4,7 @@
 ## Standards
 
 The following standards are embedded from `bh679/claude-templates`. To check for updates,
-compare the `standard-version` comments below against the current versions in the standards repo.
+compare the `standard-version` comments below against the current versions in `rules/` and `playbooks/`.
 
 {{STANDARD:workflow}}
 

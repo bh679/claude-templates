@@ -1,6 +1,6 @@
 ---
 name: new-project
-version: 1.1.0
+version: 1.1.1
 description: >
   Bootstrap a new project using claude-templates standards and templates.
   Use when the user says "set up a new project", "create a new repo",
@@ -118,9 +118,9 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
 3. Copy gate files:
    ```bash
    mkdir -p <project>/.claude/gates
-   cp ~/Projects/Claude\ Templates/rules/common/gates/gate-1-plan.md <project>/.claude/gates/
-   cp ~/Projects/Claude\ Templates/rules/common/gates/gate-2-test.md <project>/.claude/gates/
-   cp ~/Projects/Claude\ Templates/rules/common/gates/gate-3-merge.md <project>/.claude/gates/
+   cp ~/Projects/Claude\ Templates/playbooks/gates/gate-1-plan.md <project>/.claude/gates/
+   cp ~/Projects/Claude\ Templates/playbooks/gates/gate-2-test.md <project>/.claude/gates/
+   cp ~/Projects/Claude\ Templates/playbooks/gates/gate-3-merge.md <project>/.claude/gates/
    ```
 4. Copy `~/Projects/Claude Templates/templates/engineering/product/playwright.config.js` → `<project>/playwright.config.js`
 5. Copy `~/Projects/Claude Templates/templates/engineering/product/package.json` → `<project>/package.json`
@@ -152,7 +152,7 @@ Ask the user which template to use for each sub-repo if not obvious from the nam
 2. Copy gate files:
    ```bash
    mkdir -p <sub-repo>/.claude/gates
-   cp ~/Projects/Claude\ Templates/rules/common/gates/gate-*.md <sub-repo>/.claude/gates/
+   cp ~/Projects/Claude\ Templates/playbooks/gates/gate-*.md <sub-repo>/.claude/gates/
    ```
 3. Resolve all `{{INCLUDE:...}}` tokens (see Step 2b)
 4. Replace all `{{TOKENS}}` with values appropriate to the sub-repo
@@ -186,7 +186,7 @@ Follow all sub-steps in order. Skip to Step 4 if using a different template type
 3. Copy gate files:
    ```bash
    mkdir -p <project>/.claude/gates
-   cp ~/Projects/Claude\ Templates/rules/common/gates/gate-*.md <project>/.claude/gates/
+   cp ~/Projects/Claude\ Templates/playbooks/gates/gate-*.md <project>/.claude/gates/
    ```
 4. Create `<project>/ports/.gitkeep`
 5. Install hooks:

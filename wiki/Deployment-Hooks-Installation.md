@@ -18,13 +18,13 @@ Install enforcement hooks into a consumer project. Run once per project after bo
 
 2. Install per-standard hooks:
    ```bash
-   ~/Projects/Claude\ Templates/standards/hooks/git/install-hooks.sh
-   ~/Projects/Claude\ Templates/standards/hooks/versioning/install-hooks.sh
+   ~/Projects/Claude\ Templates/hooks/git/install-hooks.sh
+   ~/Projects/Claude\ Templates/hooks/versioning/install-hooks.sh
    ```
 
    Or install all at once:
    ```bash
-   ~/Projects/Claude\ Templates/standards/hooks/install-hooks.sh
+   ~/Projects/Claude\ Templates/hooks/install-hooks.sh
    ```
 
 3. Add Claude Code hook config to `.claude/settings.json` (see hooks README for the JSON snippet)
@@ -39,7 +39,7 @@ Install enforcement hooks into a consumer project. Run once per project after bo
 
 - Verify Claude Code hooks: `ls -la .claude/hooks/git/`
 - Verify git hooks: `ls -la .git/hooks/pre-commit`
-- Check for updates: `~/Projects/Claude\ Templates/standards/hooks/check-hooks.sh`
+- Check for updates: `~/Projects/Claude\ Templates/hooks/check-hooks.sh`
 
 ## Related
 

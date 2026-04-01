@@ -10,9 +10,9 @@ Every new Claude Code project starts from scratch: ad-hoc git conventions, no re
 
 **Claude Templates** provides three layers of consistency:
 
-1. **Standards** — Versioned policy documents (git workflow, versioning, review gates, wiki writing) that serve as a single source of truth. Update a standard once, and drift detection tells you which projects need updating.
+1. **Rules & Playbooks** — Versioned policy documents (git workflow, versioning, review gates, testing, wiki writing) that serve as a single source of truth. Rules auto-load into every session; playbooks are read on demand when doing specific work. Update once, and drift detection tells you which projects need updating.
 
-2. **Templates** — Copy-once scaffolding for new projects. Each template comes pre-wired with a three-gate approval workflow (Plan → Build → Merge), testing requirements, deployment checklists, and embedded standards with version tracking. Available for product engineers, backend engineers, and autonomous operator agents.
+2. **Templates** — Copy-once scaffolding for new projects. Each template comes pre-wired with a four-gate approval workflow (Plan → Build → Test → Merge), testing requirements, deployment checklists, and embedded standards with version tracking. Available for product engineers, backend engineers, and autonomous operator agents.
 
 3. **Skills** — Installable Claude CLI extensions that automate common tasks like bootstrapping a new project or capturing shipped features for a weekly blog.
 
@@ -20,37 +20,51 @@ Every new Claude Code project starts from scratch: ad-hoc git conventions, no re
 
 ```
 claude-templates (this repo)
-├── standards/          ← Versioned source of truth
-│   ├── workflow.md         Three-gate approval process
-│   ├── git.md              Branch naming, commits, worktrees
-│   ├── versioning.md       SemVer rules, bump triggers
-│   └── wiki-writing.md     Documentation style guide
+├── rules/             ← Always-loaded constraints (auto-loaded via ~/.claude/rules/)
+│   ├── development-workflow.md   Four-gate approval process
+│   ├── git.md                    Branch naming, commits, merge strategy
+│   ├── versioning.md             SemVer rules, bump triggers
+│   ├── coding-style.md           Immutability, file organization
+│   └── security.md               Security checklist
 │
-├── templates/          ← Copy-once project scaffolding
+├── playbooks/         ← On-demand procedures (symlinked to ~/.claude/playbooks/)
+│   ├── gates/
+│   │   ├── gate-1-plan.md        Gate 1 procedure
+│   │   ├── gate-2-test.md        Gate 2 procedure
+│   │   ├── gate-3-merge.md       Gate 3 procedure
+│   │   └── session-review.md     Gate 4 procedure
+│   ├── http-diagnostics.md       Health endpoints, error logging
+│   ├── wiki-writing.md           Documentation style guide
+│   ├── testing.md                Test types and TDD workflow
+│   ├── unit-testing.md           Unit test requirements
+│   └── ...
+│
+├── templates/         ← Copy-once project scaffolding
 │   ├── engineering/
-│   │   ├── product/        Full-stack / frontend projects
-│   │   └── backend/        API / backend projects
-│   ├── operator/           Autonomous scheduled agents
-│   └── wiki/               GitHub Wiki structure
+│   │   ├── product/              Full-stack / frontend projects
+│   │   └── backend/              API / backend projects
+│   ├── operator/                 Autonomous scheduled agents
+│   └── wiki/                     GitHub Wiki structure
 │
-├── skills/             ← Installable CLI extensions
-│   ├── new-project/        Bootstrap a project in one command
-│   └── trigger-blog/       Capture feature context for blog automation
+├── skills/            ← Installable CLI extensions
+│   ├── new-project/              Bootstrap a project in one command
+│   └── trigger-blog/             Capture feature context for blog automation
 │
-└── docs/               ← Governance automation docs
+└── docs/              ← Governance automation docs
     ├── version-enforcement.md
     └── drift-detection.md
 ```
 
-### Every Change Goes Through Three Human-Approved Gates
+### Every Change Goes Through Four Human-Approved Gates
 
 Every template ships with a structured review process:
 
 | Gate | What happens | Why |
 |------|-------------|-----|
 | **Gate 1 — Plan** | Define scope, identify risks, get human approval before writing code | Prevents wasted effort on the wrong approach |
-| **Gate 2 — Build & Test** | Implement with TDD, run tests, capture screenshots | Ensures quality before review |
+| **Gate 2 — Test** | Run tests, capture screenshots, human verifies | Ensures quality before review |
 | **Gate 3 — Merge** | Human reviews the PR, approves, and merges | Final quality check before main |
+| **Gate 4 — Review** | Standards compliance check against all embedded rules | Catches deviations before closing |
 
 ### Embedded Versions Let Automation Detect Outdated Projects
 
@@ -70,10 +84,10 @@ Two automated systems maintain consistency:
 ### Bootstrap a New Project
 
 ```bash
-# Install skills (one-time setup)
+# Install skills and playbooks (one-time setup)
 git clone https://github.com/bh679/claude-templates.git
 cd claude-templates
-./install-skills.sh
+./install.sh
 ```
 
 Then from any directory:
@@ -84,14 +98,14 @@ Then from any directory:
 
 The skill walks you through template selection, file copying, token resolution, GitHub repo creation, and verification.
 
-### Install Skills Without Bootstrapping
+### Install Skills and Playbooks Without Bootstrapping
 
 ```bash
 cd claude-templates
-./install-skills.sh
+./install.sh
 ```
 
-Skills are symlinked into `~/.claude/skills/`, so `git pull` in this repo automatically updates them.
+Skills are symlinked into `~/.claude/skills/` and playbooks into `~/.claude/playbooks/`, so `git pull` in this repo automatically updates them.
 
 ## Skills Automate Project Lifecycle Tasks
 
@@ -100,17 +114,30 @@ Skills are symlinked into `~/.claude/skills/`, so `git pull` in this repo automa
 | `/new-project` | Global | Bootstraps a fully configured project from a template — handles file copying, token resolution, GitHub setup, and consumer registration |
 | `/trigger-blog` | Project session | Captures feature shipping context (PR URL, commits, wiki pages) and queues it for a weekly blog automation agent |
 
-## Standards Define the Rules Every Project Follows
+## Rules and Playbooks Define What Every Project Follows
+
+### Rules (always loaded)
 
 | Standard | Covers |
 |----------|--------|
-| [`workflow.md`](standards/workflow.md) | Three-gate approval process, plan mode, session management |
-| [`git.md`](standards/git.md) | Branch naming, commit message format, worktree procedures |
-| [`versioning.md`](standards/versioning.md) | SemVer conventions, auto-bump rules, tag and rollback procedures |
-| [`wiki-writing.md`](standards/wiki-writing.md) | Prose style, breadcrumbs, link conventions, image naming |
-| [`operator.md`](standards/operator.md) | Scheduled autonomous agent scaffolding and conventions |
-| [`unit-testing.md`](standards/unit-testing.md) | Unit test requirements, 80% coverage, test quality rules |
-| [`http-diagnostics.md`](standards/http-diagnostics.md) | Health endpoints, error logging, usage tracking for HTTP backends |
+| [`development-workflow.md`](rules/development-workflow.md) | Four-gate approval process, plan mode, session management |
+| [`git.md`](rules/git.md) | Branch naming, commit message format, merge strategy |
+| [`versioning.md`](rules/versioning.md) | SemVer conventions, auto-bump rules, tag and rollback procedures |
+| [`coding-style.md`](rules/coding-style.md) | Immutability, file organization, error handling |
+| [`security.md`](rules/security.md) | Security checklist, secret management |
+
+### Playbooks (read on demand)
+
+| Playbook | Covers |
+|----------|--------|
+| [`gates/gate-1-plan.md`](playbooks/gates/gate-1-plan.md) | Gate 1 planning procedure |
+| [`gates/gate-2-test.md`](playbooks/gates/gate-2-test.md) | Gate 2 testing procedure |
+| [`gates/gate-3-merge.md`](playbooks/gates/gate-3-merge.md) | Gate 3 merge procedure |
+| [`gates/session-review.md`](playbooks/gates/session-review.md) | Gate 4 session review |
+| [`wiki-writing.md`](playbooks/wiki-writing.md) | Prose style, breadcrumbs, link conventions, image naming |
+| [`operator.md`](playbooks/operator.md) | Scheduled autonomous agent scaffolding and conventions |
+| [`unit-testing.md`](playbooks/unit-testing.md) | Unit test requirements, 80% coverage, test quality rules |
+| [`http-diagnostics.md`](playbooks/http-diagnostics.md) | Health endpoints, error logging, usage tracking for HTTP backends |
 
 Current versions are tracked in [`.github/scripts/standards-versions.json`](.github/scripts/standards-versions.json).
 
@@ -118,8 +145,8 @@ Current versions are tracked in [`.github/scripts/standards-versions.json`](.git
 
 | Template | Use case | Includes |
 |----------|----------|----------|
-| **Product Engineer** | Full-stack / frontend projects | Three-gate workflow, Playwright E2E, screenshot capture, deployment checklist, wiki scaffolding |
-| **Backend Engineer** | API / backend services | Three-gate workflow, HTTP diagnostics, endpoint documentation, database considerations |
+| **Product Engineer** | Full-stack / frontend projects | Four-gate workflow, Playwright E2E, screenshot capture, deployment checklist, wiki scaffolding |
+| **Backend Engineer** | API / backend services | Four-gate workflow, HTTP diagnostics, endpoint documentation, database considerations |
 | **Operator** | Autonomous scheduled agents | State management, skip guards, turn limits, human escalation via GitHub Issues |
 | **Wiki** | GitHub Wiki structure | Home page, Features, Endpoints, Deployment templates |
 
