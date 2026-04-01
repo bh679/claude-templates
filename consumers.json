@@ -101,5 +101,11 @@
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "CarkedIt Online — vanilla HTML/CSS/JS card game rewrite"
+  },
+  {
+    "repo": "bh679/jobseeker-calculator",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "JobSeeker Calculator — client-side Centrelink payment calculator"
   }
 ]
