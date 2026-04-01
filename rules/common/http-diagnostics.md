@@ -1,8 +1,6 @@
 <!-- standard: http-diagnostics | version: 1.0.0 -->
 # HTTP Diagnostics Standard
 
-> **Source of truth** for observability in HTTP backend services.
-
 ---
 
 ## Overview
