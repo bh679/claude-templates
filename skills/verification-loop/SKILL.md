@@ -1,5 +1,6 @@
 ---
 name: verification-loop
+version: 1.0.0
 description: "A comprehensive verification system for Claude Code sessions."
 origin: ECC
 ---

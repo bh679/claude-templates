@@ -1,3 +1,10 @@
+---
+name: ecc-git-workflow
+version: 1.0.0
+description: Commit message format and pull request workflow conventions.
+origin: ECC
+---
+
 # Git Workflow
 
 ## Commit Message Format

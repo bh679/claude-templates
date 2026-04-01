@@ -1,3 +1,10 @@
+---
+name: ecc-performance
+version: 1.0.0
+description: Model selection strategy, context window management, and build troubleshooting guidance.
+origin: ECC
+---
+
 # Performance Optimization
 
 ## Model Selection Strategy

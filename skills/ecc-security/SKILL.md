@@ -1,3 +1,10 @@
+---
+name: ecc-security
+version: 1.0.0
+description: Pre-commit security checklist, secret management, and security response protocol.
+origin: ECC
+---
+
 # Security Guidelines
 
 ## Mandatory Security Checks
