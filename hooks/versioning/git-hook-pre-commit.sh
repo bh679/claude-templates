@@ -1,29 +1,104 @@
 #!/usr/bin/env bash
-# hook-version: 1.0.0
+# hook-version: 1.1.0
 # pre-commit-version-check.sh
-HOOK_VERSION="1.0.0"
+HOOK_VERSION="1.1.0"
 #
-# Pre-commit hook that enforces the V.MM.PPPP versioning standard.
-# See standards/versioning.md for format details.
+# Pre-commit hook that enforces the V.MM.PPPP versioning standard
+# and auto-bumps skill versions when SKILL.md content changes.
 #
 # Checks:
-#   1. package.json version was bumped compared to the previous commit
-#   2. Version matches V.MM.PPPP format (V integer, MM 2-digit zero-padded, PPPP 4-digit zero-padded)
+#   1. Auto-bumps skill SKILL.md patch versions when content changes (if skills/ exists)
+#   2. package.json version was bumped compared to the previous commit
+#   3. Version matches V.MM.PPPP format (V integer, MM 2-digit zero-padded, PPPP 4-digit zero-padded)
 #
 # Usage: Copy or symlink into .git/hooks/pre-commit
 #        or use install-hooks.sh to install automatically.
 
 set -euo pipefail
 
-# --- Configuration ---
-PACKAGE_JSON="package.json"
-# Regex: integer DOT 2-digit-zero-padded DOT 4-digit-zero-padded
-VERSION_REGEX='^[0-9]+\.[0-9]{2}\.[0-9]{4}$'
-
 # --- Helpers ---
 red()   { printf '\033[1;31m%s\033[0m\n' "$*"; }
 green() { printf '\033[1;32m%s\033[0m\n' "$*"; }
 dim()   { printf '\033[2m%s\033[0m\n' "$*"; }
+
+# --- Skill version auto-bump ---
+# Only runs if skills/ directory exists (i.e. in the claude-templates repo)
+if [ -d "skills" ] && git rev-parse HEAD > /dev/null 2>&1; then
+    SKILLS_BUMPED=0
+    MANIFEST_SCRIPT=".github/scripts/build-skills-manifest.sh"
+
+    # Extract version from SKILL.md YAML frontmatter
+    _skill_version() {
+        local in_fm=false
+        while IFS= read -r line; do
+            if [ "$line" = "---" ]; then
+                if [ "$in_fm" = true ]; then break; fi
+                in_fm=true; continue
+            fi
+            if [ "$in_fm" = true ] && echo "$line" | grep -qE '^version:'; then
+                echo "$line" | sed 's/^version: *//; s/ *$//'
+                return
+            fi
+        done
+    }
+
+    # Bump patch component of a SemVer string (e.g. 1.2.3 → 1.2.4)
+    _bump_patch() {
+        local v="$1"
+        local major minor patch
+        major="${v%%.*}"
+        local rest="${v#*.}"
+        minor="${rest%%.*}"
+        patch="${rest#*.}"
+        echo "${major}.${minor}.$((patch + 1))"
+    }
+
+    while IFS= read -r skill_file; do
+        [ -n "$skill_file" ] || continue
+        [ -f "$skill_file" ] || continue
+        skill_name=$(echo "$skill_file" | sed 's|skills/||; s|/SKILL.md||')
+
+        # Get staged version
+        current_ver=$(git show :"$skill_file" 2>/dev/null | _skill_version)
+        [ -n "$current_ver" ] || continue
+
+        # Get HEAD version
+        head_ver=$(git show HEAD:"$skill_file" 2>/dev/null | _skill_version)
+        [ -n "$head_ver" ] || continue  # new skill — skip
+
+        # Already bumped manually? Skip.
+        [ "$current_ver" = "$head_ver" ] || continue
+
+        # Check if content changed beyond the version line
+        # Use diff on filtered content via process substitution
+        if diff -q \
+            <(git show HEAD:"$skill_file" 2>/dev/null | sed '/^version:/d') \
+            <(git show :"$skill_file" 2>/dev/null | sed '/^version:/d') \
+            >/dev/null 2>&1; then
+            continue  # no content change
+        fi
+
+        # Content changed, version not bumped — auto-bump patch
+        new_ver=$(_bump_patch "$current_ver")
+        sed -i.bak "s/^version: *${current_ver}/version: ${new_ver}/" "$skill_file"
+        rm -f "${skill_file}.bak"
+        git add "$skill_file"
+        SKILLS_BUMPED=$((SKILLS_BUMPED + 1))
+        green "Auto-bumped $skill_name: $current_ver → $new_ver"
+    done < <(git diff --cached --name-only -- 'skills/*/SKILL.md' 2>/dev/null)
+
+    # Regenerate manifest if any skills were bumped
+    if [ "$SKILLS_BUMPED" -gt 0 ] && [ -x "$MANIFEST_SCRIPT" ]; then
+        bash "$MANIFEST_SCRIPT" skills .github/scripts/skills-versions.json 2>/dev/null
+        git add .github/scripts/skills-versions.json
+        green "Regenerated skills-versions.json ($SKILLS_BUMPED skill(s) bumped)"
+    fi
+fi
+
+# --- Configuration ---
+PACKAGE_JSON="package.json"
+# Regex: integer DOT 2-digit-zero-padded DOT 4-digit-zero-padded
+VERSION_REGEX='^[0-9]+\.[0-9]{2}\.[0-9]{4}$'
 
 # --- Pre-flight ---
 # Skip if package.json is not tracked or not being committed
