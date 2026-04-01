@@ -1,10 +1,7 @@
 <!-- standard: http-diagnostics | version: 1.0.0 -->
 # HTTP Diagnostics Standard
 
----
-
 ## Overview
-
 Every HTTP backend service must expose four diagnostics capabilities:
 
 1. **Health endpoint** — verify the service is running
@@ -15,14 +12,10 @@ Every HTTP backend service must expose four diagnostics capabilities:
 These use the local filesystem by default (`./diagnostics/`). For non-filesystem
 deployments (serverless, containers), redirect output to stdout or a logging service.
 
----
-
 ## 1. Health Endpoint
-
 Expose `GET /health` — unauthenticated, fast (<100ms), no external service calls.
 
 **Response schema:**
-
 ```json
 {
   "status": "ok",
@@ -45,14 +38,10 @@ Expose `GET /health` — unauthenticated, fast (<100ms), no external service cal
 - Must not call databases, caches, or external APIs
 - Gate 2 verification: `curl -s http://localhost:<port>/health | jq .`
 
----
-
 ## 2. Error Logging
-
 Write structured errors to `./diagnostics/errors.jsonl` — one JSON object per line, append-only.
 
 **Entry schema:**
-
 ```json
 {
   "timestamp": "2026-03-28T10:00:00.000Z",
@@ -87,14 +76,11 @@ Write structured errors to `./diagnostics/errors.jsonl` — one JSON object per 
 - Log all unhandled exceptions and explicitly caught errors worth tracking
 - Never log sensitive data (passwords, tokens, PII) in message or context
 
----
 
 ## 3. Usage Tracking
-
 Write structured events to `./diagnostics/usage.jsonl` — one JSON object per line.
 
 **Entry schema:**
-
 ```json
 {
   "event": "user.login",
@@ -178,7 +164,6 @@ On unhandled errors, write a full-context dump to `./diagnostics/snapshots/<time
 - Include dependency versions so bugs can be correlated with package updates
 - Recent events provide the sequence of actions leading to the crash
 
----
 
 ## Filesystem Conventions
 
