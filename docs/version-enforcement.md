@@ -115,6 +115,26 @@ This manifest is:
 
 ---
 
+## Skill Version Auto-Bump
+
+The pre-commit hook (`hooks/versioning/git-hook-pre-commit.sh` v1.1.0+) automatically bumps skill patch versions when SKILL.md content changes without a manual version bump.
+
+**How it works:**
+1. Detects staged `skills/*/SKILL.md` files with content changes (excluding the version line)
+2. Auto-bumps the patch component (e.g. `1.1.0` → `1.1.1`)
+3. Re-stages the updated SKILL.md
+4. Regenerates and stages `skills-versions.json`
+
+**Behaviour:**
+- Only runs in repos with a `skills/` directory (i.e. this repo)
+- Skips new skills (no HEAD version to compare against)
+- Skips skills where the version was already bumped manually
+- Only bumps patch — minor/major bumps remain manual
+
+This eliminates the CI failure pattern where skill content changes and version bumps landed in separate commits.
+
+---
+
 ## Hook Versioning
 
 All hook scripts include a `# hook-version: X.Y.Z` comment on line 2. This allows tracking which version of a hook is installed in consumer projects.
