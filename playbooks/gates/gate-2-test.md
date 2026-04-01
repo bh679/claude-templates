@@ -25,5 +25,8 @@ gate2-<feature-slug>-<timestamp>.png
 
 Save in `./test-results/`.
 
+## Related Playbooks
+Before starting dev servers, read `~/.claude/playbooks/port-management.md`.
+
 ## Session Title Update
 Update title to: `TEST - <Task Name> - <Project Name>`

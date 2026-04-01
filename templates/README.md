@@ -2,7 +2,7 @@
 
 ## Token System
 
-Templates use three token types, resolved at copy time in this order:
+Templates use two token types, resolved at copy time in this order:
 
 ### 1. Include Tokens — `{{INCLUDE:<path>}}`
 
@@ -10,32 +10,23 @@ Inline shared content from another file. Path is relative to the `templates/` di
 
 **Example:** `{{INCLUDE:engineering/base.md}}` inlines `templates/engineering/base.md`.
 
-### 2. Standard Tokens — `{{STANDARD:<name>}}`
-
-Inline a versioned standard from `rules/<name>.md` or `playbooks/<name>.md`. When resolved, the full standard
-content is embedded with a version comment so consumer projects can detect drift:
-
-```markdown
-<!-- standard: git | version: 1.0.0 -->
-# Git Standards
-...full content...
-```
-
-Available standards: `workflow`, `git`, `versioning`, `wiki-writing`, `operator`, `http-diagnostics`, `unit-testing`
-
-**Version tracking:** Each standard has a `<!-- standard: <name> | version: X.Y.Z -->` header.
-When a standard is updated, its version is bumped. Consumer projects can compare their embedded
-version against the current version in this repo to check if they need updating.
-
-### 3. Value Tokens — `{{TOKEN_NAME}}`
+### 2. Value Tokens — `{{TOKEN_NAME}}`
 
 Replaced with project-specific values collected during setup.
 
 **Resolution order:**
 1. Copy the template file to the target project
 2. Resolve all `{{INCLUDE:...}}` tokens (recursive)
-3. Resolve all `{{STANDARD:...}}` tokens (inline standard with version comment)
-4. Replace all `{{VALUE}}` tokens with collected values
+3. Replace all `{{VALUE}}` tokens with collected values
+
+### Standards Delivery (no inlining needed)
+
+Standards are **not** inlined into consumer CLAUDE.md files. Instead:
+
+- **Rules** (`rules/`) are auto-loaded into every Claude session via `~/.claude/rules/` symlinks
+- **Playbooks** (`playbooks/`) are available on demand via `~/.claude/playbooks/` symlinks — gate playbooks contain "read X" directives that trigger loading the right playbook at the right time
+
+Run `./install.sh` from the claude-templates repo root to set up these symlinks.
 
 ---
 
@@ -45,7 +36,7 @@ Replaced with project-specific values collected during setup.
 |---|---|---|
 | `project-overview.md` | engineering/project-overview.md | Project overview header (PROJECT_NAME, LIVE_URL) |
 | `engineering/project-overview.md` | engineering/product, engineering/backend | Includes project-overview.md + adds Repos, GitHub Project, Wiki fields |
-| `engineering/base.md` | engineering/product, engineering/backend | Standards (via STANDARD tokens), core workflow, session ID, board mgmt, git/worktrees, port mgmt, versioning, Gate 3, documentation, blog trigger, key rules |
+| `engineering/base.md` | engineering/product, engineering/backend | Standards summary (pointers to rules + playbooks), core workflow reminders, key rules |
 | `operator-base.md` | operator, executive-ops-officer | State management (state.json read/update/commit), skip guard, turn limit (30), human escalation (GitHub issue + stop) |
 
 ---
@@ -138,9 +129,8 @@ Each standard file has a version comment on line 1:
 
 See [`docs/version-enforcement.md`](../docs/version-enforcement.md) for full details.
 
-**Automated drift detection:** Consumer projects embed the version comment when standards
-are inlined via `{{STANDARD:...}}` tokens. A weekly GitHub Actions workflow compares
-consumer versions against current versions and opens issues in outdated repos.
+**Automated drift detection:** A weekly GitHub Actions workflow checks consumer projects
+against current standard versions and opens issues in outdated repos.
 
 See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
 
@@ -189,7 +179,6 @@ See [`docs/drift-detection.md`](../docs/drift-detection.md) for full details.
 
 - [ ] Copy `templates/engineering/product/CLAUDE.md` → `<project>/CLAUDE.md`
   - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
-  - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
   - Replace all `{{TOKENS}}`
   - Verify the GitHub Project V2 number is correct
 - [ ] Copy `playbooks/gates/` → `<project>/.claude/gates/`
@@ -210,7 +199,6 @@ Each sub-repo gets its own engineering template based on its role:
 
 - [ ] Copy the appropriate engineering CLAUDE.md → `<sub-repo>/CLAUDE.md`
   - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
-  - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
   - Replace all `{{TOKENS}}` with values appropriate to the sub-repo
 
 ### 3. Wiki setup (for each wiki repo)
@@ -229,8 +217,6 @@ Each sub-repo gets its own engineering template based on its role:
 
 - [ ] Copy `templates/engineering/backend/CLAUDE.md` → `<project>/CLAUDE.md`
   - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
-  - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
-  - If this backend exposes HTTP services: uncomment `{{STANDARD:http-diagnostics}}`
   - Replace all `{{TOKENS}}`
 - [ ] Copy `playbooks/gates/` → `<project>/.claude/gates/`
 - [ ] Copy `templates/engineering/product/.claude/settings.json` → `<project>/.claude/settings.json`
@@ -246,7 +232,6 @@ Each sub-repo gets its own engineering template based on its role (see Product c
 
 - [ ] Copy the appropriate engineering CLAUDE.md → `<sub-repo>/CLAUDE.md`
   - Resolve all `{{INCLUDE:...}}` tokens (inline shared content)
-  - Resolve all `{{STANDARD:...}}` tokens (inline versioned standards)
   - Replace all `{{TOKENS}}` with values appropriate to the sub-repo
 
 ### 3. Wiki setup
@@ -309,7 +294,7 @@ Each sub-repo gets its own engineering template based on its role (see Product c
 
 ```
 <project>/                        (orchestrator repo)
-├── CLAUDE.md                     (filled-in product engineer template with embedded standards)
+├── CLAUDE.md                     (filled-in product engineer template with standards pointers)
 ├── .claude/
 │   ├── settings.json
 │   └── gates/
@@ -324,7 +309,7 @@ Each sub-repo gets its own engineering template based on its role (see Product c
     └── .gitkeep
 
 <sub-repo>/                       (e.g. chess-client)
-└── CLAUDE.md                     (filled-in engineering template with embedded standards)
+└── CLAUDE.md                     (filled-in engineering template with standards pointers)
 
 <wiki-repo>.wiki/                 (e.g. chess-client.wiki)
 ├── CLAUDE.md
@@ -337,7 +322,7 @@ Each sub-repo gets its own engineering template based on its role (see Product c
 
 ```
 <project>/                        (orchestrator repo)
-├── CLAUDE.md                     (filled-in backend engineer template with embedded standards)
+├── CLAUDE.md                     (filled-in backend engineer template with standards pointers)
 ├── .claude/
 │   ├── settings.json
 │   └── gates/
@@ -348,7 +333,7 @@ Each sub-repo gets its own engineering template based on its role (see Product c
     └── .gitkeep
 
 <sub-repo>/                       (e.g. chess-api)
-└── CLAUDE.md                     (filled-in engineering template with embedded standards)
+└── CLAUDE.md                     (filled-in engineering template with standards pointers)
 
 <wiki-repo>.wiki/                 (e.g. chess-api.wiki)
 ├── CLAUDE.md

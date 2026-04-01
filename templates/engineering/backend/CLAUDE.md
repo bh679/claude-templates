@@ -123,8 +123,8 @@ schemas, changed status codes, deprecated endpoints, and removed endpoints.
 
 ---
 
-<!-- Include when this backend exposes HTTP services -->
-<!-- {{STANDARD:http-diagnostics}} -->
+### HTTP Diagnostics
+When building or debugging HTTP endpoints, read `~/.claude/playbooks/http-diagnostics.md`.
 
 ---
 

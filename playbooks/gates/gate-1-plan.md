@@ -27,6 +27,9 @@
 
 **Never skip:** Even for "simple" changes. Plan mode catches assumptions early.
 
+## Related Playbooks
+Before creating or searching board items, read `~/.claude/playbooks/project-board.md`.
+
 ## Deployment Impact Checklist
 Assess whether the planned changes impact deployment. Flag if any apply:
 
