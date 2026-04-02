@@ -3,21 +3,14 @@
 
 ## Standards
 
-The following standards are embedded from `bh679/claude-templates`. To check for updates,
-compare the `standard-version` comments below against the current versions in `rules/` and `playbooks/`.
+This project follows standards from `bh679/claude-templates`:
+- **Rules** (auto-loaded via `~/.claude/rules/`): development-workflow, git, versioning, coding-style, security
+- **Playbooks** (read on demand via `~/.claude/playbooks/`): gates/, project-board, port-management, testing, unit-testing, and others
 
-{{STANDARD:workflow}}
-
----
-
-{{STANDARD:git}}
+The development-workflow rule directs you to read gate playbooks at each gate transition.
+Those gate playbooks reference further playbooks as needed.
 
 ---
-
-{{STANDARD:versioning}}
-
----
-
 
 ### Before ANY Implementation
 
@@ -25,15 +18,6 @@ compare the `standard-version` comments below against the current versions in `r
 2. Enter plan mode (Gate 1)
 
 ---
-
-{{STANDARD:project-board}}
-
----
-
-{{STANDARD:port-management}}
-
----
-
 
 ## Key Rules Summary
 

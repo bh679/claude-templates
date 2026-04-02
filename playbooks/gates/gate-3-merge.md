@@ -28,9 +28,7 @@ Update the relevant wiki:
 - **Frontend/client features** → project wiki
 - **Backend/API features** → API repo wiki
 - **Deployment-impacting changes** → update `Deployment-*.md` wiki pages
-- Follow the wiki-writing standard for structure:
-
-{{STANDARD:wiki-writing}}
+- Follow the wiki-writing playbook: read `~/.claude/playbooks/wiki-writing.md`
 
 If deployment docs were flagged in Gate 1:
 1. Update affected `Deployment-<Method>.md` pages
