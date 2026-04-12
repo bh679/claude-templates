@@ -107,5 +107,11 @@
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "JobSeeker Calculator — client-side Centrelink payment calculator"
+  },
+  {
+    "repo": "bh679/sheet-music-app",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Sheet Music App — mobile web piano with live sheet music writing"
   }
 ]
