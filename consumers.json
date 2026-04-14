@@ -113,5 +113,11 @@
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Sheet Music App — mobile web piano with live sheet music writing"
+  },
+  {
+    "repo": "bh679/financial-dashboard",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Financial Dashboard — business expense tracking with Revolut import and tax exports"
   }
 ]
