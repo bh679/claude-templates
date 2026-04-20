@@ -119,5 +119,11 @@
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Financial Dashboard — business expense tracking with Revolut import and tax exports"
+  },
+  {
+    "repo": "bh679/dungeon-train-mc",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Dungeon Train — Minecraft port (Forge 1.20.1 + Valkyrien Skies) of brennanhatton.itch.io/dungeontrain"
   }
 ]
