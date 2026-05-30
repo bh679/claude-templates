@@ -125,5 +125,11 @@
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Dungeon Train — Minecraft port (Forge 1.20.1 + Valkyrien Skies) of brennanhatton.itch.io/dungeontrain"
+  },
+  {
+    "repo": "bh679/playermob-mc",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "PlayerMob — multi-loader (Fabric/Forge/NeoForge) Minecraft mod with a custom mob that looks like a player and acts like a pillager"
   }
 ]
