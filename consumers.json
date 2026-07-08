@@ -33,12 +33,12 @@
     "repo": "bh679/Claude-Max-Usage-Analytics",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "Claude Max Usage Analytics — personal usage dashboard"
+    "description": "Claude Max Usage Analytics \u2014 personal usage dashboard"
   },
   {
     "repo": "bh679/ideas",
     "template": "operator",
-    "description": "Executive PA — idea capture and routing system",
+    "description": "Executive PA \u2014 idea capture and routing system",
     "required_files": [
       ".github/workflows/epa.yml",
       "guidelines.md",
@@ -51,7 +51,7 @@
   {
     "repo": "bh679/coo-agent",
     "template": "operator",
-    "description": "COO Agent — cross-project momentum tracker and decision escalation",
+    "description": "COO Agent \u2014 cross-project momentum tracker and decision escalation",
     "required_files": [
       ".github/workflows/coo-agent.yml",
       ".github/scripts/fetch-data.sh",
@@ -64,72 +64,78 @@
     "repo": "bh679/Claude-Code-Session-Monitor",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "Claude Code Session Monitor — real-time session tracking with hooks and project matching"
+    "description": "Claude Code Session Monitor \u2014 real-time session tracking with hooks and project matching"
   },
   {
     "repo": "bh679/claude-oauth-distributor",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "Claude OAuth Distributor — token generator, distributor CLI, and menubar app"
+    "description": "Claude OAuth Distributor \u2014 token generator, distributor CLI, and menubar app"
   },
   {
     "repo": "bh679/the-epstein-files",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "The Epstein Files — top-down pixel art game exploring a secret CIA library"
+    "description": "The Epstein Files \u2014 top-down pixel art game exploring a secret CIA library"
   },
   {
     "repo": "bh679/discord-image-dashboard",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "Discord Image Dashboard — bot + web dashboard aggregating server images over 7 days"
+    "description": "Discord Image Dashboard \u2014 bot + web dashboard aggregating server images over 7 days"
   },
   {
     "repo": "bh679/CarkedIt",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "CarkedItOnline — multiplayer card game web app"
+    "description": "CarkedItOnline \u2014 multiplayer card game web app"
   },
   {
     "repo": "bh679/fill-in-the-blank",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "Fill-in-the-Blank Card Game — Apples to Apples style party game"
+    "description": "Fill-in-the-Blank Card Game \u2014 Apples to Apples style party game"
   },
   {
     "repo": "bh679/carkedit-online",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "CarkedIt Online — vanilla HTML/CSS/JS card game rewrite"
+    "description": "CarkedIt Online \u2014 vanilla HTML/CSS/JS card game rewrite"
   },
   {
     "repo": "bh679/jobseeker-calculator",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "JobSeeker Calculator — client-side Centrelink payment calculator"
+    "description": "JobSeeker Calculator \u2014 client-side Centrelink payment calculator"
   },
   {
     "repo": "bh679/sheet-music-app",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "Sheet Music App — mobile web piano with live sheet music writing"
+    "description": "Sheet Music App \u2014 mobile web piano with live sheet music writing"
   },
   {
     "repo": "bh679/financial-dashboard",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "Financial Dashboard — business expense tracking with Revolut import and tax exports"
+    "description": "Financial Dashboard \u2014 business expense tracking with Revolut import and tax exports"
   },
   {
     "repo": "bh679/dungeon-train-mc",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "Dungeon Train — Minecraft port (Forge 1.20.1 + Valkyrien Skies) of brennanhatton.itch.io/dungeontrain"
+    "description": "Dungeon Train \u2014 Minecraft port (Forge 1.20.1 + Valkyrien Skies) of brennanhatton.itch.io/dungeontrain"
   },
   {
     "repo": "bh679/playermob-mc",
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
-    "description": "PlayerMob — multi-loader (Fabric/Forge/NeoForge) Minecraft mod with a custom mob that looks like a player and acts like a pillager"
+    "description": "PlayerMob \u2014 multi-loader (Fabric/Forge/NeoForge) Minecraft mod with a custom mob that looks like a player and acts like a pillager"
+  },
+  {
+    "repo": "bh679/bogie-hytale",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Bogie \u2014 moving-structure physics for Hytale (clean-room Sable-equivalent); foundation for the Dungeon Train Hytale port"
   }
 ]
