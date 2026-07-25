@@ -137,5 +137,11 @@
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Bogie \u2014 moving-structure physics for Hytale (clean-room Sable-equivalent); foundation for the Dungeon Train Hytale port"
+  },
+  {
+    "repo": "bh679/compressedemeralds-mc",
+    "template": "none",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Compressed Emeralds \u2014 MC 1.21.1 content mod"
   }
 ]
