@@ -143,5 +143,11 @@
     "template": "none",
     "claude_md_path": "CLAUDE.md",
     "description": "Compressed Emeralds \u2014 MC 1.21.1 content mod"
+  },
+  {
+    "repo": "bh679/feedback-triage",
+    "template": "operator",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Feedback Triage \u2014 local scheduled AI triage of Dungeon Train player feedback (launchd, Max subscription)"
   }
 ]
