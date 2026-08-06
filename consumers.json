@@ -149,5 +149,11 @@
     "template": "operator",
     "claude_md_path": "CLAUDE.md",
     "description": "Feedback Triage \u2014 local scheduled AI triage of Dungeon Train player feedback (launchd, Max subscription)"
+  },
+  {
+    "repo": "bh679/sableportals-mc",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Sable Portals \u2014 NeoForge 1.21.1 library mod providing portals on Sable sub-levels; first consumer is Dungeon Train's bigger-on-the-inside carriages"
   }
 ]
