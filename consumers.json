@@ -155,5 +155,11 @@
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Sable Portals \u2014 NeoForge 1.21.1 library mod providing portals on Sable sub-levels; first consumer is Dungeon Train's bigger-on-the-inside carriages"
+  },
+  {
+    "repo": "bh679/mortal-me",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Mortal Me - values-led end-of-life planning web app (client: Maven Bridge Pty Ltd)"
   }
 ]
