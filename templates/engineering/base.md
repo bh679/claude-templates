@@ -1,5 +1,7 @@
 <!-- Engineering base — github.com/bh679/claude-templates/templates/engineering/base.md -->
-<!-- Included at copy time via {{INCLUDE:engineering/base.md}} -->
+<!-- Included at copy time via an INCLUDE directive pointing at engineering/base.md.
+     Never write that token literally in this file — it is inlined into itself, so a
+     literal token would make recursive include resolution loop forever. -->
 
 ## Standards
 
