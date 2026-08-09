@@ -31,6 +31,8 @@ Replaced with project-specific values collected during setup. Examples: `{{PROJE
 ## Technical Notes
 
 - Available standards: workflow, git, versioning, wiki-writing, operator, http-diagnostics, unit-testing
+- A shared file that is itself inlined must never contain an include token naming itself — not even inside an HTML comment. Resolution is recursive, so the token would be re-emitted every pass and loop forever. Provenance comments name the path in prose instead.
+- Only a token alone on its own line is live. Tokens inside HTML comments or code spans are documentation and are left as-is.
 - Token reference tables for each template type are in `templates/README.md`
 - The `/new-project` skill automates the full resolution process
 
