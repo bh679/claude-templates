@@ -1,5 +1,7 @@
 <!-- Operator base — github.com/bh679/claude-templates/templates/operator-base.md -->
-<!-- Included at copy time via {{INCLUDE:operator-base.md}} -->
+<!-- Included at copy time via an INCLUDE directive pointing at operator-base.md.
+     Never write that token literally in this file — it is inlined into itself, so a
+     literal token would make recursive include resolution loop forever. -->
 
 ## State Management
 

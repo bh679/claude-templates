@@ -10,6 +10,19 @@ Inline shared content from another file. Path is relative to the `templates/` di
 
 **Example:** `{{INCLUDE:engineering/base.md}}` inlines `templates/engineering/base.md`.
 
+**Authoring rule — never write a self-referential include token.** A shared file that is
+itself inlined (`engineering/base.md`, `operator-base.md`, `project-overview.md`) must not
+contain a literal include token naming itself, not even inside an HTML comment. Resolution
+is recursive, so the resolver would re-emit the token every pass and loop forever. Name the
+path in prose instead:
+
+```markdown
+<!-- Included at copy time via an INCLUDE directive pointing at engineering/base.md -->
+```
+
+This document is reference material and is never copied into a project, so the token
+examples above are illustrative rather than live.
+
 ### 2. Value Tokens — `{{TOKEN_NAME}}`
 
 Replaced with project-specific values collected during setup.

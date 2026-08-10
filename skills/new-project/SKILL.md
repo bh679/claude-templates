@@ -1,6 +1,6 @@
 ---
 name: new-project
-version: 1.1.1
+version: 1.2.0
 description: >
   Bootstrap a new project using claude-templates standards and templates.
   Use when the user says "set up a new project", "create a new repo",
@@ -94,9 +94,20 @@ After copying any template file, resolve tokens **before** replacing value token
 For each `{{INCLUDE:<path>}}` found in the copied file:
 1. Read the referenced file from `~/Projects/Claude Templates/templates/<path>`
 2. Replace the entire `{{INCLUDE:<path>}}` line with the file contents
-3. Repeat until no `{{INCLUDE:...}}` tokens remain (includes can be nested)
+3. Repeat until no live `{{INCLUDE:...}}` tokens remain (includes can be nested)
 
 Example: `{{INCLUDE:engineering/base.md}}` reads `~/Projects/Claude Templates/templates/engineering/base.md` and inlines it.
+
+**A live token is a token alone on its own line.** Skip anything else:
+- Tokens inside an HTML comment (`<!-- ... -->`) are provenance markers recording where a
+  shared file gets inlined. Leave them exactly as they are.
+- Tokens inside a code span or fenced code block are documentation examples, not directives.
+
+**Stop if a path repeats.** Track the set of paths already inlined during this file's
+resolution. If a path comes up a second time, the include is self-referential or cyclic —
+leave the token in place and report it to the user rather than looping. Correctly authored
+shared files never name themselves, so a repeat means the template has a bug worth fixing
+at the source.
 
 ### Resolution order
 
