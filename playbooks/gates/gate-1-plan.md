@@ -1,4 +1,4 @@
-<!-- gate: gate-1-plan | version: 1.0.0 -->
+<!-- gate: gate-1-plan | version: 1.1.0 -->
 # Gate 1 — Plan Approval
 
 **Trigger:** Before writing any code.
@@ -22,10 +22,49 @@
    - Risks or dependencies
    - Deployment impact (see checklist below)
 5. Present the plan to the user via `ExitPlanMode`
+6. After approval, ensure you are in a worktree on a `dev/` branch (see below) — **before writing any code**
 
 **Gate requirement:** User clicks Approve in plan mode.
 
 **Never skip:** Even for "simple" changes. Plan mode catches assumptions early.
+
+## Post-Approval: Worktree & Branch
+
+Immediately after plan approval, before writing any code, get into a worktree on a `dev/` branch.
+Which step applies depends on how the session started — check first:
+
+```bash
+[ "$(git rev-parse --git-dir)" = "$(git rev-parse --git-common-dir)" ] \
+  && echo "NOT in a worktree — do step 1" \
+  || echo "already in a worktree — do step 2"
+```
+
+### Step 1 — Not in a worktree: create one
+
+Every change needs a worktree (`git.md` § Git Worktrees — enforced by the pre-bash hook, which
+blocks `git commit` outside one). Create it and do all work from there:
+
+```bash
+git worktree add .claude/worktrees/<feature-slug> -b dev/<feature-slug>
+cd .claude/worktrees/<feature-slug>
+```
+
+### Step 2 — Already in a worktree: rename the branch
+
+Worktree sessions auto-assign a `claude/<slug>` branch name. Rename it to `dev/<feature-slug>`:
+
+```bash
+# Derive a 3-5 word kebab-case slug from the feature name
+OLD=$(git rev-parse --abbrev-ref HEAD)          # e.g. claude/competent-joliot-87b1ca
+NEW="dev/<feature-slug>"                         # e.g. dev/ender-chest-persistence
+
+git branch -m "$OLD" "$NEW"
+git push origin "$NEW"
+git push origin --delete "$OLD"
+git branch --set-upstream-to="origin/$NEW" "$NEW"
+```
+
+This keeps all PRs, CI runs, and branch history under the standard `dev/` prefix.
 
 ## Related Playbooks
 Before creating or searching board items, read `~/.claude/playbooks/project-board.md`.

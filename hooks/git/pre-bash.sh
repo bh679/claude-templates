@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
-# hook-version: 1.0.0
+# hook-version: 1.1.0
 # git/pre-bash.sh
-HOOK_VERSION="1.0.0"
+HOOK_VERSION="1.1.0"
 #
 # Claude Code PreToolUse hook — enforces git.md standards before Bash tool executes.
 #
 # Rules enforced:
 #   1. Block commits directly to main/master       (hard block — exit 1)
-#   2. Warn if new branch missing dev/ prefix      (soft warn — exit 0)
-#   3. Block gh pr create if branch is behind main (hard block — exit 1)
-#   4. Block gh pr merge without --squash          (hard block — exit 1)
+#   2. Block commits outside a git worktree        (hard block — exit 1)
+#   3. Warn if new branch missing dev/ prefix      (soft warn — exit 0)
+#   4. Block gh pr create if branch is behind main (hard block — exit 1)
+#   5. Block gh pr merge without --squash          (hard block — exit 1)
+#
+# Rule 2 opt-outs: a `.claude/no-worktree` marker at the repo root exempts the whole
+#       repo; CLAUDE_ALLOW_NON_WORKTREE=1 exempts a single command.
 #
 # Note: force push, reset --hard, and rm -rf are blocked via settings.json
 #       deny permissions — no hook needed for those.
@@ -35,14 +39,41 @@ if echo "$CMD" | grep -qE "^git commit"; then
     red "Direct commits to main are not allowed per git.md standards."
     dim ""
     dim "Create a feature worktree first:"
-    dim "  git worktree add ../worktrees/<feature-slug> -b dev/<feature-slug>"
+    dim "  git worktree add .claude/worktrees/<feature-slug> -b dev/<feature-slug>"
     exit 1
   fi
 fi
 
-# ── 2. Warn if new branch doesn't use dev/ prefix ──────────────────────────
+# ── 2. Block commits outside a git worktree ────────────────────────────────
+# git.md § Git Worktrees: all development happens in a worktree, never the main checkout.
+# Detection: in a linked worktree, --git-dir points at .git/worktrees/<name> while
+# --git-common-dir points at the shared .git. In a normal checkout the two are equal.
+if echo "$CMD" | grep -qE "^git commit"; then
+  GIT_DIR=$(git rev-parse --git-dir 2>/dev/null || echo "")
+  if [ -n "$GIT_DIR" ]; then          # skip silently when not in a git repo
+    COMMON_DIR=$(git rev-parse --git-common-dir 2>/dev/null || echo "")
+    TOPLEVEL=$(git rev-parse --show-toplevel 2>/dev/null || echo "")
+    if [ "$GIT_DIR" = "$COMMON_DIR" ] \
+       && [ "${CLAUDE_ALLOW_NON_WORKTREE:-0}" != "1" ] \
+       && [ ! -f "${TOPLEVEL}/.claude/no-worktree" ]; then
+      red "BLOCKED: You are committing from the main checkout, not a worktree."
+      red "All development happens in a git worktree per git.md standards."
+      dim ""
+      dim "Create one and move your work there:"
+      dim "  git worktree add .claude/worktrees/<feature-slug> -b dev/<feature-slug>"
+      dim "  cd .claude/worktrees/<feature-slug>"
+      dim ""
+      dim "Opt out: touch .claude/no-worktree (whole repo)"
+      dim "         CLAUDE_ALLOW_NON_WORKTREE=1 (this command only)"
+      exit 1
+    fi
+  fi
+fi
+
+# ── 3. Warn if new branch doesn't use dev/ prefix ──────────────────────────
 if echo "$CMD" | grep -qE "git (checkout|switch) -b "; then
-  BRANCH=$(echo "$CMD" | grep -oP "(?<=-b )\S+" | head -1)
+  # Portable extraction — BSD grep (macOS) has no -P, so avoid lookbehind.
+  BRANCH=$(echo "$CMD" | sed -n 's/.*-b  *\([^ ][^ ]*\).*/\1/p' | head -1)
   if [ -n "$BRANCH" ] && ! echo "$BRANCH" | grep -q "^dev/"; then
     warn "WARNING: Branch '$BRANCH' does not follow the dev/<feature-slug> naming convention."
     warn "Rename to: dev/$BRANCH"
@@ -51,7 +82,7 @@ if echo "$CMD" | grep -qE "git (checkout|switch) -b "; then
   fi
 fi
 
-# ── 3. Block PR creation if branch is behind main ────────────────────────
+# ── 4. Block PR creation if branch is behind main ────────────────────────
 if echo "$CMD" | grep -q "gh pr create"; then
   # Fetch latest main silently
   git fetch origin main --quiet 2>/dev/null || true
@@ -68,7 +99,7 @@ if echo "$CMD" | grep -q "gh pr create"; then
   fi
 fi
 
-# ── 4. Block PR merge without --squash ─────────────────────────────────────
+# ── 5. Block PR merge without --squash ─────────────────────────────────────
 if echo "$CMD" | grep -q "gh pr merge"; then
   if ! echo "$CMD" | grep -q -- "--squash"; then
     red "BLOCKED: PRs must be squash merged per git.md standards."
