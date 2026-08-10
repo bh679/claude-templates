@@ -28,6 +28,7 @@ Those gate playbooks reference further playbooks as needed.
 - **Gates apply to ALL changes — bug fixes, hotfixes, one-liners, and fully-specified tasks**
 - Re-read CLAUDE.md at every gate
 - Check for existing board items before creating
+- **All work happens in a git worktree on a `dev/` branch — never the main checkout.** Create it at Gate 1, before any code
 - Clean up worktrees and ports when done
 - One feature per session
 - Commit and push after every meaningful unit of work

@@ -1,12 +1,23 @@
-<!-- standard: git | version: 1.4.0 -->
+<!-- standard: git | version: 1.5.0 -->
 # Git Standards
 
 ## Branch Naming
 Format: `dev/<feature-slug>` — kebab-case, 3-5 words, one branch per feature/session.
 
 ## Git Worktrees
-Use worktrees for multi-repo projects (e.g. client + API on separate ports). Optional for single-repo — a normal feature branch is sufficient.
-All development happens in isolation — never directly on `main`.
+**All development happens in a git worktree — single-repo or multi-repo, feature or one-line hotfix.**
+The working checkout of `main` is never used for feature work. Create the worktree before writing any code:
+
+```bash
+git worktree add .claude/worktrees/<feature-slug> -b dev/<feature-slug>
+```
+
+All development happens in isolation — never directly on `main`. This is enforced by
+`hooks/git/pre-bash.sh`, which blocks `git commit` outside a worktree.
+
+**Exemptions:** a repo that legitimately never uses worktrees can opt out with a
+`.claude/no-worktree` marker file at its root. For a single command, set
+`CLAUDE_ALLOW_NON_WORKTREE=1`.
 
 ## Commits
 **Commit and push after every meaningful unit of work.** Never end a session with uncommitted changes.
