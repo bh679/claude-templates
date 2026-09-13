@@ -167,5 +167,11 @@
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Keep Trim \u2014 multi-loader (Fabric/Forge/NeoForge) Minecraft mod: crafting-grid repair keeps the left-most item's armor trim"
+  },
+  {
+    "repo": "bh679/sable-fence-trapdoor-fix-mc",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Sable Fence & Trapdoor Fix \u2014 NeoForge 1.21.1 mod ending the trapdoor-over-fence jitter on moving Sable ships (extracted from Dungeon Train)"
   }
 ]
