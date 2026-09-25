@@ -173,5 +173,17 @@
     "template": "engineering/product",
     "claude_md_path": "CLAUDE.md",
     "description": "Sable Fence & Trapdoor Fix \u2014 NeoForge 1.21.1 mod ending the trapdoor-over-fence jitter on moving Sable ships (extracted from Dungeon Train)"
+  },
+  {
+    "repo": "bh679/streamdetect-mc",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "Stream Detect \u2014 multi-loader (Fabric/Forge/NeoForge) client library mod: tells other mods whether OBS/Streamlabs is open (extracted from Dungeon Train)"
+  },
+  {
+    "repo": "bh679/dpibypassdetect-mc",
+    "template": "engineering/product",
+    "claude_md_path": "CLAUDE.md",
+    "description": "DPI Bypass Detect \u2014 multi-loader (Fabric/Forge/NeoForge) client library mod: tells other mods whether zapret/GoodbyeDPI is running (extracted from Dungeon Train)"
   }
 ]
