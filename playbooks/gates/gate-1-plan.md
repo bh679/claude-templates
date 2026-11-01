@@ -3,6 +3,9 @@
 
 **Trigger:** Before writing any code.
 
+**Project-specific steps:** check the project for `.claude/gates/gate-1-plan.md`. If it exists, read it
+and follow it as well: it adds to this playbook, and wins where the two conflict.
+
 ## Research & Reuse
 **Mandatory before writing the plan.**
 

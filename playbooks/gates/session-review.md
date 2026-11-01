@@ -6,6 +6,9 @@ End-of-session standards compliance review.
 ## Trigger
 After documentation is complete — the final gate before closing the session.
 
+**Project-specific steps:** check the project for `.claude/gates/session-review.md`. If it exists, read it
+and follow it as well: it adds to this playbook, and wins where the two conflict.
+
 ## Agent Actions
 1. Re-read the project CLAUDE.md to get the current list of embedded standards
 2. Enter plan mode and present a **Gate 4 Review Report** (read `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4 first; the report format below takes precedence where they differ)

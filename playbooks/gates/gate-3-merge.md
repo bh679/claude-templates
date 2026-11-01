@@ -3,6 +3,9 @@
 
 **Trigger:** After user testing passes Gate 2.
 
+**Project-specific steps:** check the project for `.claude/gates/gate-3-merge.md`. If it exists, read it
+and follow it as well: it adds to this playbook, and wins where the two conflict.
+
 ## Agent Actions
 1. Ensure branch is up to date with `main` _(enforced by hook — will block `gh pr create` if behind)_
 2. Create a PR with a clear title and description
@@ -14,12 +17,12 @@
    - Any breaking changes or migration steps
 4. Wait for approval
 
-## Related Playbooks
-Before writing the merge report, read `~/.claude/playbooks/plan-presentation.md`.
-
 **Gate requirement:** User clicks Approve, then agent merges the PR.
 
 **Never merge without Gate 3 approval.** Not even for hotfixes.
+
+## Related Playbooks
+Before writing the merge report, read `~/.claude/playbooks/plan-presentation.md`.
 
 ## Post-Merge Cleanup (mandatory)
 1. Delete the remote feature branch (`git push origin --delete dev/<slug>`)

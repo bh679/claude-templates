@@ -3,6 +3,9 @@
 
 **Trigger:** After isolated implementation is complete.
 
+**Project-specific steps:** check the project for `.claude/gates/gate-2-test.md`. If it exists, read it
+and follow it as well: it adds to this playbook, and wins where the two conflict.
+
 ## Agent Actions
 1. Run unit tests — verify 80%+ line coverage (see unit-testing standard)
 2. Run integration/e2e tests (curl for APIs, Playwright MCP for UI)
