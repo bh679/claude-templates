@@ -1,4 +1,4 @@
-<!-- standard: plan-presentation | version: 1.3.0 -->
+<!-- standard: plan-presentation | version: 1.4.0 -->
 # Plan Presentation Standard
 
 How to present anything the user approves in plan mode: the Gate 1 plan and the Gate 2, 3 and 4
@@ -24,9 +24,15 @@ Two parts: what the user reads, then reference detail they open only when they n
    as possible (aim for under 20 words). No mechanics, no file names.
    - Good: "Mobs ambush players unseen; add lanterns that flicker red when a mob is near."
    - Bad: "This plan introduces a new block entity that performs periodic AABB scans…"
-2. **Open questions** — decisions only the user can make, each with your recommendation. Write
+2. **Problem / Solution bullets** — directly under the title, one bullet each, fewest words:
+   ```markdown
+   - **Problem:** mobs reach players with no warning.
+   - **Solution:** lanterns flicker red when a hostile mob is within range.
+   ```
+   Add a second bullet to either only if one can't carry it.
+3. **Open questions** — decisions only the user can make, each with your recommendation. Write
    "None" if there are none.
-3. **Risks** — what could break, the deployment-impact checklist from `gate-1-plan.md`, and any
+4. **Risks** — what could break, the deployment-impact checklist from `gate-1-plan.md`, and any
    project-specific checks (for example the mod-impact check). One line each; flag the main risk.
 
 ### Details (below a divider)
@@ -34,18 +40,19 @@ After a `---` line and a `## Details` heading, give each of these its own `####`
 The user skips this part unless they need specifics. (Plan mode does not render `<details>`
 tags, so collapsing is not possible; the divider marks where skimming can stop.)
 
-4. **Approach** — the chosen design in plain words, and any rejected alternatives with the
+5. **Approach** — the chosen design in plain words, and any rejected alternatives with the
    reason each lost.
-5. **Files changed** — a table of path, change and why. Group by area if there are more than about 10.
-6. **Testing plan** — how Gate 2 will prove it works.
-7. **Effort** — S / M / L with a rough time.
+6. **Files changed** — a table of path, change and why. Group by area if there are more than about 10.
+7. **Testing plan** — how Gate 2 will prove it works.
+8. **Effort** — S / M / L with a rough time.
 
 Open each subsection with its one-line gist (for example "S, ~2 hours" under Effort) so a skim
 of the headings and first lines still works.
 
 ## Gate 2 / 3 / 4 — Report Structure
-1. **Verdict sentence** — the first sentence: ready / not ready, and why, in as few words as possible.
-2. **What failed or was skipped** — stated plainly, never buried or softened.
+1. **Verdict sentence** — the title line: ready / not ready, and why, in as few words as possible.
+2. **Result / Blockers bullets** — directly under the title, one bullet each, fewest words.
+   Blockers lists what failed or was skipped, stated plainly, never softened ("None" if none).
 3. **What the user needs to do** — exact steps (for Gate 2, step-by-step testing instructions).
 4. **Decision asked** — the one thing the user is approving.
 5. **Evidence** (under `---` / `## Details`, as above) — the results the gate asks for (tests, build, diff summary,
