@@ -1,4 +1,4 @@
-<!-- gate: gate-1-plan | version: 1.3.0 -->
+<!-- gate: gate-1-plan | version: 1.4.0 -->
 # Gate 1 — Plan Approval
 
 **Trigger:** Before writing any code.
@@ -10,7 +10,7 @@ and follow it as well: it adds to this playbook, and wins where the two conflict
 **Mandatory before writing the plan.**
 
 - **GitHub code search first:** Run `gh search repos` and `gh search code` to find existing implementations, templates, and patterns before writing anything new.
-- **Check package registries:** Search npm, PyPI, crates.io, and other registries before writing utility code. Prefer battle-tested libraries over hand-rolled solutions.
+- **Check the ecosystem's package or mod registries** before writing utility code. Prefer battle-tested libraries over hand-rolled solutions. (Project add-ons name the registries.)
 - **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
 - Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
 
@@ -89,14 +89,11 @@ Assess whether the planned changes impact deployment. Flag if any apply:
 
 - Environment variable additions, removals, or changes
 - New dependencies or major version bumps
-- Port or networking changes
-- Database schema migrations
-- New API endpoints requiring proxy/load balancer config
-- Docker/container configuration changes
 - Build step changes (new tools, changed commands, new artifacts)
 - New external service integrations (credentials/config needed)
 - Startup or shutdown procedure changes
-- Infrastructure requirement changes (memory, CPU, storage)
+
+Project add-ons add their own items (web/server: `templates/gates/web/`).
 
 **If any apply:**
 1. Check for existing `Deployment-*.md` wiki pages
