@@ -1,4 +1,4 @@
-<!-- standard: plan-presentation | version: 1.4.0 -->
+<!-- standard: plan-presentation | version: 1.5.0 -->
 # Plan Presentation Standard
 
 How to present anything the user approves in plan mode: the Gate 1 plan and the Gate 2, 3 and 4
@@ -58,6 +58,13 @@ of the headings and first lines still works.
 5. **Evidence** (under `---` / `## Details`, as above) — the results the gate asks for (tests, build, diff summary,
    PR link, standards checks), as tables or checklists.
 
+Gate-specific:
+- **Gate 2, UI changes:** screenshots appear in chat as rendered images before the report (for
+  example `SendUserFile` with `display: "render"`). Plan mode can't show images, and a path or
+  link alone does not count.
+- **Gate 3:** the changelog entry comes first, directly under the title, ahead of the
+  Result / Blockers bullets: the exact notes (and tags) that will ship.
+
 ## Style
 - Short bullets, not paragraphs. One idea per bullet, ideally under 12 words.
 - Fragments are fine: "Recommend 8; 12 reaches next carriage" beats a full sentence.
@@ -66,6 +73,7 @@ of the headings and first lines still works.
 - One reason per recommendation or rejected option, not a paragraph of justification.
 - Tables for file lists, option comparisons, test results and checklists.
 - UI or visual changes: include a mockup, screenshot or diagram. Never describe a UI in prose alone.
+  Images must render in chat; never give only a path.
 - Code blocks only for commands the user will run or short snippets that carry the point.
 - Reference files as clickable relative links (`[Foo.java](src/.../Foo.java:42)`).
 - Plain words: no unexplained jargon, internal codenames or abbreviations.
@@ -73,8 +81,8 @@ of the headings and first lines still works.
 - No filler: no restating the request, no "Great question", no closing pleasantries.
 
 ## Length
-- The visible part fits on one screen: summary sentence, open questions and risks. Detail lives
-  under Details.
+- The visible part fits on one screen: summary sentence, Problem / Solution, open questions and
+  risks. Detail lives under Details.
 - Big changes: keep the visible part just as short and let Details grow.
 - If the plan needs more than about 150 lines, the change is probably too big. Propose splitting it.
 

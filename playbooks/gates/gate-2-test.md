@@ -8,10 +8,13 @@
 2. Run integration/e2e tests (curl for APIs, Playwright MCP for UI)
 3. Take screenshots using `browser_take_screenshot`
 4. Use `browser_snapshot` for accessibility tree analysis
-5. Enter plan mode and present a **Gate 2 Testing Report**, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4, containing:
+5. **UI changes: show the screenshots in chat as rendered images**, before the report — send each
+   one with the host's file-sending tool (for example `SendUserFile` with `display: "render"`),
+   one caption line each. A path or link alone does not count.
+6. Enter plan mode and present a **Gate 2 Testing Report**, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4, containing:
    - Clickable local URL with port
    - Unit test summary: total, passed, failed, skipped, coverage %
-   - Screenshot paths (for blogging)
+   - Screenshots: confirm they were shown in chat; list paths (for blogging)
    - Step-by-step user testing instructions
    - Integration/e2e test results summary
    - What passed / what failed

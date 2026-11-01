@@ -7,6 +7,8 @@
 1. Ensure branch is up to date with `main` _(enforced by hook — will block `gh pr create` if behind)_
 2. Create a PR with a clear title and description
 3. Enter plan mode and present, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4:
+   - **Changelog entry first**, directly under the title: the exact user-facing notes (and tags,
+     if the project uses them) that will ship. Write "No changelog in this project" if none.
    - File diff summary (which files changed, what changed)
    - PR link
    - Any breaking changes or migration steps
