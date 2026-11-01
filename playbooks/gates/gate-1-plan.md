@@ -1,4 +1,4 @@
-<!-- gate: gate-1-plan | version: 1.2.0 -->
+<!-- gate: gate-1-plan | version: 1.3.0 -->
 # Gate 1 — Plan Approval
 
 **Trigger:** Before writing any code.
@@ -14,18 +14,29 @@ and follow it as well: it adds to this playbook, and wins where the two conflict
 - **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
 - Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
 
+## UI Prototype
+**Mandatory before the plan for any UI or visual change** (new screen, panel, menu, tooltip, layout, icon).
+
+- Build a prototype of the design: a rendered mockup (an inline visual widget or artifact) or the
+  project's own design tool. Use real labels and real data, not lorem ipsum.
+- Show it in chat as a rendered image or widget, never as a link or a prose description.
+- Iterate with the user until they are happy with the design, then write the plan around it.
+- The plan's visible part links or embeds the agreed prototype.
+
 ## Agent Actions
 1. Research & reuse (see above)
-2. Enter plan mode (`EnterPlanMode`)
-3. Explore the codebase — read relevant files, understand existing patterns
-4. Write a plan to the plan file, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 1, covering:
+2. UI changes: prototype and agree the design (see above)
+3. Enter plan mode (`EnterPlanMode`)
+4. Explore the codebase — read relevant files, understand existing patterns
+5. Write a plan to the plan file, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 1, covering:
    - What will be built
    - Which files will be changed and why
    - Estimated complexity
    - Risks or dependencies
    - Deployment impact (see checklist below)
-5. Present the plan to the user via `ExitPlanMode`
-6. After approval, ensure you are in a worktree on a `dev/` branch (see below) — **before writing any code**
+   - The agreed UI prototype, for UI changes
+6. Present the plan to the user via `ExitPlanMode`
+7. After approval, ensure you are in a worktree on a `dev/` branch (see below) — **before writing any code**
 
 **Gate requirement:** User clicks Approve in plan mode.
 
