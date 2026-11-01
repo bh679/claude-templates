@@ -1,4 +1,4 @@
-<!-- standard: plan-presentation | version: 1.2.0 -->
+<!-- standard: plan-presentation | version: 1.3.0 -->
 # Plan Presentation Standard
 
 How to present anything the user approves in plan mode: the Gate 1 plan and the Gate 2, 3 and 4
@@ -13,7 +13,7 @@ reports. The user decides from what is on screen, so write for a fast, confident
 - **Show, don't describe.** Use a table, diagram or mockup wherever prose would make the reader
   build the picture themselves.
 - **Honest about uncertainty.** Say what you have verified and what you are assuming.
-- **Fewest words, everywhere.** Every line, in every section (collapsed ones included), says its
+- **Fewest words, everywhere.** Every line, in every section (Details included), says its
   point in as few plain words as possible. Cut anything that doesn't help the decision.
 
 ## Gate 1 — Plan Structure
@@ -29,16 +29,10 @@ Two parts: what the user reads, then reference detail they open only when they n
 3. **Risks** — what could break, the deployment-impact checklist from `gate-1-plan.md`, and any
    project-specific checks (for example the mod-impact check). One line each; flag the main risk.
 
-### Reference (collapsed)
-Put each of these in its own collapsible block so the user can skip them:
-
-```markdown
-<details><summary><b>Approach</b> — one-line gist</summary>
-
-…detail…
-
-</details>
-```
+### Details (below a divider)
+After a `---` line and a `## Details` heading, give each of these its own `####` subsection.
+The user skips this part unless they need specifics. (Plan mode does not render `<details>`
+tags, so collapsing is not possible; the divider marks where skimming can stop.)
 
 4. **Approach** — the chosen design in plain words, and any rejected alternatives with the
    reason each lost.
@@ -46,16 +40,15 @@ Put each of these in its own collapsible block so the user can skip them:
 6. **Testing plan** — how Gate 2 will prove it works.
 7. **Effort** — S / M / L with a rough time.
 
-Give each `<summary>` a one-line gist (for example "Effort — S, about 2 hours") so the collapsed
-view is still informative. Leave a blank line after `<summary>` and before `</details>` so the
-markdown inside renders.
+Open each subsection with its one-line gist (for example "S, ~2 hours" under Effort) so a skim
+of the headings and first lines still works.
 
 ## Gate 2 / 3 / 4 — Report Structure
 1. **Verdict sentence** — the first sentence: ready / not ready, and why, in as few words as possible.
 2. **What failed or was skipped** — stated plainly, never buried or softened.
 3. **What the user needs to do** — exact steps (for Gate 2, step-by-step testing instructions).
 4. **Decision asked** — the one thing the user is approving.
-5. **Evidence** (collapsed, as above) — the results the gate asks for (tests, build, diff summary,
+5. **Evidence** (under `---` / `## Details`, as above) — the results the gate asks for (tests, build, diff summary,
    PR link, standards checks), as tables or checklists.
 
 ## Style
@@ -74,8 +67,8 @@ markdown inside renders.
 
 ## Length
 - The visible part fits on one screen: summary sentence, open questions and risks. Detail lives
-  in the collapsed blocks.
-- Big changes: keep the visible part just as short and let the collapsed blocks grow.
+  under Details.
+- Big changes: keep the visible part just as short and let Details grow.
 - If the plan needs more than about 150 lines, the change is probably too big. Propose splitting it.
 
 ## Anti-patterns
