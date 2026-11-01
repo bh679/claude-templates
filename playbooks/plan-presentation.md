@@ -1,4 +1,4 @@
-<!-- standard: plan-presentation | version: 1.1.0 -->
+<!-- standard: plan-presentation | version: 1.2.0 -->
 # Plan Presentation Standard
 
 How to present anything the user approves in plan mode: the Gate 1 plan and the Gate 2, 3 and 4
@@ -13,8 +13,8 @@ reports. The user decides from what is on screen, so write for a fast, confident
 - **Show, don't describe.** Use a table, diagram or mockup wherever prose would make the reader
   build the picture themselves.
 - **Honest about uncertainty.** Say what you have verified and what you are assuming.
-- **Short.** Cut anything that doesn't help the decision. Supporting detail goes after the
-  decision-critical sections, never before.
+- **Fewest words, everywhere.** Every line, in every section (collapsed ones included), says its
+  point in as few plain words as possible. Cut anything that doesn't help the decision.
 
 ## Gate 1 — Plan Structure
 Two parts: what the user reads, then reference detail they open only when they need specifics.
@@ -59,7 +59,11 @@ markdown inside renders.
    PR link, standards checks), as tables or checklists.
 
 ## Style
-- Headings and short bullets over paragraphs. A paragraph is at most 3 sentences.
+- Short bullets, not paragraphs. One idea per bullet, ideally under 12 words.
+- Fragments are fine: "Recommend 8; 12 reaches next carriage" beats a full sentence.
+- Drop filler words ("in order to", "basically", "this will", "we need to").
+- Table cells: a few words, never sentences.
+- One reason per recommendation or rejected option, not a paragraph of justification.
 - Tables for file lists, option comparisons, test results and checklists.
 - UI or visual changes: include a mockup, screenshot or diagram. Never describe a UI in prose alone.
 - Code blocks only for commands the user will run or short snippets that carry the point.
@@ -77,6 +81,7 @@ markdown inside renders.
 ## Anti-patterns
 - A wall of prose with no structure.
 - A first sentence that needs a second sentence to make sense.
+- A bullet that could lose half its words and keep its meaning.
 - Putting approach, files, testing or effort detail in the visible part.
 - Listing every file read during exploration.
 - Hiding a risk or open question at the bottom of a long section.
