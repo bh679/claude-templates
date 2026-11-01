@@ -1,4 +1,4 @@
-<!-- standard: gate-4-review | version: 1.0.0 -->
+<!-- standard: gate-4-review | version: 1.1.0 -->
 # Gate 4 — Session Review
 
 End-of-session standards compliance review.
@@ -8,7 +8,7 @@ After documentation is complete — the final gate before closing the session.
 
 ## Agent Actions
 1. Re-read the project CLAUDE.md to get the current list of embedded standards
-2. Enter plan mode and present a **Gate 4 Review Report**
+2. Enter plan mode and present a **Gate 4 Review Report** (read `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4 first; the report format below takes precedence where they differ)
 3. For each standard referenced in CLAUDE.md, review the session's actions against it:
 
 | Standard | What to check |
@@ -20,6 +20,7 @@ After documentation is complete — the final gate before closing the session.
 | `wiki-writing` | Wiki pages use correct breadcrumbs, heading hierarchy, link format, and templates; deployment docs updated if flagged |
 | `project-board` | Board item created/updated; status synced at each gate transition |
 | `port-management` | Ports registered if any new services were started |
+| `plan-presentation` | Gate 1 plan and Gate 2/3 reports followed the plan-presentation structure and style |
 
 4. Produce the report in this format:
 
@@ -34,6 +35,7 @@ After documentation is complete — the final gate before closing the session.
 - [ ] wiki-writing (vX.Y.Z) — PASS / FAIL: <details>
 - [ ] project-board (vX.Y.Z) — PASS / FAIL: <details>
 - [ ] port-management (vX.Y.Z) — N/A / PASS / FAIL: <details>
+- [ ] plan-presentation (vX.Y.Z) — PASS / FAIL: <details>
 
 ### Deviations
 <list any standards that were not fully followed, with reason>

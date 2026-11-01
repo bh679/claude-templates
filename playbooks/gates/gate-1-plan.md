@@ -1,4 +1,4 @@
-<!-- gate: gate-1-plan | version: 1.1.0 -->
+<!-- gate: gate-1-plan | version: 1.2.0 -->
 # Gate 1 — Plan Approval
 
 **Trigger:** Before writing any code.
@@ -10,12 +10,13 @@
 - **Check package registries:** Search npm, PyPI, crates.io, and other registries before writing utility code. Prefer battle-tested libraries over hand-rolled solutions.
 - **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
 - Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
+- Check whether a solution is already in the works (open board items, PRs, branches). Before creating or searching board items, read `~/.claude/playbooks/project-board.md`.
 
 ## Agent Actions
 1. Research & reuse (see above)
 2. Enter plan mode (`EnterPlanMode`)
 3. Explore the codebase — read relevant files, understand existing patterns
-4. Write a plan to the plan file covering:
+4. Write a plan to the plan file, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 1, covering:
    - What will be built
    - Which files will be changed and why
    - Estimated complexity
@@ -67,7 +68,8 @@ git branch --set-upstream-to="origin/$NEW" "$NEW"
 This keeps all PRs, CI runs, and branch history under the standard `dev/` prefix.
 
 ## Related Playbooks
-Before creating or searching board items, read `~/.claude/playbooks/project-board.md`.
+- Before writing the plan, read `~/.claude/playbooks/plan-presentation.md`.
+- Before creating or searching board items, read `~/.claude/playbooks/project-board.md`.
 
 ## Deployment Impact Checklist
 Assess whether the planned changes impact deployment. Flag if any apply:
