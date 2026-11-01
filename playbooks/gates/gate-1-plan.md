@@ -10,7 +10,6 @@
 - **Check package registries:** Search npm, PyPI, crates.io, and other registries before writing utility code. Prefer battle-tested libraries over hand-rolled solutions.
 - **Search for adaptable implementations:** Look for open-source projects that solve 80%+ of the problem and can be forked, ported, or wrapped.
 - Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
-- Check whether a solution is already in the works (open board items, PRs, branches). Before creating or searching board items, read `~/.claude/playbooks/project-board.md`.
 
 ## Agent Actions
 1. Research & reuse (see above)
