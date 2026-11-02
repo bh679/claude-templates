@@ -1,21 +1,20 @@
-<!-- gate: gate-3-merge | version: 1.2.0 -->
+<!-- gate: gate-3-merge | version: 1.3.0 -->
 # Gate 3 — Merge Approval
 
 **Trigger:** After user testing passes Gate 2.
 
-**Project-specific steps:** check the project for `.claude/gates/gate-3-merge.md`. If it exists, read it
-and follow it as well: it adds to this playbook, and wins where the two conflict.
-
 ## Agent Actions
-1. Ensure branch is up to date with `main` _(enforced by hook — will block `gh pr create` if behind)_
-2. Create a PR with a clear title and description
-3. Enter plan mode and present, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4:
+1. Read `.claude/gates/gate-3-merge.md` in the project, if it exists. Its steps add to this list and win
+   where they conflict; apply both before starting step 2.
+2. Ensure branch is up to date with `main` _(enforced by hook — will block `gh pr create` if behind)_
+3. Create a PR with a clear title and description
+4. Enter plan mode and present, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4:
    - **Changelog entry first**, directly under the title: the exact user-facing notes (and tags,
      if the project uses them) that will ship. Write "No changelog in this project" if none.
    - File diff summary (which files changed, what changed)
    - PR link
    - Any breaking changes or migration steps
-4. Wait for approval
+5. Wait for approval
 
 **Gate requirement:** User clicks Approve, then agent merges the PR.
 

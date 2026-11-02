@@ -1,4 +1,4 @@
-<!-- standard: gate-4-review | version: 1.1.0 -->
+<!-- standard: gate-4-review | version: 1.2.0 -->
 # Gate 4 — Session Review
 
 End-of-session standards compliance review.
@@ -6,13 +6,12 @@ End-of-session standards compliance review.
 ## Trigger
 After documentation is complete — the final gate before closing the session.
 
-**Project-specific steps:** check the project for `.claude/gates/session-review.md`. If it exists, read it
-and follow it as well: it adds to this playbook, and wins where the two conflict.
-
 ## Agent Actions
-1. Re-read the project CLAUDE.md to get the current list of embedded standards
-2. Enter plan mode and present a **Gate 4 Review Report** (read `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4 first; the report format below takes precedence where they differ)
-3. For each standard referenced in CLAUDE.md, review the session's actions against it:
+1. Read `.claude/gates/session-review.md` in the project, if it exists. Its steps add to this list and win
+   where they conflict; apply both before starting step 2.
+2. Re-read the project CLAUDE.md to get the current list of embedded standards
+3. Enter plan mode and present a **Gate 4 Review Report** (read `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4 first; the report format below takes precedence where they differ)
+4. For each standard referenced in CLAUDE.md, review the session's actions against it:
 
 | Standard | What to check |
 |---|---|
@@ -25,7 +24,7 @@ and follow it as well: it adds to this playbook, and wins where the two conflict
 | `port-management` | Ports registered if any new services were started |
 | `plan-presentation` | Gate 1 plan and Gate 2/3 reports followed the plan-presentation structure and style |
 
-4. Produce the report in this format:
+5. Produce the report in this format:
 
 ```
 ## Gate 4 — Session Review
@@ -47,8 +46,8 @@ and follow it as well: it adds to this playbook, and wins where the two conflict
 <for each deviation, what action was taken or what the user should be aware of>
 ```
 
-5. Present the report to the user via `ExitPlanMode`
-6. If any deviations are found, ask the user whether to fix them now or accept them as-is
+6. Present the report to the user via `ExitPlanMode`
+7. If any deviations are found, ask the user whether to fix them now or accept them as-is
 
 ## Gate Requirement
 User clicks Approve after reviewing the report. If deviations exist, the user decides whether to remediate or accept.
