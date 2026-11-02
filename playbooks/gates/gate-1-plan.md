@@ -1,4 +1,4 @@
-<!-- gate: gate-1-plan | version: 1.6.0 -->
+<!-- gate: gate-1-plan | version: 1.6.1 -->
 # Gate 1 — Plan Approval
 
 **Trigger:** Before writing any code.
@@ -84,7 +84,7 @@ Assess whether the planned changes impact deployment. Flag if any apply:
 - New external service integrations (credentials/config needed)
 - Startup or shutdown procedure changes
 
-Project add-ons add their own items (web/server: `templates/gates/web/`).
+The project's add-on (step 1) may add its own items.
 
 **If any apply:**
 1. Check for existing `Deployment-*.md` wiki pages
