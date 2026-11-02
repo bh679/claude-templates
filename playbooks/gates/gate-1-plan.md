@@ -1,4 +1,4 @@
-<!-- gate: gate-1-plan | version: 1.6.3 -->
+<!-- gate: gate-1-plan | version: 1.6.4 -->
 # Gate 1 — Plan Approval
 
 **Trigger:** Before writing any code.
@@ -71,7 +71,6 @@ git branch --set-upstream-to="origin/$NEW" "$NEW"
 This keeps all PRs, CI runs, and branch history under the standard `dev/` prefix.
 
 ## Related Playbooks
-- Before writing the plan, read `~/.claude/playbooks/plan-presentation.md`.
 - Before creating or searching board items, read `~/.claude/playbooks/project-board.md`.
 
 ## Deployment Impact Checklist

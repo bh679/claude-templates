@@ -1,4 +1,4 @@
-<!-- gate: gate-3-merge | version: 1.3.2 -->
+<!-- gate: gate-3-merge | version: 1.4.0 -->
 # Gate 3 — Merge Approval
 
 **Trigger:** After user testing passes Gate 2.
@@ -14,13 +14,11 @@
    - PR link
    - Any breaking changes or migration steps
 5. Wait for approval
+6. Verify CI green, then merge
 
 **Gate requirement:** User clicks Approve, then agent merges the PR.
 
 **Never merge without Gate 3 approval.** Not even for hotfixes.
-
-## Related Playbooks
-Before writing the merge report, read `~/.claude/playbooks/plan-presentation.md`.
 
 ## Post-Merge Cleanup (mandatory)
 1. Delete the remote feature branch (`git push origin --delete dev/<slug>`)
