@@ -1,4 +1,4 @@
-<!-- gate: gate-3-merge | version: 1.4.0 -->
+<!-- gate: gate-3-merge | version: 1.4.1 -->
 # Gate 3 — Merge Approval
 
 **Trigger:** After user testing passes Gate 2.
@@ -28,16 +28,8 @@
 See `git.md` § Post-Merge Cleanup for worktree variants.
 
 ## After Merge: Documentation
-Update the relevant wiki:
-- **Frontend/client features** → project wiki
-- **Backend/API features** → API repo wiki
-- **Deployment-impacting changes** → update `Deployment-*.md` wiki pages
-- Follow the wiki-writing playbook: read `~/.claude/playbooks/wiki-writing.md`
-
-If deployment docs were flagged in Gate 1:
-1. Update affected `Deployment-<Method>.md` pages
-2. Create new deployment pages if a new method was introduced
-3. Update `Deployment.md` index if pages were added
+Update the project wiki (read `~/.claude/playbooks/wiki-writing.md`); the add-on names the pages.
+If Gate 1 flagged deployment impact, update the deployment docs too.
 
 Then trigger the blog skill if applicable: `trigger-blog`
 

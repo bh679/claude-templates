@@ -15,3 +15,4 @@ cp templates/gates/web/gate-*.md <project>/.claude/gates/
 |---|---|
 | `gate-1-plan.md` | Package-registry research; server/web deployment checklist |
 | `gate-2-test.md` | Playwright/curl tests, browser screenshots, accessibility snapshot, local URL |
+| `gate-3-merge.md` | Which wiki gets which docs: client, API, `Deployment-*.md` pages |
