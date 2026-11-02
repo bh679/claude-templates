@@ -1,11 +1,10 @@
-<!-- gate: gate-3-merge | version: 1.3.1 -->
+<!-- gate: gate-3-merge | version: 1.3.2 -->
 # Gate 3 — Merge Approval
 
 **Trigger:** After user testing passes Gate 2.
 
 ## Agent Actions
-1. Read local `.claude/gates/gate-3-merge.md`, if it exists. Add to gate 3, it wins conflict; apply before
-   starting next step
+1. Read `.claude/gates/gate-3-merge.md` if exists: it adds to this gate, wins conflicts, applies first.
 2. Ensure branch is up to date with `main` _(enforced by hook — will block `gh pr create` if behind)_
 3. Create a PR with a clear title and description
 4. Enter plan mode and present, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4:

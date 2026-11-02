@@ -1,11 +1,10 @@
-<!-- gate: gate-2-test | version: 1.8.2 -->
+<!-- gate: gate-2-test | version: 1.8.3 -->
 # Gate 2 — Testing Approval
 
 **Trigger:** After isolated implementation is complete.
 
 ## Agent Actions
-1. Read local `.claude/gates/gate-2-test.md`, if it exists. Add to gate 2, it wins conflict; apply before
-   starting next step
+1. Read `.claude/gates/gate-2-test.md` if exists: it adds to this gate, wins conflicts, applies first.
 2. Run unit tests — verify 80%+ line coverage (see unit-testing standard)
 3. Run integration/e2e tests, run the app, and exercise the feature as a user
 4. **UI or visual change?** Read `~/.claude/playbooks/ui-prototype.md`, follow its Gate 2 steps

@@ -1,4 +1,4 @@
-<!-- gate: gate-1-plan | version: 1.6.2 -->
+<!-- gate: gate-1-plan | version: 1.6.3 -->
 # Gate 1 — Plan Approval
 
 **Trigger:** Before writing any code.
@@ -12,8 +12,7 @@
 - Prefer adopting or porting a proven approach over writing net-new code when it meets the requirement.
 
 ## Agent Actions
-1. Read local `.claude/gates/gate-1-plan.md`, if it exists. Add to gate 1, it wins conflict; apply before
-   starting next step
+1. Read `.claude/gates/gate-1-plan.md` if exists: it adds to this gate, wins conflicts, applies first.
 2. Research & reuse (see above)
 3. **UI or visual change?** (any screen, menu, panel, overlay, tooltip, HUD, layout or icon, in-game
    included) Read `~/.claude/playbooks/ui-prototype.md` and follow its Gate 1 steps before plan mode.
