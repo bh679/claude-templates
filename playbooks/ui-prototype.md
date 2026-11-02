@@ -1,4 +1,4 @@
-<!-- standard: ui-prototype | version: 1.0.0 -->
+<!-- standard: ui-prototype | version: 1.0.1 -->
 # UI Prototypes and Screenshots
 
 Read this when a change touches anything the user sees: a screen, menu, panel, overlay, tooltip,
@@ -13,7 +13,8 @@ HUD, layout or icon, in a web page, an app or a game.
 5. Write the plan around the agreed design; its visible part embeds or links the prototype.
 
 ## Gate 2: show the real thing
-1. Screenshot each UI change with the project's capture method (its Gate 2 add-on says how).
+1. Screenshot each UI change with the project's capture method (its Gate 2 add-on says how), and
+   save them in the feature's folder (`gate-2-test.md` § Screenshots).
 2. Show each screenshot in chat as a rendered image, before the report: send it with the host's
    file-sending tool (for example `SendUserFile` with `display: "render"`), one caption line each.
    A path or link alone does not count.
