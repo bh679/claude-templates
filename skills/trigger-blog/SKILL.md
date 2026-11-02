@@ -1,6 +1,6 @@
 ---
 name: trigger-blog
-version: 1.0.0
+version: 1.1.0
 description: >
   Capture feature shipping details and send them to the weekly-blog agent.
   Use when the user ships a feature and says "blog this", "trigger the blog",
@@ -29,7 +29,7 @@ Gather the following from the current session:
 3. **Merged timestamp** — from `gh pr view <number> --json mergedAt`
 4. **Wiki URL** — check if a wiki page was created this session
 5. **Commit messages** — from `git log dev/<feature-slug> --oneline --no-merges`
-6. **Screenshots** — list any `.png` files in `./test-results/` from this session
+6. **Screenshots** — list the `.png` files in the feature's folder, `~/Projects/Screenshots/<project>/<feature-slug>/`
 7. **Description** — summarise what was built in 1-2 sentences (use the Gate 1 plan and PR description)
 8. **Framing** — the "why it matters" context (derive from the Gate 1 plan and user's original request)
 
@@ -40,8 +40,9 @@ gh pr view --json number,url,mergedAt,title
 # Get commit messages from the feature branch
 git log origin/main..HEAD --oneline --no-merges
 
-# List screenshots from this session
-ls ./test-results/*.png 2>/dev/null
+# List the feature's screenshots
+PROJECT=$(basename "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")")
+ls "$HOME/Projects/Screenshots/$PROJECT/<feature-slug>/"*.png 2>/dev/null
 ```
 
 ## Step 2: Ask Whether to Queue or Post Now

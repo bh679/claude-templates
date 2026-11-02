@@ -23,11 +23,11 @@ Monday blog agent.
   },
   "screenshots": [
     {
-      "path": "test-results/gate2-user-authentication-2025-03.png",
+      "path": "~/Projects/Screenshots/chess-client/user-authentication/01-login-error.png",
       "description": "Login screen with validation errors shown"
     },
     {
-      "path": "test-results/gate2-user-authentication-success-2025-03.png",
+      "path": "~/Projects/Screenshots/chess-client/user-authentication/02-login-success.png",
       "description": "Successful login and redirect to game board"
     }
   ],
