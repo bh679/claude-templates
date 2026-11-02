@@ -1,4 +1,4 @@
-<!-- standard: gate-4-review | version: 1.2.0 -->
+<!-- standard: gate-4-review | version: 1.2.1 -->
 # Gate 4 — Session Review
 
 End-of-session standards compliance review.
@@ -7,8 +7,8 @@ End-of-session standards compliance review.
 After documentation is complete — the final gate before closing the session.
 
 ## Agent Actions
-1. Read `.claude/gates/session-review.md` in the project, if it exists. Its steps add to this list and win
-   where they conflict; apply both before starting step 2.
+1. Read local `.claude/gates/session-review.md`, if it exists. Add to session review, it wins conflict; apply before
+   starting next step
 2. Re-read the project CLAUDE.md to get the current list of embedded standards
 3. Enter plan mode and present a **Gate 4 Review Report** (read `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4 first; the report format below takes precedence where they differ)
 4. For each standard referenced in CLAUDE.md, review the session's actions against it:
