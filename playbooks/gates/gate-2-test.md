@@ -1,4 +1,4 @@
-<!-- gate: gate-2-test | version: 1.3.0 -->
+<!-- gate: gate-2-test | version: 1.4.0 -->
 # Gate 2 — Testing Approval
 
 **Trigger:** After isolated implementation is complete.
@@ -9,12 +9,9 @@ and follow it as well: it adds to this playbook, and wins where the two conflict
 ## Agent Actions
 1. Run unit tests — verify 80%+ line coverage (see unit-testing standard)
 2. Run integration/e2e tests, run the app, and exercise the feature the way a user would
-3. Take screenshots of UI changes with the project's capture method (its Gate 2 add-on says how;
-   web projects: `templates/gates/web/`)
-4. **UI changes: show the screenshots in chat as rendered images**, before the report — send each
-   one with the host's file-sending tool (for example `SendUserFile` with `display: "render"`),
-   one caption line each. A path or link alone does not count.
-5. Enter plan mode and present a **Gate 2 Testing Report**, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4, containing:
+3. **UI or visual change?** Read `~/.claude/playbooks/ui-prototype.md` and follow its Gate 2 steps:
+   screenshots rendered in chat before the report.
+4. Enter plan mode and present a **Gate 2 Testing Report**, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4, containing:
    - How to run it (command, URL or build path)
    - Unit test summary: total, passed, failed, skipped, coverage %
    - Screenshots: confirm they were shown in chat; list paths (for blogging)
