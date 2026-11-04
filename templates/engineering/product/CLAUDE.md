@@ -60,7 +60,7 @@ Use the installed Playwright MCP tools for Gate 2 UI verification:
 3. Capture accessibility snapshot: `mcp__plugin_playwright_playwright__browser_snapshot`
 4. Analyse results visually and produce the Gate 2 report
 
-Screenshot naming: `gate2-<feature-slug>-<YYYY-MM>.png` saved to `./test-results/`
+Screenshots: `~/Projects/Screenshots/<project>/<feature-slug>/<NN>-<what-it-shows>.png` (see Gate 2 § Screenshots)
 
 ---
 

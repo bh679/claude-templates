@@ -1,0 +1,101 @@
+<!-- standard: plan-presentation | version: 1.5.0 -->
+# Plan Presentation Standard
+
+How to present anything the user approves in plan mode: the Gate 1 plan and the Gate 2, 3 and 4
+reports. The user decides from what is on screen, so write for a fast, confident decision.
+
+## Principles
+- **Everything in the first sentence.** The first sentence states the problem and the solution in
+  as few plain words as possible. A user who reads only that sentence should know what they are
+  approving.
+- **Decision-ready.** Everything the user needs to approve is in the plan. Nothing important hides
+  in a linked file or an earlier message.
+- **Show, don't describe.** Use a table, diagram or mockup wherever prose would make the reader
+  build the picture themselves.
+- **Honest about uncertainty.** Say what you have verified and what you are assuming.
+- **Fewest words, everywhere.** Every line, in every section (Details included), says its
+  point in as few plain words as possible. Cut anything that doesn't help the decision.
+
+## Gate 1 — Plan Structure
+Two parts: what the user reads, then reference detail they open only when they need specifics.
+
+### Read (always visible)
+1. **Summary sentence** — the plan's title line and first sentence: problem → solution, as short
+   as possible (aim for under 20 words). No mechanics, no file names.
+   - Good: "Mobs ambush players unseen; add lanterns that flicker red when a mob is near."
+   - Bad: "This plan introduces a new block entity that performs periodic AABB scans…"
+2. **Problem / Solution bullets** — directly under the title, one bullet each, fewest words:
+   ```markdown
+   - **Problem:** mobs reach players with no warning.
+   - **Solution:** lanterns flicker red when a hostile mob is within range.
+   ```
+   Add a second bullet to either only if one can't carry it.
+3. **Open questions** — decisions only the user can make, each with your recommendation. Write
+   "None" if there are none.
+4. **Risks** — what could break, the deployment-impact checklist from `gate-1-plan.md`, and any
+   project-specific checks (for example the mod-impact check). One line each; flag the main risk.
+
+### Details (below a divider)
+After a `---` line and a `## Details` heading, give each of these its own `####` subsection.
+The user skips this part unless they need specifics. (Plan mode does not render `<details>`
+tags, so collapsing is not possible; the divider marks where skimming can stop.)
+
+5. **Approach** — the chosen design in plain words, and any rejected alternatives with the
+   reason each lost.
+6. **Files changed** — a table of path, change and why. Group by area if there are more than about 10.
+7. **Testing plan** — how Gate 2 will prove it works.
+8. **Effort** — S / M / L with a rough time.
+
+Open each subsection with its one-line gist (for example "S, ~2 hours" under Effort) so a skim
+of the headings and first lines still works.
+
+## Gate 2 / 3 / 4 — Report Structure
+1. **Verdict sentence** — the title line: ready / not ready, and why, in as few words as possible.
+2. **Result / Blockers bullets** — directly under the title, one bullet each, fewest words.
+   Blockers lists what failed or was skipped, stated plainly, never softened ("None" if none).
+3. **What the user needs to do** — exact steps (for Gate 2, step-by-step testing instructions).
+4. **Decision asked** — the one thing the user is approving.
+5. **Evidence** (under `---` / `## Details`, as above) — the results the gate asks for (tests, build, diff summary,
+   PR link, standards checks), as tables or checklists.
+
+Gate-specific:
+- **Gate 2, UI changes:** screenshots appear in chat as rendered images before the report (for
+  example `SendUserFile` with `display: "render"`). Plan mode can't show images, and a path or
+  link alone does not count.
+- **Gate 3:** the changelog entry comes first, directly under the title, ahead of the
+  Result / Blockers bullets: the exact notes (and tags) that will ship.
+
+## Style
+- Short bullets, not paragraphs. One idea per bullet, ideally under 12 words.
+- Fragments are fine: "Recommend 8; 12 reaches next carriage" beats a full sentence.
+- Drop filler words ("in order to", "basically", "this will", "we need to").
+- Table cells: a few words, never sentences.
+- One reason per recommendation or rejected option, not a paragraph of justification.
+- Tables for file lists, option comparisons, test results and checklists.
+- UI or visual changes: include a mockup, screenshot or diagram. Never describe a UI in prose alone.
+  Images must render in chat; never give only a path.
+- Code blocks only for commands the user will run or short snippets that carry the point.
+- Reference files as clickable relative links (`[Foo.java](src/.../Foo.java:42)`).
+- Plain words: no unexplained jargon, internal codenames or abbreviations.
+- Name concrete things — files, commands, numbers — instead of "various updates" or "some changes".
+- No filler: no restating the request, no "Great question", no closing pleasantries.
+
+## Length
+- The visible part fits on one screen: summary sentence, Problem / Solution, open questions and
+  risks. Detail lives under Details.
+- Big changes: keep the visible part just as short and let Details grow.
+- If the plan needs more than about 150 lines, the change is probably too big. Propose splitting it.
+
+## Anti-patterns
+- A wall of prose with no structure.
+- A first sentence that needs a second sentence to make sense.
+- A bullet that could lose half its words and keep its meaning.
+- Putting approach, files, testing or effort detail in the visible part.
+- Listing every file read during exploration.
+- Hiding a risk or open question at the bottom of a long section.
+- Asking the user to choose between options without giving your recommendation.
+- Presenting a plan that still says "TBD" in the approach.
+
+## Project Overrides
+A project's CLAUDE.md may add required sections (for example a mod-impact check) or change length
+limits. Project rules win where they conflict with this standard.
