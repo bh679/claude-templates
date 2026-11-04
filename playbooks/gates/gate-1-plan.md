@@ -1,4 +1,4 @@
-<!-- gate: gate-1-plan | version: 1.6.4 -->
+<!-- gate: gate-1-plan | version: 1.7.0 -->
 # Gate 1 — Plan Approval
 
 **Trigger:** Before writing any code.
@@ -13,20 +13,21 @@
 
 ## Agent Actions
 1. Read `.claude/gates/gate-1-plan.md` if exists: it adds to this gate, wins conflicts, applies first.
-2. Research & reuse (see above)
-3. **UI or visual change?** (any screen, menu, panel, overlay, tooltip, HUD, layout or icon, in-game
+2. Set session title: `PLAN - <Task Name> - <Project Name>`
+3. Research & reuse (see above)
+4. **UI or visual change?** (any screen, menu, panel, overlay, tooltip, HUD, layout or icon, in-game
    included) Read `~/.claude/playbooks/ui-prototype.md` and follow its Gate 1 steps before plan mode.
-4. Enter plan mode (`EnterPlanMode`)
-5. Explore the codebase — read relevant files, understand existing patterns
-6. Write a plan to the plan file, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 1, covering:
+5. Enter plan mode (`EnterPlanMode`)
+6. Explore the codebase — read relevant files, understand existing patterns
+7. Write a plan to the plan file, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 1, covering:
    - What will be built
    - Which files will be changed and why
    - Estimated complexity
    - Risks or dependencies
    - Deployment impact (see checklist below)
    - The agreed UI prototype, for UI changes
-7. Present the plan to the user via `ExitPlanMode`
-8. After approval, ensure you are in a worktree on a `dev/` branch (see below) — **before writing any code**
+8. Present the plan to the user via `ExitPlanMode`
+9. After approval, ensure you are in a worktree on a `dev/` branch (see below) — **before writing any code**
 
 **Gate requirement:** User clicks Approve in plan mode.
 
@@ -90,18 +91,3 @@ The project's add-on (step 1) may add its own items.
 3. Note which deployment methods are affected
 
 **If no deployment docs exist yet:** create them after Gate 3 (see gate-3-merge.md).
-
-## Session Identification
-Update the session title on entering this gate:
-
-**Title format:** `PLAN - <Task Name> - <Project Name>`
-
-| Status code | Meaning |
-|---|---|
-| `IDEA` | Exploring / not yet started |
-| `PLAN` | Gate 1 in progress |
-| `DEV` | Implementing |
-| `TEST` | Gate 2 in progress |
-| `DONE` | Merged and shipped |
-
-Update the title on every status transition. Sync to GitHub Project V2 board item if applicable.

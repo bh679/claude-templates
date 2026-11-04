@@ -1,4 +1,4 @@
-<!-- gate: gate-3-merge | version: 1.4.1 -->
+<!-- gate: gate-3-merge | version: 1.5.0 -->
 # Gate 3 — Merge Approval
 
 **Trigger:** After user testing passes Gate 2.
@@ -15,6 +15,7 @@
    - Any breaking changes or migration steps
 5. Wait for approval
 6. Verify CI green, then merge
+7. Set session title: `DONE - <Task Name> - <Project Name>`
 
 **Gate requirement:** User clicks Approve, then agent merges the PR.
 
@@ -32,6 +33,3 @@ Update the project wiki (read `~/.claude/playbooks/wiki-writing.md`); the add-on
 If Gate 1 flagged deployment impact, update the deployment docs too.
 
 Then trigger the blog skill if applicable: `trigger-blog`
-
-## Session Title Update
-Update title to: `DONE - <Task Name> - <Project Name>`

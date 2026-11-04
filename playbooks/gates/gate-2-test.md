@@ -1,14 +1,15 @@
-<!-- gate: gate-2-test | version: 1.8.3 -->
+<!-- gate: gate-2-test | version: 1.9.0 -->
 # Gate 2 — Testing Approval
 
 **Trigger:** After isolated implementation is complete.
 
 ## Agent Actions
 1. Read `.claude/gates/gate-2-test.md` if exists: it adds to this gate, wins conflicts, applies first.
-2. Run unit tests — verify 80%+ line coverage (see unit-testing standard)
-3. Run integration/e2e tests, run the app, and exercise the feature as a user
-4. **UI or visual change?** Read `~/.claude/playbooks/ui-prototype.md`, follow its Gate 2 steps
-5. Enter plan mode and present a **Gate 2 Testing Report**, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4, containing:
+2. Set session title: `TEST - <Task Name> - <Project Name>`
+3. Run unit tests — verify 80%+ line coverage (see `~/.claude/playbooks/unit-testing.md`)
+4. Run integration/e2e tests, run the app, and exercise the feature as a user
+5. **UI or visual change?** Read `~/.claude/playbooks/ui-prototype.md`, follow its Gate 2 steps
+6. Enter plan mode and present a **Gate 2 Testing Report**, structured per `~/.claude/playbooks/plan-presentation.md` § Gate 2 / 3 / 4, containing:
    - How to run it (command, URL or build path)
    - Unit test summary: total, passed, failed, skipped, coverage %
    - Screenshots: confirm they were shown in chat; save key shots in the feature's folder outside the
@@ -30,6 +31,3 @@ mkdir -p "$SHOTS"
 ```
 
 Name each `<NN>-<what-it-shows>.png` (`01-login-error.png`, `02-login-success.png`).
-
-## Session Title Update
-Update title to: `TEST - <Task Name> - <Project Name>`
